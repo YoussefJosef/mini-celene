@@ -1,12 +1,13 @@
 package ejb.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 
 @Entity
@@ -16,9 +17,11 @@ public class QuestionReponse implements Serializable {
 	@Id@GeneratedValue
 	private int id;
 	private String question;
-	private ArrayList<String> reponse;
-	private ArrayList<Integer> bonneReponse;
-	private Integer numReponse;
+	
+	@OneToMany(mappedBy="QCM")
+	private List<Reponse> reponse;
+	
+	private Integer nbReponse;
 	
 	@ManyToOne
 	private Chapitre qcmChapitre;
@@ -47,27 +50,19 @@ public class QuestionReponse implements Serializable {
 		this.question = question;
 	}
 
-	public ArrayList<String> getReponse() {
+	public List<Reponse> getReponse() {
 		return reponse;
 	}
 
-	public void setReponse(ArrayList<String> reponse) {
+	public void setReponse(List<Reponse> reponse) {
 		this.reponse = reponse;
 	}
 
-	public ArrayList<Integer> getBonneReponse() {
-		return bonneReponse;
+	public Integer getNbReponse() {
+		return nbReponse;
 	}
 
-	public void setBonneReponse(ArrayList<Integer> bonneReponse) {
-		this.bonneReponse = bonneReponse;
-	}
-	
-	public Integer getNumReponse() {
-		return numReponse;
-	}
-
-	public void setNumReponse(Integer numReponse) {
-		this.numReponse = numReponse;
+	public void setNbReponse(Integer nbReponse) {
+		this.nbReponse = nbReponse;
 	}
 }

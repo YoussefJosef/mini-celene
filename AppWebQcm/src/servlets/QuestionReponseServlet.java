@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ejb.entities.QuestionReponse;
+import ejb.entities.Reponse;
 import ejb.metier.interfaces.IQuestionReponseMetier;
+import ejb.metier.interfaces.IReponseMetier;
 
 @WebServlet("/QuestionReponseServlet")
 public class QuestionReponseServlet extends HttpServlet {
@@ -18,6 +21,9 @@ public class QuestionReponseServlet extends HttpServlet {
        
 	@EJB
 	private IQuestionReponseMetier metier ;
+	
+	@EJB
+	private IReponseMetier metierReponse ;
    
     public QuestionReponseServlet() {
         super();
@@ -34,24 +40,16 @@ public class QuestionReponseServlet extends HttpServlet {
 					idChapitre = Integer.parseInt(idChapitreStr);
 				
 				String idQuestionReponseStr = request.getParameter("idQuestionReponse");
-				int idQuestionReponse= 0;
+				int idQuestionReponse = 0;
 				if(idQuestionReponseStr!=null && !idQuestionReponseStr.equals(""))
 					idQuestionReponse = Integer.parseInt(idQuestionReponseStr);
 				
 				String question= request.getParameter("question");
 				
-				String numReponseStr = request.getParameter("numReponse");
-				int numReponse= 0;
-				if(numReponseStr!=null && !numReponseStr.equals(""))
-					numReponse = Integer.parseInt(numReponseStr);
-				
-				ArrayList<String> reponse = new ArrayList<String>();
-				ArrayList<Integer> bonneReponse = new ArrayList<Integer>();
-				
-				for(int i=0; i<numReponse; i++){
-					reponse.add(request.getParameter("reponse"+i));
-					bonneReponse.add(Integer.parseInt(request.getParameter("bonneReponse"+i)));
-				}
+				String nbReponseStr = request.getParameter("numReponse");
+				int nbReponse= 0;
+				if(nbReponseStr!=null && !nbReponseStr.equals(""))
+					nbReponse = Integer.parseInt(nbReponseStr);
 				
 				// String reponse= request.getParameter("reponse");
 				// String bonneReponse= request.getParameter("bonneReponse");
@@ -68,7 +66,14 @@ public class QuestionReponseServlet extends HttpServlet {
 			if(action != null ){
 				switch(action){
 				case "Add" :
-					metier.addQuestionReponse(idChapitre, question, reponse, bonneReponse, numReponse);
+					QuestionReponse qcm = metier.addQuestionReponse(idChapitre, question, nbReponse);
+					
+					//on créer toutes les réponses directement.
+					ArrayList<Reponse> reponses = new ArrayList<Reponse>();
+
+					for(int i=0; i<nbReponse; i++){
+						metierReponse.addReponse(qcm.getId(), request.getParameter("reponse"+i), request.getParameter("bonneReponse"+i)=="vrai");
+					}
 					break;
 				case "Edit" : 
 					break;
