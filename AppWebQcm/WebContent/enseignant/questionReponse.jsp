@@ -7,6 +7,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<script type="text/javascript">
+function create_champ(i) {
+var i2 = i + 1;
+document.getElementById('leschamps_'+i).innerHTML = '<tr><td>Reponse : </td><td><input type="text" name="reponse'+i+'" value="${questionReponse.reponse'+i+'}"/></td></tr><tr><td>Bonne Reponse</td><td><input type="checkbox" name="bonneReponse'+i+'" value="'+i+'"/></td></tr><tr id="leschamps_'+i2+'"><td><a href="javascript:create_champ('+i2+')">Ajouter une reponse</a></td></tr>';
+var a = document.getElementById('numReponse');
+var v = parseInt(a.getAttribute("value"))+1;
+c.setAttribute("numReponse", v);
+}
+</script>
+
 </head>
 <body>
 <h1>ESPACE ENSEIGNANT</h1>
@@ -16,19 +26,25 @@
 
 	
 	<table>
+		
 		<tr>
 			<td>Question : </td>
 			<td><input type="text" name="question" value="${questionReponse.question}"/></td>
 		</tr>
 		<tr>
+			<td><input type="hidden" name="numReponse" value="1"/></td>
+		</tr>
+		<tr>
 			<td>Reponse : </td>
-			<td><input type="text" name="reponse" value="${questionReponse.reponse}"/></td>
+			<td><input type="text" name="reponse0" value="${questionReponse.reponse0}"/></td>
 		</tr>
 		<tr>
 			<td>Bonne Reponse</td>
-			<td><input type="text" name="bonneReponse" value="${questionReponse.bonneReponse}"/></td>
+			<td><input type="checkbox" name="bonneReponse0" value="0"/></td>
 		</tr>
-	
+		<tr id="leschamps_1">
+			<td><a href="javascript:create_champ(1)">Ajouter une reponse</a></td>
+		</tr>
 		<tr>
 			<td>
 			<button type="submit" name="action" value="Add" formaction="./QuestionReponseServlet?idChapitre=${idC}" form="myform">Ajouter</button>
@@ -58,7 +74,7 @@
 
 
 
-</form>
+</form> 
 
 </body>
 </html>

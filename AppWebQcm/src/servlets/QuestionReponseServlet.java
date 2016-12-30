@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -38,8 +39,23 @@ public class QuestionReponseServlet extends HttpServlet {
 					idQuestionReponse = Integer.parseInt(idQuestionReponseStr);
 				
 				String question= request.getParameter("question");
-				String reponse= request.getParameter("reponse");
-				String bonneReponse= request.getParameter("bonneReponse");
+				
+				String numReponseStr = request.getParameter("numReponse");
+				int numReponse= 0;
+				if(numReponseStr!=null && !numReponseStr.equals(""))
+					numReponse = Integer.parseInt(numReponseStr);
+				
+				ArrayList<String> reponse = new ArrayList<String>();
+				ArrayList<Integer> bonneReponse = new ArrayList<Integer>();
+				
+				for(int i=0; i<numReponse; i++){
+					reponse.add(request.getParameter("reponse"+i));
+					bonneReponse.add(Integer.parseInt(request.getParameter("bonneReponse"+i)));
+				}
+				
+				// String reponse= request.getParameter("reponse");
+				// String bonneReponse= request.getParameter("bonneReponse");
+				
 		
 				String idChapitreSessionStr =""+request.getSession().getAttribute("idC");
 				if(idChapitre == 0){
@@ -52,7 +68,7 @@ public class QuestionReponseServlet extends HttpServlet {
 			if(action != null ){
 				switch(action){
 				case "Add" :
-					metier.addQuestionReponse(idChapitre, question, reponse, bonneReponse);
+					metier.addQuestionReponse(idChapitre, question, reponse, bonneReponse, numReponse);
 					break;
 				case "Edit" : 
 					break;

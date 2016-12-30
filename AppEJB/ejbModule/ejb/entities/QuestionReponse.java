@@ -1,6 +1,7 @@
 package ejb.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,8 +16,9 @@ public class QuestionReponse implements Serializable {
 	@Id@GeneratedValue
 	private int id;
 	private String question;
-	private String reponse;
-	private String bonneReponse;
+	private ArrayList<String> reponse;
+	private ArrayList<Integer> bonneReponse;
+	private Integer numReponse;
 	
 	@ManyToOne
 	private Chapitre qcmChapitre;
@@ -45,19 +47,27 @@ public class QuestionReponse implements Serializable {
 		this.question = question;
 	}
 
-	public String getReponse() {
+	public ArrayList<String> getReponse() {
 		return reponse;
 	}
 
-	public void setReponse(String reponse) {
+	public void setReponse(ArrayList<String> reponse) {
 		this.reponse = reponse;
 	}
 
-	public String getBonneReponse() {
+	public ArrayList<Integer> getBonneReponse() {
 		return bonneReponse;
 	}
 
-	public void setBonneReponse(String bonneReponse) {
+	public void setBonneReponse(ArrayList<Integer> bonneReponse) {
 		this.bonneReponse = bonneReponse;
+	}
+	
+	public Integer getNumReponse() {
+		return numReponse;
+	}
+
+	public void setNumReponse(Integer numReponse) {
+		this.numReponse = numReponse;
 	}
 }
