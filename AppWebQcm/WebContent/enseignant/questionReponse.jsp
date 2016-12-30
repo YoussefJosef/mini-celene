@@ -10,7 +10,7 @@
 <script type="text/javascript">
 function create_champ(i) {
 var i2 = i + 1;
-document.getElementById('leschamps_'+i).innerHTML = '<tr><td>Reponse : </td><td><input type="text" name="reponse'+i+'" value="${questionReponse.reponse'+i+'}"/></td></tr><tr><td>Bonne Reponse</td><td><input type="checkbox" name="bonneReponse'+i+'" value="'+i+'"/></td></tr><tr id="leschamps_'+i2+'"><td><a href="javascript:create_champ('+i2+')">Ajouter une reponse</a></td></tr>';
+document.getElementById('leschamps_'+i).innerHTML = '<tr><td>Reponse : </td><td><input type="text" name="reponse'+i+'" value="${questionReponse.reponse'+i+'}"/></td></tr><tr><td>Bonne Reponse</td><td><input type="radio" name="bonneReponse'+i+'" value="0"/><input type="radio" name="bonneReponse'+i+'" value="1"/></td></tr><tr id="leschamps_'+i2+'"><td><a href="javascript:create_champ('+i2+')">Ajouter une reponse</a></td></tr>';
 var a = document.getElementById('numReponse');
 var v = parseInt(a.getAttribute("value"))+1;
 c.setAttribute("numReponse", v);
@@ -40,7 +40,7 @@ c.setAttribute("numReponse", v);
 		</tr>
 		<tr>
 			<td>Bonne Reponse</td>
-			<td><input type="checkbox" name="bonneReponse0" value="0"/></td>
+			<td><input type="radio" name="bonneReponse0" value="0"/><input type="radio" name="bonneReponse0" value="1"/></td>
 		</tr>
 		<tr id="leschamps_1">
 			<td><a href="javascript:create_champ(1)">Ajouter une reponse</a></td>
