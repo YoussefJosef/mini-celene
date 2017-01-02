@@ -10,9 +10,7 @@ import ejb.entities.QuestionReponse;
 @Local
 public interface IQuestionReponseMetier extends IQuestionReponseDao {
 	
-	public void addQuestionReponse(int idChapitre,String question,String reponse,String bonneReponse);
+	public QuestionReponse addQuestionReponse(int idChapitre,String question,int nbReponse);
 	public List<QuestionReponse> getQuestionReponseById(int idChapitre);
-	
-
 
 }
