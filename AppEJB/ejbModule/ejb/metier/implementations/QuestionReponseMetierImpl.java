@@ -27,28 +27,13 @@ public class QuestionReponseMetierImpl implements IQuestionReponseMetier {
 
 	
 	@Override
-	public QuestionReponse addQuestionReponse(int idChapitre, String question, int nbReponse) {
+	public int addQuestionReponse(int idChapitre, String question, int nbReponse) {
 		QuestionReponse qr = new QuestionReponse();
 		qr.setQuestion(question);
 		qr.setNbReponse(nbReponse);
 		qr.setQcmChapitre(daoChapitre.getChapitre(idChapitre));
-		em.persist(qr);
-		return qr ;
-		
-	}
-
-	@Override
-	public List<QuestionReponse> getQuestionReponseById(int idChapitre) {
-		
-		List<QuestionReponse> list = daoQuestionReponse.listQuestionReponse();
-		List<QuestionReponse> result = new ArrayList<>();
-		
-		for(QuestionReponse qr : list){
-			if(qr.getQcmChapitre().getId() == idChapitre){
-				result.add(qr);
-			}
-		}
-		return result;
+		em.persist(qr);	
+		return qr.getId();
 	}
 
 	@Override
@@ -78,5 +63,17 @@ public class QuestionReponseMetierImpl implements IQuestionReponseMetier {
 
 	}
 
+	@Override
+	public List<QuestionReponse> getQuestionsReponses(int id) {
+		List<QuestionReponse> list = daoQuestionReponse.listQuestionReponse();
+		List<QuestionReponse> results = new ArrayList<>();
+		
+		for(QuestionReponse c : list){
+			boolean myQCM = c.getQcmChapitre().getId()== id ? true :false ;
+			if(myQCM) results.add(c);
+			
+		}
+		return results;
+	}
 	
 }

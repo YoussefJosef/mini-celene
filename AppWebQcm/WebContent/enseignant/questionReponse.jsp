@@ -10,10 +10,21 @@
 <script type="text/javascript">
 function create_champ(i) {
 var i2 = i + 1;
-document.getElementById('leschamps_'+i).innerHTML = '<tr><td>Reponse : </td><td><input type="text" name="reponse'+i+'" value="${questionReponse.reponse'+i+'}"/></td></tr><tr><td>Bonne Reponse</td><td><input type="radio" name="bonneReponse'+i+'" value="vrai"/><input type="radio" name="bonneReponse'+i+'" value="faux"/></td></tr><tr id="leschamps_'+i2+'"><td><a href="javascript:create_champ('+i2+')">Ajouter une reponse</a></td></tr>';
+var num = String(i);
+nouvelleReponse = document.createElement("tr");
+nouvelleReponse.innerHTML = '<td>Reponse : </td><td><input id="reponse'+i+'" type="text" name="reponse'+i+'"/></td>';
+nouvelleBonneReponse = document.createElement("tr");
+nouvelleBonneReponse.innerHTML = '<td>Bonne Reponse</td><td><input type="radio" name="bonneReponse'+i+'" value="vrai"/><input type="radio" name="bonneReponse'+i+'" value="faux"/></td>';
+document.getElementById('leschamps').insertAdjacentElement('beforebegin', nouvelleReponse);
+document.getElementById('leschamps').insertAdjacentElement('beforebegin', nouvelleBonneReponse);
+document.getElementById('leschamps').innerHTML = '<td><a href="javascript:create_champ('+i2+')">Ajouter une reponse</a></td>';
 var a = document.getElementById('numReponse');
 var v = parseInt(a.getAttribute("value"))+1;
-c.setAttribute("numReponse", v);
+a.setAttribute("value", v);
+
+var c = "\${questionReponse.reponse"+String(i)+"}";
+nouvelleReponse.setAttribute("value", c);
+
 }
 </script>
 
@@ -32,17 +43,17 @@ c.setAttribute("numReponse", v);
 			<td><input type="text" name="question" value="${questionReponse.question}"/></td>
 		</tr>
 		<tr>
-			<td><input type="hidden" name="numReponse" value="1"/></td>
+			<td><input type="hidden" id="numReponse" name="numReponse" value="1"/></td>
 		</tr>
 		<tr>
 			<td>Reponse : </td>
-			<td><input type="text" name="reponse0" value="${questionReponse.reponse0}"/></td>
+			<td><input id="reponse0" type="text" name="reponse0" value="${questionReponse.reponse0}"/></td>
 		</tr>
 		<tr>
 			<td>Bonne Reponse</td>
 			<td><input type="radio" name="bonneReponse0" value="vrai"/><input type="radio" name="bonneReponse0" value="faux"/></td>
 		</tr>
-		<tr id="leschamps_1">
+		<tr id="leschamps">
 			<td><a href="javascript:create_champ(1)">Ajouter une reponse</a></td>
 		</tr>
 		<tr>
@@ -57,7 +68,6 @@ c.setAttribute("numReponse", v);
 			<tr>
 				<th>Question :</th>
 				<th>Reponse : </th>
-				<th>Bonne Reponse :</th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -65,8 +75,6 @@ c.setAttribute("numReponse", v);
 			<tr>
 				<td>${qr.question} </td>
 				<td>${qr.reponse}</td>
-				<td>${qr.bonneReponse}</td>
-				<td><button type="submit" name="action" value="Edit" formaction="./QuestionReponseServlet?idQuestionReponse=${qr.id}&page=module" form="myform">Modifier</button></td>
 				<td><button type="submit" name="action" value="Delete" formaction="./QuestionReponseServlet?idQuestionReponse=${qr.id}" form="myform">Supprimer </button></td>
 			    </tr>
 		</c:forEach>

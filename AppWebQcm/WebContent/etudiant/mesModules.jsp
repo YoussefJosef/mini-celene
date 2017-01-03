@@ -25,7 +25,7 @@
 			<c:forEach items="${myModules}" var="module" >
 				<tr>
 					<td>${module.id} </td>
-					<td><a href="gotoChaptersModule" >${module.nom}</a></td>
+					<td><a href="ChapitreEtudiantServlet?idModule=${module.id}">${module.nom}</a></td>
 					<td>${module.user}</td>
 					<td><button type="submit" name="action" value="Delete" formaction="./InscriptionServlet?idModule=${module.id}" form="myform">Se desinscrire du module </button></td>
 				 </tr>

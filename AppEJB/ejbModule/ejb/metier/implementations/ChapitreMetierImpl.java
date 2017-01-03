@@ -59,9 +59,13 @@ public class ChapitreMetierImpl implements IChapitreMetier {
 	
 	public void addChapitre(int idModule, String titre, String texte, int niveau, int scoreMin) {
 	Module module = daoModule.getModule(idModule);
-	Chapitre chapitre = new Chapitre(module, titre, texte, scoreMin, niveau);
-	em.persist(chapitre);
-	
+	Chapitre chapitre = new Chapitre();
+	chapitre.setModule(module);
+	chapitre.setTitre(titre);
+	chapitre.setTexte(texte);
+	chapitre.setScoreMin(scoreMin);
+	chapitre.setNiveau(niveau);	
+	em.persist(chapitre);	
 	}
 
 	
@@ -71,7 +75,6 @@ public class ChapitreMetierImpl implements IChapitreMetier {
 		
 		for(Chapitre c : list){
 			boolean myChapter = c.getModule().getId()== idModule ? true :false ;
-			System.out.println(myChapter+"looool");
 			if(myChapter) results.add(c);
 			
 		}

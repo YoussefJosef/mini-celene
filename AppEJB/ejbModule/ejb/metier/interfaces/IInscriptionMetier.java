@@ -3,7 +3,6 @@ package ejb.metier.interfaces;
 import java.util.List;
 
 import ejb.dao.interfaces.IInscriptionDao;
-import ejb.entities.Inscription;
 import ejb.entities.Module;
 
 public interface IInscriptionMetier extends IInscriptionDao {
