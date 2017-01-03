@@ -29,5 +29,30 @@ public class ResultatChapitre implements Serializable{
 	public void setScore(int score) {
 		this.score = score;
 	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public Chapitre getChapitre() {
+		return chapitre;
+	}
+	public void setChapitre(Chapitre chapitre) {
+		this.chapitre = chapitre;
+	}
+	public int getNombreEssai() {
+		return nombreEssai;
+	}
+	public void setNombreEssai(int nombreEssai) {
+		this.nombreEssai = nombreEssai;
+	}
+	public String getDateValidation() {
+		return dateValidation;
+	}
+	public void setDateValidation(String dateValidation) {
+		this.dateValidation = dateValidation;
+	}
+	
 
 }

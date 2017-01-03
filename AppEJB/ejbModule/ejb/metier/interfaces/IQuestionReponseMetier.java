@@ -6,7 +6,6 @@ import javax.ejb.Local;
 
 import ejb.dao.interfaces.IQuestionReponseDao;
 import ejb.entities.QuestionReponse;
-import ejb.entities.Reponse;
 
 @Local
 public interface IQuestionReponseMetier extends IQuestionReponseDao {

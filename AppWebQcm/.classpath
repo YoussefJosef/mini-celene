@@ -14,6 +14,5 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/AppEJB"/>
-	<classpathentry kind="lib" path="C:/Users/Admin/eclipse/jee-neon/eclipse/plugins/javaee.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

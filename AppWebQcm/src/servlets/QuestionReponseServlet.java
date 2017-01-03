@@ -1,8 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ejb.entities.QuestionReponse;
-import ejb.entities.Reponse;
 import ejb.metier.interfaces.IQuestionReponseMetier;
 import ejb.metier.interfaces.IReponseMetier;
 
@@ -32,8 +29,6 @@ public class QuestionReponseServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//INITIALISATION DE PARAMETRES
 				String action = request.getParameter("action");
-				String page = request.getParameter("page");
-				
 				String idChapitreStr = request.getParameter("idChapitre");
 				int idChapitre= 0;
 				if(idChapitreStr!=null && !idChapitreStr.equals(""))
@@ -69,8 +64,6 @@ public class QuestionReponseServlet extends HttpServlet {
 					QuestionReponse qcm = metier.addQuestionReponse(idChapitre, question, nbReponse);
 					
 					//on créer toutes les réponses directement.
-					ArrayList<Reponse> reponses = new ArrayList<Reponse>();
-
 					for(int i=0; i<nbReponse; i++){
 						metierReponse.addReponse(qcm.getId(), request.getParameter("reponse"+i), request.getParameter("bonneReponse"+i)=="vrai");
 					}
