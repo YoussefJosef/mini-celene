@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ejb.entities.QuestionReponse;
 import ejb.metier.interfaces.IQuestionReponseMetier;
 import ejb.metier.interfaces.IReponseMetier;
 
@@ -62,11 +61,13 @@ public class QuestionReponseServlet extends HttpServlet {
 			if(action != null ){
 				switch(action){
 				case "Add" :
-					QuestionReponse qcm = metier.addQuestionReponse(idChapitre, question, nbReponse);
-					
-					//on créer toutes les réponses directement.
-					for(int i=0; i<nbReponse; i++){
-						metierReponse.addReponse(qcm.getId(), request.getParameter("reponse"+i), request.getParameter("bonneReponse"+i)=="vrai");
+					if(idChapitre != 0){
+						int idQCM = metier.addQuestionReponse(idChapitre, question, nbReponse);
+						
+						//on créer toutes les réponses directement.
+						for(int i=0; i<nbReponse; i++){
+							metierReponse.addReponse(idQCM, request.getParameter("reponse"+i), request.getParameter("bonneReponse"+i)=="vrai");
+						}
 					}
 					break;
 				case "Edit" : 
@@ -74,16 +75,17 @@ public class QuestionReponseServlet extends HttpServlet {
 				case "Delete" :
 					metier.deleteQuestionReponse(idQuestionReponse);
 					break;
-				default :
-					request.getSession().setAttribute("idC", idChapitre);
-					request.setAttribute("allQuestionReponses", metier.getQuestionReponseById(idChapitre));
-					request.getRequestDispatcher("enseignant/questionReponse.jsp").forward(request, response);
-					
+				case "chapitre" :
+					if(idChapitre !=0) {
+						request.getSession().setAttribute("idC",idChapitre);
+						request.setAttribute("allQuestionReponses", metier.getQuestionsReponses(idChapitre));
+						request.getRequestDispatcher("enseignant/questionReponse.jsp").forward(request, response);
+					}
 					break;
 				}
 				
 			}
-			request.setAttribute("allQuestionReponses", metier.getQuestionReponseById(idChapitre));
+			request.setAttribute("allQuestionReponses", metier.getQuestionsReponses(idChapitre));
 			request.getRequestDispatcher("enseignant/questionReponse.jsp").forward(request, response);		
 
 	}

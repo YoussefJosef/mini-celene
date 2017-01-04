@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -17,9 +18,8 @@ public class QuestionReponse implements Serializable {
 	@Id@GeneratedValue
 	private int id;
 	private String question;
-	private String bonneReponse;
 	
-	@OneToMany(mappedBy="QCM")
+	@OneToMany(mappedBy="QCM", fetch=FetchType.EAGER)
 	private List<Reponse> reponse;
 	
 	private Integer nbReponse;
@@ -66,13 +66,5 @@ public class QuestionReponse implements Serializable {
 
 	public void setNbReponse(Integer nbReponse) {
 		this.nbReponse = nbReponse;
-	}
-
-	public String getBonneReponse() {
-		return bonneReponse;
-	}
-
-	public void setBonneReponse(String bonneReponse) {
-		this.bonneReponse = bonneReponse;
 	}
 }

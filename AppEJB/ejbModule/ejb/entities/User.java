@@ -25,10 +25,10 @@ public class User implements Serializable {
 	@ManyToMany(mappedBy="etudiants",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Module> listModulesEtudiant;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
 	private List<Module> listModules;
 	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
 	private List<ResultatChapitre> listResultats;
 	
 	

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -24,27 +25,12 @@ public class Chapitre implements Serializable{
 	@ManyToOne
 	private Module module;
 	
-	@OneToMany(mappedBy="qcmChapitre")
+	@OneToMany(mappedBy="qcmChapitre", fetch=FetchType.EAGER)
 	private List<QuestionReponse> Qcm;
 	
-	@OneToMany(mappedBy="chapitre")
+	@OneToMany(mappedBy="chapitre", fetch=FetchType.EAGER)
 	private List<ResultatChapitre> listResultatChapitres;
 	
-	public Chapitre() {
-		super();
-//		Qcm=new ArrayList<>();
-//		user_score=new ArrayList<>();
-	}
-	
-	public Chapitre(Module module, String titre, String texte, int scoreMin, int niveau) {
-		super();
-		this.module = module;
-		this.titre = titre;
-		this.texte = texte;
-		this.scoreMin = scoreMin;
-		this.niveau = niveau;
-	}
-
 	public Module getModule() {
 		return module;
 	}
