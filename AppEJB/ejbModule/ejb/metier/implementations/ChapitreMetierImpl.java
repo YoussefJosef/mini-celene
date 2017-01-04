@@ -1,6 +1,5 @@
 package ejb.metier.implementations;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -10,8 +9,14 @@ import javax.persistence.PersistenceContext;
 
 import ejb.dao.interfaces.IChapitreDao;
 import ejb.dao.interfaces.IModuleDao;
+import ejb.dao.interfaces.IQuestionReponseDao;
+import ejb.dao.interfaces.IReponseDao;
+import ejb.dao.interfaces.IResultatChapitreDao;
 import ejb.entities.Chapitre;
 import ejb.entities.Module;
+import ejb.entities.QuestionReponse;
+import ejb.entities.Reponse;
+import ejb.entities.ResultatChapitre;
 import ejb.metier.interfaces.IChapitreMetier;
 
 @Stateless
@@ -24,10 +29,16 @@ public class ChapitreMetierImpl implements IChapitreMetier {
 	IModuleDao daoModule ;
 	@EJB
 	IChapitreDao daoChapitre ;
+	@EJB
+	IQuestionReponseDao daoQuestionReponse;
+	@EJB
+	IResultatChapitreDao daoResultatChapitre;
+	@EJB
+	IReponseDao daoReponse;
 
 	@Override
-	public Chapitre addChapitre(Chapitre c) {
-		return daoChapitre.addChapitre(c);
+	public void addChapitre(Chapitre c) {
+		daoChapitre.addChapitre(c);
 	}
 
 	@Override
@@ -46,41 +57,45 @@ public class ChapitreMetierImpl implements IChapitreMetier {
 	}
 
 	@Override
-	public void deleteChapitre(int id) {
-		daoChapitre.deleteChapitre(id);
-	
+	public void deleteChapitre(int idChapitre) {
+		List<QuestionReponse> listQR = daoQuestionReponse.getListQuestionReponse(idChapitre);
+		for(QuestionReponse qr : listQR){
+			List<Reponse> list = daoReponse.getListReponses(qr.getId());
+			for(Reponse r : list){
+				daoReponse.deleteReponse(r.getId());
+			}
+			daoQuestionReponse.deleteQuestionReponse(qr.getId());
+		}
+		List<ResultatChapitre> listRC = daoChapitre.getChapitre(idChapitre).getListResultatChapitres();
+		for(ResultatChapitre rc : listRC){
+			daoResultatChapitre.deleteResultatChapitre(rc.getUser().getLogin(), idChapitre);
+		}
+		daoChapitre.deleteChapitre(idChapitre);	
 	}
 	
 	@Override
-	public void editChapitreById(int id, String titre, String texte,int scoreMin) {
-		daoChapitre.editChapitreById(id, titre, texte, scoreMin);
-		
+	public List<Chapitre> getListChapitre(int idModule) {
+		return daoChapitre.getListChapitre(idModule);
 	}
 	
 	public void addChapitre(int idModule, String titre, String texte, int niveau, int scoreMin) {
-	Module module = daoModule.getModule(idModule);
-	Chapitre chapitre = new Chapitre();
-	chapitre.setModule(module);
-	chapitre.setTitre(titre);
-	chapitre.setTexte(texte);
-	chapitre.setScoreMin(scoreMin);
-	chapitre.setNiveau(niveau);	
-	em.persist(chapitre);	
+		Module module = daoModule.getModule(idModule);
+		Chapitre c = new Chapitre();
+		c.setModule(module);
+		c.setTitre(titre);
+		c.setTexte(texte);
+		c.setScoreMin(scoreMin);
+		c.setNiveau(niveau);	
+		daoChapitre.addChapitre(c);
 	}
-
 	
-	public List<Chapitre> getChapitres(int idModule) {
-		List<Chapitre> list = daoChapitre.listChapitre();
-		List<Chapitre> results = new ArrayList<>();
-		
-		for(Chapitre c : list){
-			boolean myChapter = c.getModule().getId()== idModule ? true :false ;
-			if(myChapter) results.add(c);
-			
-		}
-		return results;
-	}
-
-	
-
+	@Override
+	public void editChapitreById(int idChapitre, String titre, String texte, int niveau, int scoreMin) {
+		Chapitre c = daoChapitre.getChapitre(idChapitre);
+		c.setTitre(titre);
+		c.setTexte(texte);
+		c.setScoreMin(scoreMin);
+		c.setNiveau(niveau);
+		daoChapitre.editChapitre(c);
+	}	
 }

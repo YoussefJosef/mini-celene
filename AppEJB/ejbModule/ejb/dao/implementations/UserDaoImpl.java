@@ -16,15 +16,14 @@ public class UserDaoImpl implements IUserDao {
 	private EntityManager em;
 
 	@Override
-	public User addUser(User u) {
+	public void addUser(User u) {
 		em.persist(u);
-		return u;
 	}
 
 	@Override
 	public User getUser(String login) {
 		User u=em.find(User.class, login);
-		//if(u==null) throw new RuntimeException("User Not found haha");
+		System.out.println("pas de user trouver");
 		return u;
 	}
 
@@ -37,8 +36,7 @@ public class UserDaoImpl implements IUserDao {
 
 	@Override
 	public void editUser(User u) {
-		em.merge(u);
-		
+		em.merge(u);		
 	}
 
 	@Override
@@ -46,5 +44,4 @@ public class UserDaoImpl implements IUserDao {
 		em.remove(this.getUser(login));
 		
 	}
-
 }

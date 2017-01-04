@@ -67,7 +67,7 @@ public class ChapitreServlet extends HttpServlet {
 			case "module" :
 				if(idModule !=0) {
 					request.getSession().setAttribute("idMS",idModule);
-					request.setAttribute("allChapitres", metier.getChapitres(idModule));
+					request.setAttribute("allChapitres", metier.getListChapitre(idModule));
 					request.getRequestDispatcher("enseignant/chapitre.jsp").forward(request, response);
 				}
 				break;
@@ -81,8 +81,8 @@ public class ChapitreServlet extends HttpServlet {
 					request.getRequestDispatcher("enseignant/editChapitre.jsp").forward(request, response);
 				} 
 				else if(page.equals("edit") && idChapitre !=0){
-					metier.editChapitreById(idChapitre, titre, texte, scoreMin);
-					request.setAttribute("allChapitres", metier.getChapitres(idModule));
+					metier.editChapitreById(idChapitre, titre, texte, niveau, scoreMin);
+					request.setAttribute("allChapitres", metier.getListChapitre(idModule));
 					request.getRequestDispatcher("enseignant/chapitre.jsp").forward(request, response);
 				}
 				else
@@ -97,7 +97,7 @@ public class ChapitreServlet extends HttpServlet {
 			}
 		}
 		
-		request.setAttribute("allChapitres", metier.getChapitres(idModule));
+		request.setAttribute("allChapitres", metier.getListChapitre(idModule));
 		request.getRequestDispatcher("enseignant/chapitre.jsp").forward(request, response);		
 	}
 

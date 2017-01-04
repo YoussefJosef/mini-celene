@@ -1,5 +1,6 @@
 package ejb.dao.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,9 +18,8 @@ public class ModuleDaoImpl implements IModuleDao {
 	private EntityManager em;
 
 	@Override
-	public Module addModule(Module m) {
+	public void addModule(Module m) {
 		em.persist(m);
-		return m;
 	}
 
 	@Override
@@ -28,6 +28,7 @@ public class ModuleDaoImpl implements IModuleDao {
 		return m;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Module> listModule() {
 		Query req = em.createQuery("select m from Module m");
@@ -38,21 +39,22 @@ public class ModuleDaoImpl implements IModuleDao {
 	@Override
 	public void editModule(Module m) {
 		em.merge(m);
-
 	}
 
 	@Override
 	public void deleteModule(int id) {
 		em.remove(this.getModule(id));
-
 	}
 
 	@Override
-	public void editModuleNameById(int id, String nom) {
-		Module m = getModule(id);
-	//	em.persist(m);
-		m.setNom(nom);
+	public List<Module> getListModule(String login) {
+		List<Module> list = listModule();
+		List<Module> results = new ArrayList<>();
 		
+		for(Module m : list){
+			boolean bool = m.getUser().getLogin().equals(login) ? true :false ;
+			if(bool) results.add(m);
+		}
+		return results;
 	}
-
 }

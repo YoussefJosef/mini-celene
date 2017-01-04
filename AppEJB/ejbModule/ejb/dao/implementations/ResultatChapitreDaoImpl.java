@@ -1,5 +1,6 @@
 package ejb.dao.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -9,7 +10,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ejb.dao.interfaces.IResultatChapitreDao;
+import ejb.entities.Chapitre;
 import ejb.entities.ResultatChapitre;
+import ejb.entities.User;
 @Stateless
 public class ResultatChapitreDaoImpl implements IResultatChapitreDao {
 	
@@ -17,17 +20,21 @@ public class ResultatChapitreDaoImpl implements IResultatChapitreDao {
 	private EntityManager em;
 
 	@Override
-	public ResultatChapitre addResultatChapitre(ResultatChapitre rc) {
+	public void addResultatChapitre(ResultatChapitre rc) {
 		em.persist(rc);
-		return rc;
 	}
 
 	@Override
-	public ResultatChapitre getResultatChapitre(int id) {
-		ResultatChapitre rc =em.find(ResultatChapitre.class, id);
-		return rc;
+	public ResultatChapitre getResultatChapitre(String login, int idChapitre) {
+		User user = em.find(User.class,login);
+		Chapitre chapitre = em.find(Chapitre.class, idChapitre);
+		
+		Query q = em.createQuery("select rc from ResultatChapitre rc where rc.user  = :log and rc.chapitre= :chap", ResultatChapitre.class)
+				.setParameter("log", user).setParameter("chap",chapitre);
+		return  (ResultatChapitre) q.getSingleResult();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ResultatChapitre> listResultatChapitre() {
 		Query req = em.createQuery("select rc from ResultatChapitre rc");
@@ -37,13 +44,47 @@ public class ResultatChapitreDaoImpl implements IResultatChapitreDao {
 	@Override
 	public void editResultatChapitre(ResultatChapitre rc) {
 		em.merge(rc);
-
 	}
 
 	@Override
-	public void deleteResultatChapitre(int id) {
-		em.remove(this.getResultatChapitre(id));
+	public void deleteResultatChapitre(String login, int idChapitre) {
+		em.remove(this.getResultatChapitre(login, idChapitre));
+	}
 
+	@Override
+	public List<ResultatChapitre> getListResultatChapitreByChapitre(int idChapitre) {
+		List<ResultatChapitre> list = listResultatChapitre();
+		List<ResultatChapitre> results = new ArrayList<>();
+		
+		for(ResultatChapitre rc : list){
+			boolean bool = rc.getChapitre().getId()== idChapitre ? true :false ;
+			if(bool) results.add(rc);
+		}
+		return results;
+	}
+
+	@Override
+	public List<ResultatChapitre> getListResultatChapitreByUser(String login) {
+		List<ResultatChapitre> list = listResultatChapitre();
+		List<ResultatChapitre> results = new ArrayList<>();
+		
+		for(ResultatChapitre rc : list){
+			boolean bool = rc.getUser().getLogin().equals(login) ? true :false ;
+			if(bool) results.add(rc);
+		}
+		return results;
+	}
+
+	@Override
+	public List<ResultatChapitre> getListResultatChapitre(String login, int idChapitre) {
+		List<ResultatChapitre> list = getListResultatChapitreByUser(login);
+		List<ResultatChapitre> results = new ArrayList<>();
+		
+		for(ResultatChapitre rc : list){
+			boolean bool = rc.getChapitre().getId()== idChapitre ? true :false ;
+			if(bool) results.add(rc);
+		}
+		return results;
 	}
 
 }

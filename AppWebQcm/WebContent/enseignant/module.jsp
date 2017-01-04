@@ -10,7 +10,7 @@
 <body>
 <h1>ESPACE ENSEIGNANT</h1>
 <h2>GESTION MODULE</h2>
-<br><a href="AuthServlet?logout=1"> Se déconnecter </a>
+<br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 <form action="./ModuleServlet" method="post"  id="myform" >
 	
 	<table>

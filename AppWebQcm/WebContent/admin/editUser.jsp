@@ -13,7 +13,8 @@
 	<table>
 		<tr>
 			<td>Login</td>
-			<td><input type="text" name="login" value="${currentUser.login}"/></td>
+			<td>${currentUser.login}</td>
+			<td><input type="hidden" name="login" value="${currentUser.login}"/></td>
 		</tr>
 		<tr>
 			<td>Password</td>
@@ -21,7 +22,9 @@
 		</tr>
 		<tr>
 			<td>Role</td>
-			<td><input type="text" name="role" value="${currentUser.role}"/></td>
+			<td>Admin<input type="radio" name="role" value="1"/></td>
+			<td>Enseignant<input type="radio" name="role" value="2"/></td>
+			<td>Etudiant<input type="radio" name="role" value="3"/></td>
 		</tr>
 		
 		<tr>

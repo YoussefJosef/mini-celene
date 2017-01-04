@@ -11,7 +11,7 @@
 <body>
 <h1>ESPACE ETUDIANT</h1>
 <h2> CHAPITRES DU MODULE</h2>
-<br><a href="AuthServlet?logout=1"> Se déconnecter </a>
+<br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 <form action="./ChapitreEtudiantServlet" method="post"  id="myform" >
 
 	<table>

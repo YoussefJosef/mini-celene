@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ejb.entities.User;
 import ejb.metier.interfaces.IUserMetier;
 
 @WebServlet("/UserServlet")
@@ -40,11 +39,9 @@ public class UserServlet extends HttpServlet {
 	
 		
 		if(action != null && login !=null) {
-			User u = new User ( login,  password,  role,  nom,  prenom);
-			
 			switch (action) {
 			case "Add":
-				metier.addUser(u);
+				metier.addUser(login,  password,  role,  nom,  prenom);
 				break;
 			case "Edit":
 				if(page.equals("home")){
@@ -52,7 +49,7 @@ public class UserServlet extends HttpServlet {
 					request.getRequestDispatcher("admin/editUser.jsp").forward(request, response);
 				} 
 				else if(page.equals("edit")){
-					metier.editUser(u);
+					metier.editUser(login,  password,  role,  nom,  prenom);
 					request.setAttribute("allUsers", metier.listUser());
 					request.getRequestDispatcher("admin/home.jsp").forward(request, response);
 				}

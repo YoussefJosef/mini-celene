@@ -7,6 +7,32 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<h1>Modules Information</h1>
+	<form action="./ModuleServlet" method="post" id="myform">
+	<table>
+		<tr>
+			<td>titre</td>
+			<td><input type="text" name="titre" value="${currentChapitre.titre}"/></td>
+		</tr>
+		<tr>
+			<td>texte</td>
+			<td><input type="text" name="texte" value="${currentChapitre.texte}"/></td>
+		</tr>
+		<tr>
+			<td>niveau</td>
+			<td><input type="text" name="niveau" value="${currentChapitre.niveau}"/></td>
+		</tr>
+		<tr>
+			<td>score min</td>
+			<td><input type="text" name="scoreMin" value="${currentChapitre.scoreMin}"/></td>
+		</tr>
+	
+		<tr>
+			<td>
+			<button type="submit" name="action" value="Edit" formaction="./ChapitreServlet?idChapitre=${currentChapitre.id}&page=edit">Edit</button>
+			</td>
+		</tr>
+	</table>
+	</form>
 </body>
 </html>

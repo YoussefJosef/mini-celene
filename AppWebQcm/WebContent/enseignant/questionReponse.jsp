@@ -14,7 +14,7 @@ var num = String(i);
 nouvelleReponse = document.createElement("tr");
 nouvelleReponse.innerHTML = '<td>Reponse : </td><td><input id="reponse'+i+'" type="text" name="reponse'+i+'"/></td>';
 nouvelleBonneReponse = document.createElement("tr");
-nouvelleBonneReponse.innerHTML = '<td>Bonne Reponse</td><td><input type="radio" name="bonneReponse'+i+'" value="vrai"/><input type="radio" name="bonneReponse'+i+'" value="faux"/></td>';
+nouvelleBonneReponse.innerHTML = '<td>Bonne Reponse</td><td><input type="radio" name="bonneReponse'+i+'" value="vrai"/></td>';
 document.getElementById('leschamps').insertAdjacentElement('beforebegin', nouvelleReponse);
 document.getElementById('leschamps').insertAdjacentElement('beforebegin', nouvelleBonneReponse);
 document.getElementById('leschamps').innerHTML = '<td><a href="javascript:create_champ('+i2+')">Ajouter une reponse</a></td>';
@@ -32,7 +32,8 @@ nouvelleReponse.setAttribute("value", c);
 <body>
 <h1>ESPACE ENSEIGNANT</h1>
 <h2>GESTION QUESTIONNAIRE</h2>
-<br><a href="AuthServlet?logout=1"> Se déconnecter </a>
+<br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
+<br><a href="./ChapitreServlet"><button type="button"> Retour </button></a>
 <form action="./QuestionReponseServlet" method="post"  id="myform" >
 
 	
@@ -51,7 +52,7 @@ nouvelleReponse.setAttribute("value", c);
 		</tr>
 		<tr>
 			<td>Bonne Reponse</td>
-			<td><input type="radio" name="bonneReponse0" value="vrai"/><input type="radio" name="bonneReponse0" value="faux"/></td>
+			<td><input type="radio" name="bonneReponse0" value="vrai"/></td>
 		</tr>
 		<tr id="leschamps">
 			<td><a href="javascript:create_champ(1)">Ajouter une reponse</a></td>

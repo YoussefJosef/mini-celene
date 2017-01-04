@@ -10,7 +10,7 @@
 <body>
 <h1>ESPACE ADMINISTRATEUR</h1>
 
-	<br><a href="AuthServlet?logout=1"> Se déconnecter </a>
+	<br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 	<br>
 	<h1>Users Information</h1>
 	<form action="./UserServlet" method="post" id="myform">
@@ -26,7 +26,9 @@
 		</tr>
 		<tr>
 			<td>Role</td>
-			<td><input type="text" name="role" value="${utilisateur.role}"/></td>
+			<td>Admin<input type="radio" name="role" value="1"/></td>
+			<td>Enseignant<input type="radio" name="role" value="2"/></td>
+			<td>Etudiant<input type="radio" name="role" value="3"/></td>
 		</tr>
 		
 		<tr>
@@ -67,7 +69,7 @@
 				<td>${u.nom}</td>
 				<td>${u.prenom}</td>
 				<td><button type="submit" name="action" value="Edit" formaction="./UserServlet?login=${u.login}&page=home" form="myform">Edit</button></td>
-				<td><button type="submit" name="action" value="Delete" formaction="./UserServlet?login=${u.login}" form="myform">Drop</button></td>
+				<td><button type="submit" name="action" value="Delete" formaction="./UserServlet?login=${u.login}" form="myform">Supprimer</button></td>
 			</tr>
 		</c:forEach>
 	</table>

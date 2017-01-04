@@ -1,15 +1,23 @@
 package ejb.metier.implementations;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import ejb.dao.interfaces.IChapitreDao;
+import ejb.dao.interfaces.IInscriptionDao;
 import ejb.dao.interfaces.IModuleDao;
+import ejb.dao.interfaces.IQuestionReponseDao;
+import ejb.dao.interfaces.IReponseDao;
 import ejb.dao.interfaces.IUserDao;
+import ejb.entities.Chapitre;
+import ejb.entities.Inscription;
 import ejb.entities.Module;
+import ejb.entities.QuestionReponse;
+import ejb.entities.Reponse;
 import ejb.entities.User;
 import ejb.metier.interfaces.IModuleMetier;
 ;
@@ -24,35 +32,66 @@ public class ModuleMetierImpl implements IModuleMetier{
 	IModuleDao daoModule ;
 	@EJB
 	IUserDao daoUser;
+	@EJB
+	IChapitreDao daoChapitre;
+	@EJB
+	IInscriptionDao daoInscription;
+	@EJB
+	IReponseDao daoReponse;
+	@EJB
+	IQuestionReponseDao daoQuestionReponse;
 	
 	@Override
-	public Module addModule(Module m) {
-		return daoModule.addModule(m);
+	public void addModule(Module m) {
+		daoModule.addModule(m);
 	}
 	
 	@Override
 	public Module getModule(int id) {
 		return daoModule.getModule(id);
 	}
+	
 	@Override
 	public List<Module> listModule() {
 		return daoModule.listModule();
 	}
+	
 	@Override
 	public void editModule(Module m) {
 		daoModule.editModule(m);
-		
 	}
+	
 	@Override
-	public void deleteModule(int id) {
-		daoModule.deleteModule(id);
-		
+	public void deleteModule(int idModule) {
+		List<Chapitre> listC = daoChapitre.getListChapitre(idModule);
+		for(Chapitre c : listC){
+			List<QuestionReponse> listQR = daoQuestionReponse.getListQuestionReponse(c.getId());
+			for(QuestionReponse qr : listQR){
+				List<Reponse> list = daoReponse.getListReponses(qr.getId());
+				for(Reponse r : list){
+					daoReponse.deleteReponse(r.getId());
+				}
+				daoQuestionReponse.deleteQuestionReponse(qr.getId());
+			}
+			daoChapitre.deleteChapitre(c.getId());
+		}
+		List<Inscription> listI = daoInscription.getListInscriptionByModule(idModule);
+		for(Inscription i : listI){
+			daoInscription.deleteInscription(i.getUser().getLogin(), idModule);
+		}
+		daoModule.deleteModule(idModule);
+	}
+	
+	@Override
+	public List<Module> getListModule(String login) {
+		return daoModule.getListModule(login);
 	}
 
 	@Override
-	public void editModuleNameById(int id, String nom) {
-		daoModule.editModuleNameById(id, nom);
-		
+	public void editModule(int idModule, String nom) {
+		Module m = daoModule.getModule(idModule);
+		m.setNom(nom);
+		daoModule.editModule(m);
 	}
 	
 	public void addModule(String nom,String login){
@@ -62,17 +101,5 @@ public class ModuleMetierImpl implements IModuleMetier{
 		m.setUser(user);
 		em.persist(m);
 		
-	}
-	
-	public List<Module> getModules(String login) {
-
-		List<Module> list =daoModule.listModule();
-		List<Module> results = new ArrayList<Module>();
-		
-		for(Module m : list){
-			boolean myModule=m.getUser().getLogin().equals(login);
-			if(myModule) results.add(m);
-		}
-		return results;
 	}
 }

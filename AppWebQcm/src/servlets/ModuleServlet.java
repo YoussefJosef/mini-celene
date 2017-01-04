@@ -43,7 +43,7 @@ public class ModuleServlet  extends HttpServlet  {
 					request.getRequestDispatcher("enseignant/editModule.jsp").forward(request, response);
 				} 
 				else if(page.equals("edit") && id !=0){
-					metier.editModuleNameById(id,nom);
+					metier.editModule(id,nom);
 					request.setAttribute("allModules", metier.listModule());
 					request.getRequestDispatcher("enseignant/module.jsp").forward(request, response);
 				}
@@ -60,7 +60,7 @@ public class ModuleServlet  extends HttpServlet  {
 			}
 			
 		}
-		request.setAttribute("allModules", metier.getModules(login));
+		request.setAttribute("allModules", metier.getListModule(login));
 		request.getRequestDispatcher("enseignant/module.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

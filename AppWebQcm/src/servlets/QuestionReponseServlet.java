@@ -66,7 +66,7 @@ public class QuestionReponseServlet extends HttpServlet {
 						
 						//on créer toutes les réponses directement.
 						for(int i=0; i<nbReponse; i++){
-							metierReponse.addReponse(idQCM, request.getParameter("reponse"+i), request.getParameter("bonneReponse"+i)=="vrai");
+							metierReponse.addReponse(idQCM, request.getParameter("reponse"+i), request.getParameter("bonneReponse"+i) != null);
 						}
 					}
 					break;
@@ -78,14 +78,14 @@ public class QuestionReponseServlet extends HttpServlet {
 				case "chapitre" :
 					if(idChapitre !=0) {
 						request.getSession().setAttribute("idC",idChapitre);
-						request.setAttribute("allQuestionReponses", metier.getQuestionsReponses(idChapitre));
+						request.setAttribute("allQuestionReponses", metier.getListQuestionReponse(idChapitre));
 						request.getRequestDispatcher("enseignant/questionReponse.jsp").forward(request, response);
 					}
 					break;
 				}
 				
 			}
-			request.setAttribute("allQuestionReponses", metier.getQuestionsReponses(idChapitre));
+			request.setAttribute("allQuestionReponses", metier.getListQuestionReponse(idChapitre));
 			request.getRequestDispatcher("enseignant/questionReponse.jsp").forward(request, response);		
 
 	}
