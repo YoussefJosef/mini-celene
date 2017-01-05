@@ -31,13 +31,12 @@ public class InscriptionMetierImpl implements IInscriptionMetier{
 	IInscriptionDao daoInscription;
 	
 	@Override
-	public Inscription addInscription(String login, int idModule) {
-		return daoInscription.addInscription(login, idModule);
+	public void addInscription(Inscription i) {
+		daoInscription.addInscription(i);
 	}
 
 	@Override
 	public Inscription getInscription(String login, int idModule) {
-		
 		return daoInscription.getInscription(login, idModule);
 	}
 
@@ -47,28 +46,49 @@ public class InscriptionMetierImpl implements IInscriptionMetier{
 	}
 
 	@Override
-	public void editInscription(String login, int idModule) {
-		daoInscription.editInscription(login, idModule);
+	public void editInscription(Inscription i) {
+		daoInscription.editInscription(i);
 	}
 
 	@Override
-	public void deleteInscription(String login, int idModule){
+	public void deleteInscription(String login, int idModule) {
 		daoInscription.deleteInscription(login, idModule);
-		
+	
+	}
+	
+	@Override
+	public List<Inscription> getListInscription(String login, int idModule) {
+		return daoInscription.getListInscription(login, idModule);
+	}
+	
+	@Override
+	public List<Inscription> getListInscriptionByUser(String login) {
+		return daoInscription.getListInscriptionByUser(login);
+	}
+	
+	@Override
+	public List<Inscription> getListInscriptionByModule(int idModule) {
+		return daoInscription.getListInscriptionByModule(idModule);
+	}
+	
+	@Override
+	public void addInscription(String login, int idModule, int progression) {
+		User user = daoUser.getUser(login);
+		Module module = daoModule.getModule(idModule);
+		Inscription i = new Inscription();
+		i.setUser(user);
+		i.setModule(module);
+		i.setProgression(progression);
+		daoInscription.addInscription(i);
 	}
 
-/*	public List<Inscription> getModules(String login) {
-
-		List<Inscription> list =daoInscription.listInscription();
-		List<Inscription> results = new ArrayList<Inscription>();
-		
-		for(Inscription m : list){
-			boolean myModule=m.getUser().getLogin().equals(login);
-			if(myModule) results.add(m);
-		}
-		return results;
+	@Override
+	public void editInscription(String login, int idModule, int progression) {
+		Inscription i = daoInscription.getInscription(login, idModule);
+		i.setProgression(progression);
+		daoInscription.editInscription(i);
 	}
-	*/
+
 	public List<Module> getModules(String login){
 		User user = daoUser.getUser(login);
 		List<Module> listModules = new ArrayList<>();

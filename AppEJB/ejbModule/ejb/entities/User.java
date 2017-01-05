@@ -34,25 +34,6 @@ public class User implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	public User() {
-		super();
-	}   
-  
-	public User(String login, String password, int role, String nom, String prenom) {
-		super();
-		this.login = login;
-		this.password = password;
-		this.role = role;
-		this.nom = nom;
-		this.prenom = prenom;
-	}
-
-    public User(String login, String password, int role) {
-		super();
-		this.login = login;
-		this.password = password;
-		this.role = role;
-	}
 	public int getRole() {
 		return this.role;
 	}

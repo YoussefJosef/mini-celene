@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<br><a href="AuthServlet?logout=1">Se déconnecter</a>
+<br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 <h1>ESPACE ETUDIANT</h1>
 <h1>LISTE DE MES MODULES</h1>
 	

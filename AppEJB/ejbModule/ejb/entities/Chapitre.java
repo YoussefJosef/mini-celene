@@ -35,6 +35,14 @@ public class Chapitre implements Serializable{
 		return module;
 	}
 
+	public List<ResultatChapitre> getListResultatChapitres() {
+		return listResultatChapitres;
+	}
+
+	public void setListResultatChapitres(List<ResultatChapitre> listResultatChapitres) {
+		this.listResultatChapitres = listResultatChapitres;
+	}
+
 	public void setModule(Module module) {
 		this.module = module;
 	}

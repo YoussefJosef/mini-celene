@@ -11,7 +11,8 @@
 <body>
 <h1>ESPACE ENSEIGNANT</h1>
 <h2>GESTION CHAPITRE</h2>
-<br><a href="AuthServlet?logout=1"> Se déconnecter </a>
+<br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
+<br><a href="./ModuleServlet"><button type="button"> Retour </button></a>
 <form action="./ChapitreServlet" method="post"  id="myform" >
 	
 	<table>
@@ -56,9 +57,9 @@
 				<td>${chapitre.texte}</td>
 				<td>${chapitre.niveau}</td>
 				<td>${chapitre.scoreMin}</td>
-				<td><button type="submit" name="action" value="Edit" formaction="./ChapitreServlet?idChapitre=${chapitre.id}&page=module" form="myform">Modifier le chapitre</button></td>
+				<td><button type="submit" name="action" value="Edit" formaction="./ChapitreServlet?idChapitre=${chapitre.id}&page=chapitre" form="myform">Modifier le chapitre</button></td>
 				<td><button type="submit" name="action" value="Delete" formaction="./ChapitreServlet?idChapitre=${chapitre.id}" form="myform">Supprimer </button></td>
-				<td><button type="submit" name="action" value="Edit" formaction="./QuestionReponseServlet?idChapitre=${chapitre.id}&page=chapitre&action=chapitre" form="myform">Gerer les questionnaires du chapitre</button></td>
+				<td><button type="submit" name="action" value="Edit" formaction="./QuestionReponseServlet?idChapitre=${chapitre.id}&page=chapitre&action=chapitre" form="myform">Gerer le QCM</button></td>
 			 </tr>
 		</c:forEach>
 	</table>

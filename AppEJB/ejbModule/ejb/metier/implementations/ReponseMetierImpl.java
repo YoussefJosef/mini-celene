@@ -1,5 +1,7 @@
 package ejb.metier.implementations;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -22,6 +24,38 @@ public class ReponseMetierImpl implements IReponseMetier{
 	@EJB
 	IQuestionReponseDao daoQuestionReponse ;
 	
+	
+
+	@Override
+	public void addReponse(Reponse r) {
+		daoReponse.addReponse(r);		
+	}
+
+	@Override
+	public Reponse getReponse(int idReponse) {
+		return daoReponse.getReponse(idReponse);
+	}
+
+	@Override
+	public List<Reponse> listReponse() {
+		return daoReponse.listReponse();
+	}
+
+	@Override
+	public void deleteReponse(int idReponse) {
+		daoReponse.deleteReponse(idReponse);
+	}
+
+	@Override
+	public void editReponse(Reponse r) {
+		daoReponse.editReponse(r);
+	}
+
+	@Override
+	public List<Reponse> getListReponses(int idQuestionReponse) {
+		return daoReponse.getListReponses(idQuestionReponse);
+	}
+	
 	@Override
 	public void addReponse(int idQuestionReponse, String reponse, boolean bonneReponse) {
 		Reponse r = new Reponse();
@@ -29,11 +63,6 @@ public class ReponseMetierImpl implements IReponseMetier{
 		r.setBonneRep(bonneReponse);
 		r.setQCM(daoQuestionReponse.getQuestionReponse(idQuestionReponse));
 		em.persist(r);		
-	}
-
-	@Override
-	public Reponse addReponse(Reponse r) {
-		return daoReponse.addReponse(r);
 	}
 	
 	

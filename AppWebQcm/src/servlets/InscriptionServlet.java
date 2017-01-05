@@ -50,7 +50,7 @@ public class InscriptionServlet extends HttpServlet {
 				request.getRequestDispatcher("etudiant/inscription.jsp").forward(request, response);	
 				//break;
 			case "Add" :
-				metierInscription.addInscription(login, idModule);
+				metierInscription.addInscription(login, idModule, 0);
 				break;
 			case "Delete" :
 				metierInscription.deleteInscription(login,idModule);

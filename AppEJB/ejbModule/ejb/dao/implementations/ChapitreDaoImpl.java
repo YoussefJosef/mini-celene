@@ -1,5 +1,6 @@
 package ejb.dao.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,9 +18,8 @@ public class ChapitreDaoImpl implements IChapitreDao {
 	private EntityManager em;
 	
 	@Override
-	public Chapitre addChapitre(Chapitre c) {
+	public void addChapitre(Chapitre c) {
 		em.persist(c);
-		return c;
 	}
 
 	@Override
@@ -28,6 +28,7 @@ public class ChapitreDaoImpl implements IChapitreDao {
 		return c;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Chapitre> listChapitre() {
 		Query req =em.createQuery("select c from Chapitre c");
@@ -37,22 +38,22 @@ public class ChapitreDaoImpl implements IChapitreDao {
 	@Override
 	public void editChapitre(Chapitre c) {
 		em.merge(c);
-
 	}
 
 	@Override
 	public void deleteChapitre(int id) {
 		em.remove(this.getChapitre(id));
-
 	}
 
 	@Override
-	public void editChapitreById(int id, String titre, String texte, int scoreMin) {
-		Chapitre chapitre = getChapitre(id);
-		chapitre.setTitre(titre);
-		chapitre.setTexte(texte);
-		chapitre.setScoreMin(scoreMin);
+	public List<Chapitre> getListChapitre(int idModule) {
+		List<Chapitre> list = listChapitre();
+		List<Chapitre> results = new ArrayList<>();
 		
+		for(Chapitre c : list){
+			boolean bool = c.getModule().getId()== idModule ? true :false ;
+			if(bool) results.add(c);
+		}
+		return results;
 	}
-
 }

@@ -1,5 +1,6 @@
 package ejb.dao.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,9 +18,8 @@ public class QuestionReponseDaoImpl implements IQuestionReponseDao {
 	private EntityManager em;
 
 	@Override
-	public QuestionReponse addQuestionReponse(QuestionReponse qr) {
+	public void addQuestionReponse(QuestionReponse qr) {
 		em.persist(qr);
-		return qr;
 	}
 
 	@Override
@@ -28,6 +28,7 @@ public class QuestionReponseDaoImpl implements IQuestionReponseDao {
 		return qr;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<QuestionReponse> listQuestionReponse() {
 		Query req = em.createQuery("select qr from QuestionReponse qr");
@@ -37,13 +38,22 @@ public class QuestionReponseDaoImpl implements IQuestionReponseDao {
 	@Override
 	public void editQuestionReponse(QuestionReponse qr) {
 		em.merge(qr);
-
 	}
 
 	@Override
 	public void deleteQuestionReponse(int id) {
 		em.remove(this.getQuestionReponse(id));
-
 	}
 
+	@Override
+	public List<QuestionReponse> getListQuestionReponse(int idChapitre) {
+		List<QuestionReponse> list = listQuestionReponse();
+		List<QuestionReponse> results = new ArrayList<>();
+		
+		for(QuestionReponse qr : list){
+			boolean bool = qr.getQcmChapitre().getId() == idChapitre ? true :false ;
+			if(bool) results.add(qr);
+		}
+		return results;
+	}
 }

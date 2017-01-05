@@ -1,5 +1,6 @@
 package ejb.dao.implementations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -21,16 +22,8 @@ public class InscriptionDaoImpl implements IInscriptionDao {
 	private EntityManager em;
 
 	@Override
-	public Inscription addInscription(String login,int idModule) {
-		User user = em.find(User.class,login);
-		Module module = em.find(Module.class, idModule);
-		
-		Inscription inscription = new Inscription();
-		inscription.setUser(user);
-		inscription.setModule(module);
-		em.persist(inscription);
-		
-		return inscription;
+	public void addInscription(Inscription i) {
+		em.persist(i);
 	}
 
 	@Override
@@ -42,7 +35,8 @@ public class InscriptionDaoImpl implements IInscriptionDao {
 				.setParameter("log", user).setParameter("mod",module);
 		return  (Inscription) q.getSingleResult();
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Inscription> listInscription() {
 		Query req = em.createQuery("select i from Inscription i");
@@ -50,13 +44,51 @@ public class InscriptionDaoImpl implements IInscriptionDao {
 	}
 
 	@Override
-	public void editInscription(String login, int idModule) {
-		em.merge(this.getInscription(login, idModule));
+	public void editInscription(Inscription i) {
+		em.merge(i);
 	}
 
 	@Override
 	public void deleteInscription(String login, int idModule) {
 		em.remove(this.getInscription(login,idModule));
 	}
+
+	@Override
+	public List<Inscription> getListInscriptionByUser(String login) {
+		List<Inscription> list = listInscription();
+		List<Inscription> results = new ArrayList<>();
+		
+		for(Inscription i : list){
+			boolean bool = i.getUser().getLogin().equals(login) ? true :false ;
+			if(bool) results.add(i);
+		}
+		return results;
+	}
+
+	@Override
+	public List<Inscription> getListInscriptionByModule(int idModule) {
+		List<Inscription> list = listInscription();
+		List<Inscription> results = new ArrayList<>();
+		
+		for(Inscription i : list){
+			boolean bool = i.getModule().getId() == idModule ? true :false ;
+			if(bool) results.add(i);
+		}
+		return results;
+	}
+
+	@Override
+	public List<Inscription> getListInscription(String login, int idModule) {
+		List<Inscription> list = getListInscriptionByUser(login);
+		List<Inscription> results = new ArrayList<>();
+		
+		for(Inscription i : list){
+			boolean bool = i.getModule().getId() == idModule ? true :false ;
+			if(bool) results.add(i);
+		}
+		return results;
+	}
+	
+	
 
 }

@@ -58,7 +58,7 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 			}
 		}
 		
-		request.setAttribute("allChapitres", metier.getChapitres(idModule));
+		request.setAttribute("allChapitres", metier.getListChapitre(idModule));
 		request.getRequestDispatcher("etudiant/chapitre.jsp").forward(request, response);		
 	}
 

@@ -10,7 +10,7 @@
 <h1>ESPACE ENSEIGNANT</h1>
 
 	<ul>
-		<li><a href="ModuleServlet"> Gestion des modules </a></li>
+		<li><a href="./ModuleServlet"> Gestion des modules </a></li>
 		<li>Informations sur les etudiants</li>
 	</ul>
 </body>

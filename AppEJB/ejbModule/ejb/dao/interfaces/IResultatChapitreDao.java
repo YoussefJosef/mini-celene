@@ -9,10 +9,12 @@ import ejb.entities.ResultatChapitre;
 @Local
 public interface IResultatChapitreDao {
 	
-	public ResultatChapitre addResultatChapitre(ResultatChapitre rc);
-	public ResultatChapitre getResultatChapitre(int id);
+	public void addResultatChapitre(ResultatChapitre rc);
+	public ResultatChapitre getResultatChapitre(String login, int idChapitre);
 	public List<ResultatChapitre> listResultatChapitre();
 	public void editResultatChapitre(ResultatChapitre rc);
-	public void deleteResultatChapitre(int id);
-
+	public void deleteResultatChapitre(String login, int idChapitre);
+	public List<ResultatChapitre> getListResultatChapitreByChapitre(int idChapitre);
+	public List<ResultatChapitre> getListResultatChapitreByUser(String login);
+	public List<ResultatChapitre> getListResultatChapitre(String login, int idChapitre);
 }
