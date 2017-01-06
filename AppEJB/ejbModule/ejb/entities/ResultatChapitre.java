@@ -9,16 +9,26 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class ResultatChapitre implements Serializable{
-	
 
 	private static final long serialVersionUID = 1L;
-
-	@Id@ManyToOne
-	private User user;
 	
-	@Id@ManyToOne
+	@Id @ManyToOne
+	private User user;
+	@Id @ManyToOne
 	private Chapitre chapitre;
 	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public Chapitre getChapitre() {
+		return chapitre;
+	}
+	public void setChapitre(Chapitre chapitre) {
+		this.chapitre = chapitre;
+	}
 	private int score;
 	private int nombreEssai;
 	private String dateValidation;
@@ -41,18 +51,5 @@ public class ResultatChapitre implements Serializable{
 	public void setDateValidation(String dateValidation) {
 		this.dateValidation = dateValidation;
 	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	public Chapitre getChapitre() {
-		return chapitre;
-	}
-	public void setChapitre(Chapitre chapitre) {
-		this.chapitre = chapitre;
-	}
-	
 
 }

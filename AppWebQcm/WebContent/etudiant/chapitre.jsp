@@ -12,7 +12,7 @@
 <h1>ESPACE ETUDIANT</h1>
 <h2> CHAPITRES DU MODULE</h2>
 <br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
-<form action="./ChapitreEtudiantServlet" method="post"  id="myform" >
+<form  method="post"  id="myform" >
 
 	<table>
 			<tr>
@@ -28,7 +28,7 @@
 				<td>${chapitre.niveau}</td>
 				<td><button type="submit" name="action" value="cours" formaction="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&textChapitre=${chapitre.texte}" form="myform">Voir cours</button></td>
 				<td><button type="submit" name="action" value="qcm" formaction="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}" form="myform">Repondre au Qcm</button></td>
-				<td><button type="submit" name="action" value="resultat" formaction="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}" form="myform">Resultat</button></td>
+				<td><button type="submit" name="action" value="resultat" formaction="./QcmServlet?idChapitre=${chapitre.id}" form="myform">Resultat</button></td>
 			 </tr>
 		</c:forEach>
 	</table>

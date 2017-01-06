@@ -28,8 +28,8 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
 	private List<Module> listModules;
 	
-	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
-	private List<ResultatChapitre> listResultats;
+	@ManyToMany(mappedBy="etudiantsQcm",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private List<Chapitre> listResultats;
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -84,12 +84,7 @@ public class User implements Serializable {
 		this.listModules = listModules;
 	}
 
-	public List<ResultatChapitre> getListResultats() {
-		return listResultats;
-	}
 
-	public void setListResultats(List<ResultatChapitre> listResultats) {
-		this.listResultats = listResultats;
-	}
+	
    
 }

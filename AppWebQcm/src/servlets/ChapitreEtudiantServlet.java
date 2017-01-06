@@ -1,6 +1,11 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -9,7 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ejb.entities.QuestionReponse;
+import ejb.entities.Reponse;
 import ejb.metier.interfaces.IChapitreMetier;
+import ejb.metier.interfaces.IQuestionReponseMetier;
+import ejb.metier.interfaces.IReponseMetier;
 
 /**
  * Servlet implementation class ChapitreEtudiantServlet
@@ -20,7 +29,12 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 	
 	@EJB
 	private IChapitreMetier metier ;
-
+	@EJB
+	private IQuestionReponseMetier metierQR;
+	
+	@EJB
+	private IReponseMetier metierR;
+	
 	
 	public ChapitreEtudiantServlet() {
 		super();
@@ -52,6 +66,20 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 			case "cours":
 				break;
 			case "qcm":
+				List<QuestionReponse> listQR = metierQR.getListQuestionReponse(idChapitre);
+				List l = new LinkedList<>();
+				
+				for(QuestionReponse qr : listQR){
+					List<Reponse> listR = metierR.getListReponses(qr.getId()) ;
+					l.add(listR);
+				}
+			
+				request.setAttribute("listquestions", listQR);
+				request.setAttribute("listdelistReponses", l);
+				System.out.println("riifii"+l.toString());
+				
+				
+				request.getRequestDispatcher("etudiant/qcm.jsp").forward(request, response);		
 				break;
 			case "resultat":
 				break;

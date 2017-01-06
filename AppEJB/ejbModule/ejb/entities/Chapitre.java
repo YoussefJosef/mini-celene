@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -30,6 +33,13 @@ public class Chapitre implements Serializable{
 	
 	@OneToMany(mappedBy="chapitre", fetch=FetchType.EAGER)
 	private List<ResultatChapitre> listResultatChapitres;
+	
+	@ManyToMany
+	@JoinTable(name="ResultatChapitre",
+	 joinColumns=@JoinColumn(name="CHAPITRE_ID", referencedColumnName="ID"),
+     inverseJoinColumns=@JoinColumn(name="USER_LOGIN", referencedColumnName="LOGIN"))
+	private List<User> etudiantsQcm;
+	
 	
 	public Module getModule() {
 		return module;

@@ -6,9 +6,11 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import ejb.dao.interfaces.IQuestionReponseDao;
 import ejb.dao.interfaces.IReponseDao;
+import ejb.entities.Inscription;
 import ejb.entities.Reponse;
 import ejb.metier.interfaces.IReponseMetier;
 
@@ -23,7 +25,6 @@ public class ReponseMetierImpl implements IReponseMetier{
 
 	@EJB
 	IQuestionReponseDao daoQuestionReponse ;
-	
 	
 
 	@Override
@@ -65,5 +66,12 @@ public class ReponseMetierImpl implements IReponseMetier{
 		em.persist(r);		
 	}
 	
+	@Override
+	public Reponse getReponseByRep(String reponse){
+		Query q = em.createQuery("select r from Reponse r where r.rep  = :rep , Reponse.class")
+				.setParameter("rep", reponse);
+		return  (Reponse) q.getSingleResult();
+		
+	}
 	
 }
