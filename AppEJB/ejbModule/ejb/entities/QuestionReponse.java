@@ -18,7 +18,8 @@ public class QuestionReponse implements Serializable {
 	@Id@GeneratedValue
 	private int id;
 	private String question;
-	
+	private int score;
+
 	@OneToMany(mappedBy="QCM", fetch=FetchType.EAGER)
 	private List<Reponse> reponse;
 	
@@ -66,5 +67,12 @@ public class QuestionReponse implements Serializable {
 
 	public void setNbReponse(Integer nbReponse) {
 		this.nbReponse = nbReponse;
+	}
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
 	}
 }

@@ -16,9 +16,11 @@ import ejb.dao.interfaces.IUserDao;
 import ejb.entities.Chapitre;
 import ejb.entities.Inscription;
 import ejb.entities.Module;
+import ejb.entities.QuestionReponse;
 import ejb.entities.Reponse;
 import ejb.entities.ResultatChapitre;
 import ejb.entities.User;
+import ejb.metier.interfaces.IChapitreMetier;
 import ejb.metier.interfaces.IReponseMetier;
 import ejb.metier.interfaces.IResultatChapitreMetier;
 
@@ -38,6 +40,8 @@ public class ResultatChapitreMetierImpl implements IResultatChapitreMetier  {
 	IQuestionReponseDao daoQuestionReponse;
 	@EJB
 	IReponseMetier metierReponse;
+	@EJB
+	IChapitreMetier metierChapitre;
 	@EJB
 	IReponseDao daoReponse;
 	
@@ -101,18 +105,20 @@ public class ResultatChapitreMetierImpl implements IResultatChapitreMetier  {
 	}
 	
 	@Override
-	public int getNoteQcm(String reponseEtudiant, int idQuestionReponse){
-		List<Reponse> listR = daoQuestionReponse.getQuestionReponse(idQuestionReponse).getReponse();
-		for(Reponse r : listR){	
-		}
-		if (metierReponse.getReponseByRep(reponseEtudiant).isBonneRep()){
-			
-		}
-		else{
-			
-		}
-		;
+	public int getNoteQcm(List<String> listReponseEtudiant, List<String> listQuestion){
+		List<Integer> intListQuestion = new ArrayList<Integer>();
+		for(String s : listQuestion) intListQuestion.add(Integer.valueOf(s));
+		int score = 0;
+		List<QuestionReponse> listQR = new ArrayList<QuestionReponse>();
 		
+		for( Integer id : intListQuestion){	
+			listQR.add( daoQuestionReponse.getQuestionReponse(id));
+		}
+	
+		daoQuestionReponse.listQuestionReponse().get(0).getReponse().get(0).isBonneRep();
+		
+		score += daoQuestionReponse.listQuestionReponse().get(0).getScore();
+	
 	return 0;
 		}
 	}

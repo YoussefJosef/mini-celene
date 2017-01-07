@@ -6,12 +6,16 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import ejb.dao.interfaces.IChapitreDao;
 import ejb.dao.interfaces.IQuestionReponseDao;
 import ejb.dao.interfaces.IReponseDao;
+import ejb.entities.Inscription;
+import ejb.entities.Module;
 import ejb.entities.QuestionReponse;
 import ejb.entities.Reponse;
+import ejb.entities.User;
 import ejb.metier.interfaces.IQuestionReponseMetier;
 
 @Stateless
@@ -26,9 +30,6 @@ public class QuestionReponseMetierImpl implements IQuestionReponseMetier {
 	IQuestionReponseDao daoQuestionReponse;
 	@EJB
 	IReponseDao daoReponse;
-
-	
-	
 
 	@Override
 	public void addQuestionReponse(QuestionReponse qr) {
@@ -65,12 +66,27 @@ public class QuestionReponseMetierImpl implements IQuestionReponseMetier {
 	}
 
 	@Override
-	public int addQuestionReponse(int idChapitre, String question, int nbReponse) {
+	public int addQuestionReponse(int idChapitre, String question, int nbReponse, int score) {
 		QuestionReponse qr = new QuestionReponse();
 		qr.setQuestion(question);
 		qr.setNbReponse(nbReponse);
+		qr.setScore(score);
 		qr.setQcmChapitre(daoChapitre.getChapitre(idChapitre));
 		em.persist(qr);	
 		return qr.getId();
+	}
+
+	@Override
+	public Reponse getReponseByIdQrAndStringReponse(int idQuestionReponse, String reponseEtudiant) {
+	
+		QuestionReponse questionReponse = em.find(QuestionReponse.class,idQuestionReponse);
+
+		Query q = em.createQuery("select r from Reponse r where r.QCM  = :QR and r.rep= :rep",
+				Reponse.class)
+				.setParameter("QR",questionReponse).setParameter("rep",reponseEtudiant);
+		
+		return  (Reponse) q.getSingleResult();
+		
 	}	
+
 }

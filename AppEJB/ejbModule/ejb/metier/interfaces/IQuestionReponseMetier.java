@@ -3,9 +3,11 @@ package ejb.metier.interfaces;
 import javax.ejb.Local;
 
 import ejb.dao.interfaces.IQuestionReponseDao;
+import ejb.entities.Reponse;
 
 @Local
 public interface IQuestionReponseMetier extends IQuestionReponseDao {
 	
-	public int addQuestionReponse(int idChapitre,String question,int nbReponse);
+	public int addQuestionReponse(int idChapitre,String question,int nbReponse,int score);
+	public Reponse getReponseByIdQrAndStringReponse ( int idQuestionReponse, String reponse);
 }

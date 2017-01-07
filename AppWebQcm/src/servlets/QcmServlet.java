@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ejb.dao.interfaces.IResultatChapitreDao;
+import ejb.entities.Reponse;
 import ejb.entities.ResultatChapitre;
 import ejb.metier.interfaces.IModuleMetier;
 import ejb.metier.interfaces.IQuestionReponseMetier;
@@ -52,12 +53,34 @@ public class QcmServlet extends HttpServlet  {
 		if(action!= null){
 			switch (action) {
 			case "verify":
-				int score = metierRC.getNoteQcm(repQuestion,idQuestionReponse);
-		
-				metierRC.addResultatChapitre(login,idChapitre,score,datevalidation);
+				
+				ArrayList<String> listReponseEtudiant = new ArrayList<String>();
+				ArrayList<String> listQuestion = new ArrayList<String>();
+				int j = 1 ;
+				while (request.getParameter(""+j) != null) {
+					listReponseEtudiant.add(request.getParameter(""+j));
+					listQuestion.add(request.getParameter("q+"+j));
+					j++;
+				}
+				Reponse reponse = metierQR.getReponseByIdQrAndStringReponse(2, "repo");
+				boolean bobo = reponse.isBonneRep();
+				System.out.println("popia"+bobo);
+				System.out.println("grrr"+reponse);
+				/* Etape 1 :je donne a une fct en param idQR et reponse etudiant et elle me retourne
+				 * le valeur boolean de sa reponse, donc reste a faire un getScore de la QuestionReponse
+				 * dans le cas ou la reponse a une valeur true, et puis faire le somme des score
+				 * pour obtenir le scoreFinal.
+				 * Etape 2 : avant de passer au chapitre suivant verifier si scorefinal est sup ou egale
+				 * 	au score min pour passer .... 
+				 */
+				
+			//	int score = metierRC.getNoteQcm(listReponseEtudiant,listQuestion);
+			//	metierRC.addResultatChapitre(login,idChapitre,score,datevalidation);
+				
+				System.out.println("youyou"+listQuestion);
 				
 				
-				request.setAttribute("score", metierRC.getResultatChapitre(login, idChapitre).getScore());
+			//	request.setAttribute("score", metierRC.getResultatChapitre(login, idChapitre).getScore());
 				request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 				break;
 			}

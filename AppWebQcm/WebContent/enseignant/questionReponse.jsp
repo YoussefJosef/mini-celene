@@ -44,6 +44,10 @@ nouvelleReponse.setAttribute("value", c);
 			<td><input type="text" name="question" value="${questionReponse.question}"/></td>
 		</tr>
 		<tr>
+			<td>Score : </td>
+			<td><input id="score" type="text" name="score" value="${questionReponse.score}"/></td>
+		</tr>
+		<tr>
 			<td><input type="hidden" id="numReponse" name="numReponse" value="1"/></td>
 		</tr>
 		<tr>
@@ -69,19 +73,18 @@ nouvelleReponse.setAttribute("value", c);
 			<tr>
 				<th>Question :</th>
 				<th>Reponse : </th>
-				<th></th>
+				<th>Score</th>
 				<th></th>
 			</tr>
 		<c:forEach items="${allQuestionReponses}" var="qr" >
 			<tr>
 				<td>${qr.question} </td>
 				<td>${qr.reponse}</td>
+				<td>${qr.score}</td>
 				<td><button type="submit" name="action" value="Delete" formaction="./QuestionReponseServlet?idQuestionReponse=${qr.id}" form="myform">Supprimer </button></td>
-			    </tr>
+		    </tr>
 		</c:forEach>
 	</table>
-
-
 
 </form> 
 

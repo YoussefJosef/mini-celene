@@ -13,7 +13,7 @@ public interface IResultatChapitreMetier extends IResultatChapitreDao {
 
 	public void addResultatChapitre(String login,int idChapitre,int score,String datevalidation);
 
-	public int getNoteQcm(String reponseEtudiant, int idQuestionReponse);
+	public int getNoteQcm(List<String> reponseEtudiant, List<String> listQuestion);
 	
 	
 }

@@ -46,9 +46,10 @@ public class QuestionReponseServlet extends HttpServlet {
 				if(nbReponseStr!=null && !nbReponseStr.equals(""))
 					nbReponse = Integer.parseInt(nbReponseStr);
 				
-				// String reponse= request.getParameter("reponse");
-				// String bonneReponse= request.getParameter("bonneReponse");
-				
+				String scoreStr = request.getParameter("score");
+				int score= 0;
+				if(scoreStr!=null && !scoreStr.equals(""))
+					score = Integer.parseInt(scoreStr);
 		
 				String idChapitreSessionStr =""+request.getSession().getAttribute("idC");
 				if(idChapitre == 0){
@@ -62,7 +63,7 @@ public class QuestionReponseServlet extends HttpServlet {
 				switch(action){
 				case "Add" :
 					if(idChapitre != 0){
-						int idQCM = metier.addQuestionReponse(idChapitre, question, nbReponse);
+						int idQCM = metier.addQuestionReponse(idChapitre, question, nbReponse,score);
 						
 						//on créer toutes les réponses directement.
 						for(int i=0; i<nbReponse; i++){

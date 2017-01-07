@@ -14,6 +14,10 @@ public class Reponse {
 	
 	@ManyToOne
 	private QuestionReponse QCM;
+	
+	public String toString(){
+		return "id : "+id+"rep:"+ rep+"bool:"+bonneRep ;
+	}
 
 	public String getRep() {
 		return rep;
