@@ -11,7 +11,7 @@
 <a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 <h1>ESPACE ETUDIANT</h1>
 <h1>Q.C.M :</h1>
-	
+	<p>${messageInformation}</p>
 	<form action="./QcmServlet" method="post"  id="myform" >
 		<c:forEach items="${listquestions}"  var="q" varStatus="ctr">
 		<c:set var="inc"  value="${inc + 1}" />

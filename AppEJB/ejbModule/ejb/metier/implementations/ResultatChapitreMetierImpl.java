@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import ejb.dao.interfaces.IChapitreDao;
 import ejb.dao.interfaces.IQuestionReponseDao;
@@ -103,22 +104,22 @@ public class ResultatChapitreMetierImpl implements IResultatChapitreMetier  {
 		daoResultatChapitre.addResultatChapitre(rc);
 		
 	}
-	
+
+
 	@Override
-	public int getNoteQcm(List<String> listReponseEtudiant, List<String> listQuestion){
-		List<Integer> intListQuestion = new ArrayList<Integer>();
-		for(String s : listQuestion) intListQuestion.add(Integer.valueOf(s));
-		int score = 0;
-		List<QuestionReponse> listQR = new ArrayList<QuestionReponse>();
+	public void editResultatChapitreWithDate(String login, int idChapitre, int score, String dateValidation) {
+		ResultatChapitre resultatChapitre = daoResultatChapitre.getResultatChapitre(login, idChapitre);
+		resultatChapitre.setScore(score);
+		resultatChapitre.setDateValidation(dateValidation);
+		daoResultatChapitre.editResultatChapitre(resultatChapitre);
 		
-		for( Integer id : intListQuestion){	
-			listQR.add( daoQuestionReponse.getQuestionReponse(id));
-		}
-	
-		daoQuestionReponse.listQuestionReponse().get(0).getReponse().get(0).isBonneRep();
+	}
+
+	@Override
+	public void editResultatChapitreWithoutDate(String login, int idChapitre, int score) {
+		ResultatChapitre resultatChapitre = daoResultatChapitre.getResultatChapitre(login, idChapitre);
+		resultatChapitre.setScore(score);
+		daoResultatChapitre.editResultatChapitre(resultatChapitre);
 		
-		score += daoQuestionReponse.listQuestionReponse().get(0).getScore();
-	
-	return 0;
-		}
+	}
 	}

@@ -7,7 +7,7 @@
 <title>Home Page</title>
 </head>
 <body>
-<h1>mini celene :) </h1>
+<h1>Celene </h1>
 
 			<div><a href="AuthServlet">se connecter </a></div>
 

@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -9,7 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ejb.entities.Chapitre;
+import ejb.entities.ResultatChapitre;
+import ejb.entities.User;
 import ejb.metier.interfaces.IChapitreMetier;
+import ejb.metier.interfaces.IResultatChapitreMetier;
+import ejb.metier.interfaces.IUserMetier;
 
 /**
  * Servlet implementation class ChapitreServlet
@@ -20,7 +26,11 @@ public class ChapitreServlet extends HttpServlet {
 	
 	@EJB
 	private IChapitreMetier metier ;
-
+	@EJB
+	private IResultatChapitreMetier metierRC ;
+	@EJB
+	private IUserMetier metierU ;
+	
     public ChapitreServlet() {
         super();
     }
@@ -30,11 +40,6 @@ public class ChapitreServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String page = request.getParameter("page");
 		
-		String idModuleStr = request.getParameter("idModule");
-		
-		int idModule= 0;
-		if(idModuleStr!=null && !idModuleStr.equals(""))
-			idModule = Integer.parseInt(idModuleStr);
 		
 		String idChapitreStr = request.getParameter("idChapitre");
 		int idChapitre= 0;
@@ -54,13 +59,19 @@ public class ChapitreServlet extends HttpServlet {
 		if(niveauStr!=null && !niveauStr.equals(""))
 			niveau = Integer.parseInt(niveauStr);
 		
+		String idModuleStr = request.getParameter("idModule");
+		int idModule= 0;
+		if(idModuleStr!=null && !idModuleStr.equals(""))
+			idModule = Integer.parseInt(idModuleStr);
+		
 		String idModuleSessionStr =""+request.getSession().getAttribute("idMS");
 		if(idModule == 0){
 			if(idModuleSessionStr!=null && !idModuleSessionStr.equals(""))
 				idModule= Integer.parseInt(idModuleSessionStr);
-			System.out.println("i'm in "+idModule);
+			
 		}
 		// FIN INITIALISATION DE PARAMETRES
+		
 		
 		if(action!= null ){
 			switch(action){
@@ -106,6 +117,7 @@ public class ChapitreServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+	
 
 }
 	

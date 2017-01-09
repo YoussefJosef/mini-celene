@@ -58,6 +58,7 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 		if(idChapitreStr!=null && !idChapitreStr.equals(""))
 			idChapitre = Integer.parseInt(idChapitreStr);
 		
+		
 	
 		// FIN INITIALISATION DE PARAMETRES
 		
@@ -66,6 +67,7 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 			case "cours":
 				break;
 			case "qcm":
+				request.getSession().setAttribute("idChap",idChapitre);
 				List<QuestionReponse> listQR = metierQR.getListQuestionReponse(idChapitre);
 				List l = new LinkedList<>();
 				
@@ -76,8 +78,6 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 			
 				request.setAttribute("listquestions", listQR);
 				request.setAttribute("listdelistReponses", l);
-				System.out.println("riifii"+l.toString());
-				
 				
 				request.getRequestDispatcher("etudiant/qcm.jsp").forward(request, response);		
 				break;

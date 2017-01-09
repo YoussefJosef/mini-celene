@@ -23,7 +23,6 @@ public class UserDaoImpl implements IUserDao {
 	@Override
 	public User getUser(String login) {
 		User u=em.find(User.class, login);
-		System.out.println("pas de user trouver");
 		return u;
 	}
 
