@@ -13,8 +13,7 @@
 <h1>ESPACE ETUDIANT</h1>
 <h1>RESULTAT QCM DU CHAPITRE</h1>
 	
-	<p> ${messageInformation} </br>
-	votre score est ${score}</p>
+	<p> ${messageInformation} </br></p>
 	<form action="./InscriptionServlet" method="post"  id="myform" >
 		<table>
 				<tr>

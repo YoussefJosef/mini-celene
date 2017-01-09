@@ -92,7 +92,7 @@ public class ResultatChapitreMetierImpl implements IResultatChapitreMetier  {
 	}
 
 	@Override
-	public void addResultatChapitre(String login, int idChapitre, int score, String dateValidation) {
+	public void addResultatChapitre(String login, int idChapitre, int score, String dateValidation,boolean validated) {
 		User user = daoUser.getUser(login);
 		Chapitre chapitre = daoChapitre.getChapitre(idChapitre);
 		ResultatChapitre rc = new ResultatChapitre();
@@ -101,25 +101,30 @@ public class ResultatChapitreMetierImpl implements IResultatChapitreMetier  {
 		rc.setDateValidation(dateValidation);
 		rc.setScore(score);
 		rc.setNombreEssai(rc.getNombreEssai()+1);
+		rc.setValidated(validated);
 		daoResultatChapitre.addResultatChapitre(rc);
 		
 	}
 
 
 	@Override
-	public void editResultatChapitreWithDate(String login, int idChapitre, int score, String dateValidation) {
-		ResultatChapitre resultatChapitre = daoResultatChapitre.getResultatChapitre(login, idChapitre);
-		resultatChapitre.setScore(score);
-		resultatChapitre.setDateValidation(dateValidation);
-		daoResultatChapitre.editResultatChapitre(resultatChapitre);
+	public void editResultatChapitreWithDate(String login, int idChapitre, int score, String dateValidation,boolean validated) {
+		ResultatChapitre rc = daoResultatChapitre.getResultatChapitre(login, idChapitre);
+		rc.setScore(score);
+		rc.setDateValidation(dateValidation);
+		rc.setNombreEssai(rc.getNombreEssai()+1);
+		rc.setValidated(validated);
+		daoResultatChapitre.editResultatChapitre(rc);
 		
 	}
 
 	@Override
-	public void editResultatChapitreWithoutDate(String login, int idChapitre, int score) {
-		ResultatChapitre resultatChapitre = daoResultatChapitre.getResultatChapitre(login, idChapitre);
-		resultatChapitre.setScore(score);
-		daoResultatChapitre.editResultatChapitre(resultatChapitre);
+	public void editResultatChapitreWithoutDate(String login, int idChapitre, int score,boolean validated) {
+		ResultatChapitre rc = daoResultatChapitre.getResultatChapitre(login, idChapitre);
+		rc.setScore(score);
+		rc.setNombreEssai(rc.getNombreEssai()+1);
+		rc.setValidated(validated);
+		daoResultatChapitre.editResultatChapitre(rc);
 		
 	}
 	}

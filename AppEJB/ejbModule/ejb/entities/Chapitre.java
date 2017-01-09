@@ -24,8 +24,7 @@ public class Chapitre implements Serializable{
 	private String titre;
 	private int scoreMin;
 	private int niveau;
-	private boolean passed;
-	private boolean validated;
+	
 
 	@ManyToOne
 	private Module module;
@@ -107,22 +106,6 @@ public class Chapitre implements Serializable{
 
 	public void setNiveau(int niveau) {
 		this.niveau = niveau;
-	}
-
-	public boolean isPassed() {
-		return passed;
-	}
-
-	public void setPassed(boolean passed) {
-		this.passed = passed;
-	}
-
-	public boolean isValidated() {
-		return validated;
-	}
-
-	public void setValidated(boolean validated) {
-		this.validated = validated;
 	}
 
 	public List<User> getEtudiantsQcm() {

@@ -16,7 +16,17 @@ public class ResultatChapitre implements Serializable{
 	private User user;
 	@Id @ManyToOne
 	private Chapitre chapitre;
+	private int score;
+	private int nombreEssai;
+	private String dateValidation;
+	private boolean validated;
 	
+	public boolean isValidated() {
+		return validated;
+	}
+	public void setValidated(boolean validated) {
+		this.validated = validated;
+	}
 	public User getUser() {
 		return user;
 	}
@@ -29,10 +39,6 @@ public class ResultatChapitre implements Serializable{
 	public void setChapitre(Chapitre chapitre) {
 		this.chapitre = chapitre;
 	}
-	private int score;
-	private int nombreEssai;
-	private String dateValidation;
-
 	public int getScore() {
 		return score;
 	}

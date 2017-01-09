@@ -18,10 +18,10 @@
 			<input type="hidden" name="q+${inc}" value="${q.id}">
 			<h3>Question :</h3> ${q.question}
 			<h3>Les reponses :</h3>			
-			
+				
 				<c:forEach items="${listdelistReponses.get(ctr.index)}" var="reponse" >
 					
-					 <input type="radio" name="${inc}" value="${reponse.rep}"> ${reponse.rep}<br>
+					 <input type="radio" name="${inc}" value="${reponse.rep}" checked="checked"> ${reponse.rep}<br>
 						 
 						
 				</c:forEach>

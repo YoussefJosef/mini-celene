@@ -11,11 +11,11 @@ import ejb.entities.Reponse;
 @Local
 public interface IResultatChapitreMetier extends IResultatChapitreDao {
 
-	public void addResultatChapitre(String login,int idChapitre,int score,String datevalidation);
+	public void addResultatChapitre(String login,int idChapitre,int score,String datevalidation,boolean validated);
 	
-	public void editResultatChapitreWithDate(String login,int idChapitre,int score,String dateValidation);
+	public void editResultatChapitreWithDate(String login,int idChapitre,int score,String dateValidation, boolean validated);
 	
-	public void editResultatChapitreWithoutDate(String login,int idChapitre,int score);
+	public void editResultatChapitreWithoutDate(String login,int idChapitre,int score, boolean validated);
 	
 	
 }

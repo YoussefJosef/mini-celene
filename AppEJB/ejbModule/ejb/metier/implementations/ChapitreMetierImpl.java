@@ -86,8 +86,6 @@ public class ChapitreMetierImpl implements IChapitreMetier {
 		c.setTexte(texte);
 		c.setScoreMin(scoreMin);
 		c.setNiveau(niveau);	
-		c.setPassed(false);
-		c.setValidated(false);
 		daoChapitre.addChapitre(c);
 	}
 	

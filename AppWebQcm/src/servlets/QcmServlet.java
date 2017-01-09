@@ -57,6 +57,8 @@ public class QcmServlet extends HttpServlet  {
 		String login = (String) request.getSession().getAttribute("login");
 		String repQuestion = request.getParameter("repQuestion");
 		String idChapitreSessionStr =""+request.getSession().getAttribute("idChap");
+		final boolean TRUE=true;
+		final boolean FALSE=false;
 		int idChapitre = 0 ;
 		if(idChapitre == 0){
 			if(idChapitreSessionStr!=null && !idChapitreSessionStr.equals(""))
@@ -107,9 +109,12 @@ public class QcmServlet extends HttpServlet  {
 				
 				if(!checkIfUserModuleExist(login, idChapitre)){
 					if(score>scoreMin){
-						metierRC.addResultatChapitre(login, idChapitre, score, datevalidation);
+					
+						metierRC.addResultatChapitre(login, idChapitre, score, datevalidation,TRUE);
 						messageInformation = "Bravo ! vous avez reussi a passer le QCM et valider le chapitre,"
 								+ "vous avez acces au chapitre suivant !";
+						//bloké qcm
+			
 						request.setAttribute("messageInformation", messageInformation);
 						request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
 						request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
@@ -117,53 +122,66 @@ public class QcmServlet extends HttpServlet  {
 						
 					}
 					else{
-						metierRC.addResultatChapitre(login, idChapitre, score,datevalidation);
+						metierRC.addResultatChapitre(login, idChapitre, score,datevalidation,FALSE);
 						messageInformation = "Vous n'avez pas reussi a valider le QCM, "
 								+ "Votre score="+score+" est inferieur au Score Min="+scoreMin+", Veuillez réessayer !";
 						request.setAttribute("messageInformation", messageInformation);
+						request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
+						request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
+						request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 						//non validé peut refaire
 					}
 				}
 				else{//user a deja passé qcm 
-					boolean validated = metierRC.getResultatChapitre(login, idChapitre).getChapitre().isValidated();
+					boolean validated = metierRC.getResultatChapitre(login, idChapitre).isValidated();
 					if(!validated){
-						if(score>scoreMin){
+						if(score>=scoreMin){
 							messageInformation = "Bravo ! vous avez reussi a passer le QCM et valider le chapitre,"
 									+ "vous avez acces au chapitre suivant !";
-							metierRC.editResultatChapitreWithDate(login, idChapitre, score, datevalidation);
+					
+							metierRC.editResultatChapitreWithDate(login, idChapitre, score, datevalidation,TRUE);
+		
+							request.setAttribute("messageInformation", messageInformation);
 							request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
 							request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
 							request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
-							metierRC.getResultatChapitre(login, idChapitre).getChapitre().setValidated(true);
+						
 							//bloké qcm
 						}
 						else{
-							metierRC.editResultatChapitreWithDate(login, idChapitre, score, datevalidation);
+							metierRC.editResultatChapitreWithDate(login, idChapitre, score, datevalidation,FALSE);
 							messageInformation = "Vous n'avez pas reussi a valider le QCM, "
 									+ "Votre score="+score+" est inferieur au Score Min="+scoreMin+", Veuillez réessayer !";
+							request.setAttribute("messageInformation", messageInformation);
+							request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
+							request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
+							request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
+							
 							//nv 
 							//peut refaire
 						}
 					}
 					else{
 						messageInformation = "vous avez deja validé ce QCM, impossible de refaire";
+						request.setAttribute("messageInformation", messageInformation);
+						request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 					}
 				}
 				
 				
 			
 					
-					request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
-					request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
-					request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
-				
-		
-					request.setAttribute("messageInformation", messageInformation);
-					request.getRequestDispatcher("etudiant/qcm.jsp").forward(request, response);
-	
-					request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
-					request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
-					request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
+//					request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
+//					request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
+//					request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
+//				
+//		
+//					request.setAttribute("messageInformation", messageInformation);
+//					request.getRequestDispatcher("etudiant/qcm.jsp").forward(request, response);
+//	
+//					request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
+//					request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
+//					request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 				
 			}
 		}
