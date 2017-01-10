@@ -9,8 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ejb.metier.interfaces.IAccesChapterMetier;
+import ejb.metier.interfaces.IChapitreMetier;
 import ejb.metier.interfaces.IInscriptionMetier;
 import ejb.metier.interfaces.IModuleMetier;
+import ejb.metier.interfaces.IUserMetier;
 
 @WebServlet("/InscriptionServlet")
 public class InscriptionServlet extends HttpServlet {
@@ -21,6 +24,14 @@ public class InscriptionServlet extends HttpServlet {
 
 	@EJB
 	private IModuleMetier metierModule;
+	
+	@EJB
+	private IAccesChapterMetier metierAccesChapter;
+	
+	@EJB
+	private IUserMetier metierUser;
+	@EJB
+	private IChapitreMetier metierC;
 	
     public InscriptionServlet() {
         super();
@@ -51,6 +62,7 @@ public class InscriptionServlet extends HttpServlet {
 				//break;
 			case "Add" :
 				metierInscription.addInscription(login, idModule, 0);
+				metierAccesChapter.addAccesChapter(login, metierC.getListChapitre(idModule).get(0).getId());
 				break;
 			case "Delete" :
 				metierInscription.deleteInscription(login,idModule);

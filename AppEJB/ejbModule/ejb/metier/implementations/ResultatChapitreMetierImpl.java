@@ -127,4 +127,35 @@ public class ResultatChapitreMetierImpl implements IResultatChapitreMetier  {
 		daoResultatChapitre.editResultatChapitre(rc);
 		
 	}
+	
+	@Override
+	public boolean checkIfUserModuleExist(String login, int idChapitre){
+		boolean exist = false ;
+		
+		ArrayList<ResultatChapitre> listRC = new ArrayList<ResultatChapitre>();
+		listRC = (ArrayList<ResultatChapitre>) this.listResultatChapitre();
+		
+		if(!(listRC.isEmpty()))
+		for(ResultatChapitre rc : listRC){
+			System.out.println(rc.getUser().getLogin());
+			if (rc.getChapitre().getId() == idChapitre && rc.getUser().getLogin().equals(login)){
+				exist = true;
+				break;
+			}
+		}
+		return exist ;
 	}
+
+	@Override
+	public List<ResultatChapitre> getValidatedListResultatChapitreByUser(String login) {
+		List<ResultatChapitre> list = listResultatChapitre();
+		List<ResultatChapitre> results = new ArrayList<>();
+		
+		for(ResultatChapitre rc : list){
+			boolean bool = rc.getUser().getLogin().equals(login) && rc.isValidated() ? true :false ;
+			if(bool) results.add(rc);
+		}
+		
+		return results;
+	}
+}

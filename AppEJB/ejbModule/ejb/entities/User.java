@@ -31,8 +31,26 @@ public class User implements Serializable {
 	@ManyToMany(mappedBy="etudiantsQcm",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Chapitre> listResultats;
 	
+	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+	private List<AccesChapter> listAccesChapters;
 	
 	private static final long serialVersionUID = 1L;
+
+	public List<Chapitre> getListResultats() {
+		return listResultats;
+	}
+
+	public void setListResultats(List<Chapitre> listResultats) {
+		this.listResultats = listResultats;
+	}
+
+	public List<AccesChapter> getListAccesChapters() {
+		return listAccesChapters;
+	}
+
+	public void setListAccesChapters(List<AccesChapter> listAccesChapters) {
+		this.listAccesChapters = listAccesChapters;
+	}
 
 	public int getRole() {
 		return this.role;

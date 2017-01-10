@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -14,11 +15,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ejb.dao.interfaces.IModuleDao;
+import ejb.entities.AccesChapter;
+import ejb.entities.Chapitre;
+import ejb.entities.Module;
 import ejb.entities.QuestionReponse;
 import ejb.entities.Reponse;
+import ejb.entities.ResultatChapitre;
+import ejb.metier.interfaces.IAccesChapterMetier;
 import ejb.metier.interfaces.IChapitreMetier;
+import ejb.metier.interfaces.IModuleMetier;
 import ejb.metier.interfaces.IQuestionReponseMetier;
 import ejb.metier.interfaces.IReponseMetier;
+import ejb.metier.interfaces.IResultatChapitreMetier;
+import ejb.metier.interfaces.IUserMetier;
 
 /**
  * Servlet implementation class ChapitreEtudiantServlet
@@ -28,13 +38,19 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	private IChapitreMetier metier ;
+	private IChapitreMetier metierC ;
 	@EJB
 	private IQuestionReponseMetier metierQR;
-	
 	@EJB
 	private IReponseMetier metierR;
-	
+	@EJB
+	private IResultatChapitreMetier metierRC;
+	@EJB
+	private IUserMetier metierU;
+	@EJB
+	private IModuleMetier metierM;
+	@EJB
+	private IAccesChapterMetier metierA ;
 	
 	public ChapitreEtudiantServlet() {
 		super();
@@ -46,6 +62,7 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 		//INITIALISATION DE PARAMETRES
 		String action = request.getParameter("action");
 		String page = request.getParameter("page");
+		String login = (String) request.getSession().getAttribute("login");
 		
 		String idModuleStr = request.getParameter("idModule");
 		
@@ -86,7 +103,8 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 			}
 		}
 		
-		request.setAttribute("allChapitres", metier.getListChapitre(idModule));
+		request.setAttribute("allChapitres", metierC.getListChapitre(idModule));
+		request.setAttribute("accesChapters", metierA.getAuthorizedChapters(login,idModule));
 		request.getRequestDispatcher("etudiant/chapitre.jsp").forward(request, response);		
 	}
 

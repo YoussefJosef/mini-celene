@@ -13,7 +13,26 @@
 <h2> CHAPITRES DU MODULE</h2>
 <br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 <form  method="post"  id="myform" >
-
+	
+	<h2>La liste des chapitres du module</h2>
+	<table>
+			<tr>
+				<th>Titre :</th>
+				<th>Niveau :</th>
+			
+			</tr>
+		<c:forEach items="${allChapitres}" var="chapitre" >
+			<tr>
+				<td>${chapitre.titre} </td>
+				<td>${chapitre.niveau}</td>
+	
+			 </tr>
+		</c:forEach>
+	</table>
+	<br>
+	
+	<h3>Chaque validation du chapitre vous donne acces au chapitre suivant !</h3>
+	<h2>Vous avez acces aux chapitres suivant :</h2>
 	<table>
 			<tr>
 				<th>Titre :</th>
@@ -22,7 +41,7 @@
 				<th></th>
 				<th></th>
 			</tr>
-		<c:forEach items="${allChapitres}" var="chapitre" >
+		<c:forEach items="${accesChapters}" var="chapitre" >
 			<tr>
 				<td>${chapitre.titre} </td>
 				<td>${chapitre.niveau}</td>

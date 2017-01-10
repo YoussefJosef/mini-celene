@@ -20,6 +20,7 @@ import ejb.entities.Chapitre;
 import ejb.entities.Reponse;
 import ejb.entities.ResultatChapitre;
 import ejb.entities.User;
+import ejb.metier.interfaces.IAccesChapterMetier;
 import ejb.metier.interfaces.IChapitreMetier;
 import ejb.metier.interfaces.IModuleMetier;
 import ejb.metier.interfaces.IQuestionReponseMetier;
@@ -47,6 +48,8 @@ public class QcmServlet extends HttpServlet  {
 	
 	@EJB
 	private IUserMetier metierU;
+	@EJB
+	private IAccesChapterMetier metierA;
 	public QcmServlet() {
 		super();
 	}
@@ -63,6 +66,13 @@ public class QcmServlet extends HttpServlet  {
 		if(idChapitre == 0){
 			if(idChapitreSessionStr!=null && !idChapitreSessionStr.equals(""))
 				idChapitre= Integer.parseInt(idChapitreSessionStr);
+		}
+		int idModule=0;
+		String idModuleSessionStr =""+request.getSession().getAttribute("idMS");
+		if(idModule == 0){
+			if(idModuleSessionStr!=null && !idModuleSessionStr.equals(""))
+				idModule= Integer.parseInt(idModuleSessionStr);
+			
 		}
 	
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -105,12 +115,14 @@ public class QcmServlet extends HttpServlet  {
 				scoreMin =	metierC.getChapitre(idChapitre).getScoreMin();
 				
 				
+				/*Traitement des etats */
 				
-				
-				if(!checkIfUserModuleExist(login, idChapitre)){
+				if(  !( metierRC.checkIfUserModuleExist(login, idChapitre) )  ){
 					if(score>scoreMin){
-					
+						
 						metierRC.addResultatChapitre(login, idChapitre, score, datevalidation,TRUE);
+						// fct to add access CHApter here
+					    metierA.updateAccesChapterList(login,idModule);
 						messageInformation = "Bravo ! vous avez reussi a passer le QCM et valider le chapitre,"
 								+ "vous avez acces au chapitre suivant !";
 						//bloké qcm
@@ -138,8 +150,9 @@ public class QcmServlet extends HttpServlet  {
 						if(score>=scoreMin){
 							messageInformation = "Bravo ! vous avez reussi a passer le QCM et valider le chapitre,"
 									+ "vous avez acces au chapitre suivant !";
-					
+						
 							metierRC.editResultatChapitreWithDate(login, idChapitre, score, datevalidation,TRUE);
+							metierA.updateAccesChapterList(login,idModule);
 		
 							request.setAttribute("messageInformation", messageInformation);
 							request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
@@ -166,23 +179,7 @@ public class QcmServlet extends HttpServlet  {
 						request.setAttribute("messageInformation", messageInformation);
 						request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 					}
-				}
-				
-				
-			
-					
-//					request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
-//					request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
-//					request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
-//				
-//		
-//					request.setAttribute("messageInformation", messageInformation);
-//					request.getRequestDispatcher("etudiant/qcm.jsp").forward(request, response);
-//	
-//					request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
-//					request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
-//					request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
-				
+				}			
 			}
 		}
 	}
@@ -191,23 +188,6 @@ public class QcmServlet extends HttpServlet  {
 		doGet(request, response);
 	}
 	
-	public boolean checkIfUserModuleExist(String login, int idChapitre){
-		boolean exist = false ;
-		
-	
-		ArrayList<ResultatChapitre> listRC = new ArrayList<ResultatChapitre>();
-		listRC = (ArrayList<ResultatChapitre>) metierRC.listResultatChapitre();
-		
-		if(!(listRC.isEmpty()))
-		for(ResultatChapitre rc : listRC){
-			System.out.println(rc.getUser().getLogin());
-			if (rc.getChapitre().getId() == idChapitre && rc.getUser().getLogin().equals(login)){
-				exist = true;
-				break;
-			}
-		}
 
-		return exist ;
-	}
 }
 
