@@ -12,7 +12,7 @@
 <br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 <h1>ESPACE ETUDIANT</h1>
 <h1>RESULTAT QCM DU CHAPITRE</h1>
-	
+	<h1>idM : ${idMS}</h1>
 	<p> ${messageInformation} </br></p>
 	<form action="./InscriptionServlet" method="post"  id="myform" >
 		<table>

@@ -63,12 +63,18 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String page = request.getParameter("page");
 		String login = (String) request.getSession().getAttribute("login");
+	//	request.getSession().removeAttribute("idMS");
+		
 		
 		String idModuleStr = request.getParameter("idModule");
 		
 		int idModule= 0;
+	
 		if(idModuleStr!=null && !idModuleStr.equals(""))
 			idModule = Integer.parseInt(idModuleStr);
+		
+		//request.getSession().setAttribute("idMS",idModule);
+	
 		
 		String idChapitreStr = request.getParameter("idChapitre");
 		int idChapitre= 0;
@@ -96,6 +102,7 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 				request.setAttribute("listquestions", listQR);
 				request.setAttribute("listdelistReponses", l);
 				
+				request.setAttribute("idMS", idModule);
 				request.getRequestDispatcher("etudiant/qcm.jsp").forward(request, response);		
 				break;
 			case "resultat":

@@ -67,14 +67,15 @@ public class QcmServlet extends HttpServlet  {
 			if(idChapitreSessionStr!=null && !idChapitreSessionStr.equals(""))
 				idChapitre= Integer.parseInt(idChapitreSessionStr);
 		}
-		int idModule=0;
+		
+		int idModule = 0 ;
 		String idModuleSessionStr =""+request.getSession().getAttribute("idMS");
 		if(idModule == 0){
 			if(idModuleSessionStr!=null && !idModuleSessionStr.equals(""))
 				idModule= Integer.parseInt(idModuleSessionStr);
 			
 		}
-	
+		
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		Date today = Calendar.getInstance().getTime();        
 		String datevalidation = df.format(today);
@@ -116,19 +117,21 @@ public class QcmServlet extends HttpServlet  {
 				
 				
 				/*Traitement des etats */
-				
+				System.out.println("QCMSERVLETidM :"+idModule);
 				if(  !( metierRC.checkIfUserModuleExist(login, idChapitre) )  ){
 					if(score>scoreMin){
 						
 						metierRC.addResultatChapitre(login, idChapitre, score, datevalidation,TRUE);
 						// fct to add access CHApter here
-					    metierA.updateAccesChapterList(login,idModule);
+						
+					    metierA.updateAccesChapterList(login,idModule,idChapitre);
 						messageInformation = "Bravo ! vous avez reussi a passer le QCM et valider le chapitre,"
 								+ "vous avez acces au chapitre suivant !";
 						//bloké qcm
 			
 						request.setAttribute("messageInformation", messageInformation);
 						request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
+						
 						request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
 						request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 						
@@ -152,7 +155,7 @@ public class QcmServlet extends HttpServlet  {
 									+ "vous avez acces au chapitre suivant !";
 						
 							metierRC.editResultatChapitreWithDate(login, idChapitre, score, datevalidation,TRUE);
-							metierA.updateAccesChapterList(login,idModule);
+							metierA.updateAccesChapterList(login,idModule,idChapitre);
 		
 							request.setAttribute("messageInformation", messageInformation);
 							request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());

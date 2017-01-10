@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ejb.entities.Chapitre;
 import ejb.metier.interfaces.IAccesChapterMetier;
 import ejb.metier.interfaces.IChapitreMetier;
 import ejb.metier.interfaces.IInscriptionMetier;
@@ -54,6 +56,8 @@ public class InscriptionServlet extends HttpServlet {
 		if(idInscriptionStr!=null && !idInscriptionStr.equals(""))
 			idInscription = Integer.parseInt(idInscriptionStr);
 		
+		List<Chapitre> listC = metierC.getListChapitre(idModule) ;
+		
 		if(action != null ){
 			switch(action){
 			case "home" :
@@ -62,7 +66,8 @@ public class InscriptionServlet extends HttpServlet {
 				//break;
 			case "Add" :
 				metierInscription.addInscription(login, idModule, 0);
-				metierAccesChapter.addAccesChapter(login, metierC.getListChapitre(idModule).get(0).getId());
+				if(  !(listC.isEmpty())  )
+				metierAccesChapter.addAccesChapter(login, listC.get(0).getId());
 				break;
 			case "Delete" :
 				metierInscription.deleteInscription(login,idModule);

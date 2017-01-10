@@ -98,16 +98,19 @@ public class AccesChapterMetierImpl implements IAccesChapterMetier{
 		}
 	
 	@Override
-	public void updateAccesChapterList(String login,int idModule){
-		List<Chapitre> listCm = metierC.getListChapitre(idModule);
-		List<ResultatChapitre> listRC =metierRC.getValidatedListResultatChapitreByUser(login);
-		List<Chapitre> listCf = this.getChaptersList(listRC, listCm);
-		
-		int idChap = 0 ;
-		if(listCf.size() <listCm.size()  ){
-		 idChap = listCm.get(listCf.size()).getId();
-		 addAccesChapter(login,idChap ); 
+	public void updateAccesChapterList(String login,int idModule,int idChapitre){
+	int newIdM=	metierC.getChapitre(idChapitre).getModule().getId();
+		List<Chapitre> listCm = metierC.getListChapitre(newIdM);
+		//List<ResultatChapitre> listRC =metierRC.getValidatedListResultatChapitreByUser(login);
+	//	List<Chapitre> listCf = this.getChaptersList(listRC, listCm);
+		System.out.println("idM :"+idModule+"idChap : " +idChapitre+"newidm:"+newIdM);
+		for(int j = 0 ; j < listCm.size() ;++j)
+		System.out.println("idChap: "+listCm.get(j).getId());
+		for(int i = 0 ; i < listCm.size()-1 ; ++i){
+			if(listCm.get(i).getId() == idChapitre)
+				 addAccesChapter(login,listCm.get(i+1).getId() );
 		}
+		
 	}
 
 	@Override
