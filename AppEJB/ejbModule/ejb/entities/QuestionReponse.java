@@ -18,6 +18,7 @@ public class QuestionReponse implements Serializable {
 	@Id@GeneratedValue
 	private int id;
 	private String question;
+	private String indication;
 	private int score;
 
 	@OneToMany(mappedBy="QCM", fetch=FetchType.EAGER)
@@ -74,5 +75,13 @@ public class QuestionReponse implements Serializable {
 
 	public void setScore(int score) {
 		this.score = score;
+	}
+
+	public String getIndication() {
+		return indication;
+	}
+
+	public void setIndication(String indication) {
+		this.indication = indication;
 	}
 }

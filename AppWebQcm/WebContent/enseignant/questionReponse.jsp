@@ -50,6 +50,10 @@ $(document).ready(function(){
 			<td><input type="text" name="question" value="${questionReponse.question}"/></td>
 		</tr>
 		<tr>
+			<td>Indication  </td>
+			<td><input type="text" name="indication" value="${questionReponse.indication}"/></td>
+		</tr>
+		<tr>
 			<td>Score  </td>
 			<td><input id="score" type="text" name="score" value="${questionReponse.score}"/></td>
 		</tr>
@@ -78,6 +82,7 @@ $(document).ready(function(){
 	<table>
 			<tr>
 				<th>Question </th>
+				<th>Indication </th>
 				<th>Reponse  </th>
 				<th>Score </th>
 				<th></th>
@@ -85,6 +90,7 @@ $(document).ready(function(){
 		<c:forEach items="${allQuestionReponses}" var="qr" >
 			<tr>
 				<td>${qr.question} </td>
+				<td>${qr.indication}</td>
 				<td>${qr.reponse}</td>
 				<td>${qr.score}</td>
 				<td><button type="submit" name="action" value="Delete" formaction="./QuestionReponseServlet?idQuestionReponse=${qr.id}" form="myform">Supprimer </button></td>

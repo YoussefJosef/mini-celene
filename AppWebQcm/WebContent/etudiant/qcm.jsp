@@ -6,6 +6,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $(".indic").click(function(){
+        $(".indica").toggle();
+    });
+});
+</script>
 </head>
 <body>
 <a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
@@ -17,6 +25,7 @@
 		<c:set var="inc"  value="${inc + 1}" />
 			<input type="hidden" name="q+${inc}" value="${q.id}">
 			<h3>Question  <c:out value="${ctr.count}"/> : ${q.question}</h3> 
+			<div class="indic">Indication(cliquer ici)</div> <div class="indica"  style="display: none;">${q.indication}</div>
 						
 				<c:forEach items="${listdelistReponses.get(ctr.index)}" var="reponse" >
 					

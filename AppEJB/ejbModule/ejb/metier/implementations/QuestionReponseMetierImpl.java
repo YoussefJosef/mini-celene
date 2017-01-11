@@ -66,11 +66,12 @@ public class QuestionReponseMetierImpl implements IQuestionReponseMetier {
 	}
 
 	@Override
-	public int addQuestionReponse(int idChapitre, String question, int nbReponse, int score) {
+	public int addQuestionReponse(int idChapitre, String question, int nbReponse, int score, String indication) {
 		QuestionReponse qr = new QuestionReponse();
 		qr.setQuestion(question);
 		qr.setNbReponse(nbReponse);
 		qr.setScore(score);
+		qr.setIndication(indication);
 		qr.setQcmChapitre(daoChapitre.getChapitre(idChapitre));
 		em.persist(qr);	
 		return qr.getId();

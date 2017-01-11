@@ -24,6 +24,7 @@ public class Chapitre implements Serializable{
 	private String titre;
 	private int scoreMin;
 	private int niveau;
+	private boolean printAnswers;
 	
 
 	@ManyToOne
@@ -114,6 +115,14 @@ public class Chapitre implements Serializable{
 
 	public void setEtudiantsQcm(List<User> etudiantsQcm) {
 		this.etudiantsQcm = etudiantsQcm;
+	}
+
+	public boolean isPrintAnswers() {
+		return printAnswers;
+	}
+
+	public void setPrintAnswers(boolean printAnswers) {
+		this.printAnswers = printAnswers;
 	}
 	
 }

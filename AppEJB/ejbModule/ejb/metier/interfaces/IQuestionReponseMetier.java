@@ -8,6 +8,6 @@ import ejb.entities.Reponse;
 @Local
 public interface IQuestionReponseMetier extends IQuestionReponseDao {
 	
-	public int addQuestionReponse(int idChapitre,String question,int nbReponse,int score);
+	public int addQuestionReponse(int idChapitre,String question,int nbReponse,int score,String indication);
 	public Reponse getReponseByIdQrAndStringReponse ( int idQuestionReponse, String reponse);
 }

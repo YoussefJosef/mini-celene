@@ -40,7 +40,7 @@ public class QuestionReponseServlet extends HttpServlet {
 					idQuestionReponse = Integer.parseInt(idQuestionReponseStr);
 				
 				String question= request.getParameter("question");
-				
+				String indication= request.getParameter("indication");
 				String nbReponseStr = request.getParameter("numReponse");
 				int nbReponse= 0;
 				if(nbReponseStr!=null && !nbReponseStr.equals(""))
@@ -63,7 +63,7 @@ public class QuestionReponseServlet extends HttpServlet {
 				switch(action){
 				case "Add" :
 					if(idChapitre != 0){
-						int idQCM = metier.addQuestionReponse(idChapitre, question, nbReponse,score);
+						int idQCM = metier.addQuestionReponse(idChapitre, question, nbReponse,score,indication);
 						
 						//on créer toutes les réponses directement.
 						for(int i=0; i<nbReponse; i++){

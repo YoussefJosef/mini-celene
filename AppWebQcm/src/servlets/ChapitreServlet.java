@@ -48,6 +48,8 @@ public class ChapitreServlet extends HttpServlet {
 		
 		String titre = request.getParameter("titre");
 		String texte = request.getParameter("texte");
+		String printAnswersString = request.getParameter("printAnswers");
+		boolean printAnswers = Boolean.parseBoolean(printAnswersString);
 		
 		String scoreMinStr = request.getParameter("scoreMin");
 		int scoreMin = 0;
@@ -84,7 +86,7 @@ public class ChapitreServlet extends HttpServlet {
 				break;
 			case "Add":
 				if(idModule != 0)
-				metier.addChapitre(idModule, titre, texte, niveau, scoreMin);
+				metier.addChapitre(idModule, titre, texte, niveau, scoreMin,printAnswers);
 				break;
 			case "Edit":
 				if(page.equals("chapitre")){
@@ -92,7 +94,7 @@ public class ChapitreServlet extends HttpServlet {
 					request.getRequestDispatcher("enseignant/editChapitre.jsp").forward(request, response);
 				} 
 				else if(page.equals("edit") && idChapitre !=0){
-					metier.editChapitreById(idChapitre, titre, texte, niveau, scoreMin);
+					metier.editChapitreById(idChapitre, titre, texte, niveau, scoreMin,printAnswers);
 					request.setAttribute("allChapitres", metier.getListChapitre(idModule));
 					request.getRequestDispatcher("enseignant/chapitre.jsp").forward(request, response);
 				}

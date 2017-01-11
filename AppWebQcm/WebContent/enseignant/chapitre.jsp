@@ -28,7 +28,13 @@
 			<td>Score min  </td>
 			<td><input type="text" name="scoreMin" value="${chapitre.scoreMin}"/></td>
 		</tr>
-	
+	    <tr>
+			<td> </td>
+			<td>Afficher seulement le score aux etudiants
+			<input type="radio" name="printAnswers" value="false" checked /><br>
+			Afficher le score et les bonnes reponses
+			<input type="radio" name="printAnswers" value="true"/></td>
+		</tr>
 		<tr>
 			<td>
 			<button type="submit" name="action" value="Add" formaction="./ChapitreServlet?idModule=${idMS}" form="myform">Ajouter le chapitre</button>
@@ -42,6 +48,7 @@
 				<th>Nom du chapitre :</th>
 				<th>Cours : </th>
 				<th>Score min :</th>
+				<th>Afficher le score et les bonnes reponses :</th>
 				<th></th>
 				<th></th>
 				<th></th>
@@ -51,6 +58,7 @@
 				<td>${chapitre.titre} </td>
 				<td>${chapitre.texte}</td>
 				<td>${chapitre.scoreMin}</td>
+				<td>${chapitre.printAnswers}</td>
 				<td><button type="submit" name="action" value="Edit" formaction="./ChapitreServlet?idChapitre=${chapitre.id}&page=chapitre" form="myform">Modifier le chapitre</button></td>
 				<td><button type="submit" name="action" value="Delete" formaction="./ChapitreServlet?idChapitre=${chapitre.id}" form="myform">Supprimer le chapitre </button></td>
 				<td><button type="submit" name="action" value="Edit" formaction="./QuestionReponseServlet?idChapitre=${chapitre.id}&page=chapitre&action=chapitre" form="myform">Gerer le QCM</button></td>

@@ -24,7 +24,13 @@
 			<td>Score min :</td>
 			<td><input type="text" name="scoreMin" value="${currentChapitre.scoreMin}"/></td>
 		</tr>
-	
+	  <tr>
+			<td> </td>
+			<td>Afficher seulement le score aux etudiants
+			<input type="radio" name="printAnswers" value="false" checked /><br>
+			afficher le score et les bonnes reponses
+			<input type="radio" name="printAnswers" value="true"/></td>
+		</tr>
 		<tr>
 			<td>
 			<button type="submit" name="action" value="Edit" formaction="./ChapitreServlet?idChapitre=${currentChapitre.id}&page=edit">Mettre a jour</button>
