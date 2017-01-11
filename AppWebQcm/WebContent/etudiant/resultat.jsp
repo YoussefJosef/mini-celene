@@ -13,7 +13,8 @@
 <h1>ESPACE ETUDIANT</h1>
 <h2>RESULTAT QCM DU CHAPITRE</h2>
 	<p> ${messageInformation} </br></p>
-	<c:if test="${reusite}"><form action="./InscriptionServlet" method="post"  id="myform" >
+	<c:if test="${reusite}">
+	<form action="./InscriptionServlet" method="post"  id="myform" >
 		<table>
 				<tr>
 					<th>Chapitre </th>

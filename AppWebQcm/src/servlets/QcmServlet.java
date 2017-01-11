@@ -100,14 +100,14 @@ public class QcmServlet extends HttpServlet  {
 				for(int i =0 ; i<listQuestion.size();++i){
 					question = Integer.parseInt(listQuestion.get(i));
 					reponseE = listReponseEtudiant.get(i);
+					System.out.println(i+":"+listReponseEtudiant);
 					reponse = metierQR.getReponseByIdQrAndStringReponse(question,reponseE);
 					if(reponse.isBonneRep()){
 						score +=metierQR.getQuestionReponse(question).getScore();
 					}
 				}
 				scoreMin =	metierC.getChapitre(idChapitre).getScoreMin();
-				
-				
+					
 				/*Traitement des etats */
 				if(  !( metierRC.checkIfUserModuleExist(login, idChapitre) )  ){
 					if(score>=scoreMin){

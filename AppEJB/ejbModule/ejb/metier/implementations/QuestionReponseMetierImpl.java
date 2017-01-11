@@ -86,7 +86,7 @@ public class QuestionReponseMetierImpl implements IQuestionReponseMetier {
 				Reponse.class)
 				.setParameter("QR",questionReponse).setParameter("rep",reponseEtudiant);
 		
-		return  (Reponse) q.getSingleResult();
+		return  (Reponse) q.getResultList().get(0);
 		
 	}	
 

@@ -10,6 +10,7 @@ public class QuestionReponseDto {
 
 	private int id;
 	private String Question;
+	private String Indication;
 	private List<String> reponse;
 	private int Score;
 	
@@ -46,6 +47,7 @@ public class QuestionReponseDto {
 	public QuestionReponseDto(QuestionReponse QR){
 		this.id = QR.getId();
 		this.Question = QR.getQuestion();
+		this.Indication= QR.getIndication();
 		this.Score = QR.getScore();
 		List<Reponse> R = QR.getReponse();
 		List<String> reponse = new ArrayList();
@@ -53,5 +55,11 @@ public class QuestionReponseDto {
 			reponse.add(r.getRep());
 		}
 		this.reponse = reponse;
+	}
+	public String getIndication() {
+		return Indication;
+	}
+	public void setIndication(String indication) {
+		Indication = indication;
 	}
 }

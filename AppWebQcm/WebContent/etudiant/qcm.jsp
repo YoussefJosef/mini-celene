@@ -29,9 +29,8 @@ $(document).ready(function(){
 						
 				<c:forEach items="${listdelistReponses.get(ctr.index)}" var="reponse" >
 					
-					 <input type="checkbox" name="${inc}" value="${reponse.rep}"> ${reponse.rep}<br>
-						 
-						
+					 <input type="radio" name="${inc}" value="${reponse.rep}" checked> ${reponse.rep} <br>
+
 				</c:forEach>
 				
 		</c:forEach>

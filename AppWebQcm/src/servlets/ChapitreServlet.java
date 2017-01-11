@@ -76,11 +76,9 @@ public class ChapitreServlet extends HttpServlet {
 				break;
 			case "Add":
 				if(idModule != 0)
-<<<<<<< HEAD
-				metier.addChapitre(idModule, titre, texte, niveau, scoreMin,printAnswers);
-=======
-				metier.addChapitre(idModule, titre, texte, scoreMin);
->>>>>>> 31746b854b40469b39bde41c04b5f8e55f70dc66
+
+				metier.addChapitre(idModule, titre, texte, scoreMin,printAnswers);
+
 				break;
 			case "Edit":
 				if(page.equals("chapitre")){
@@ -88,11 +86,8 @@ public class ChapitreServlet extends HttpServlet {
 					request.getRequestDispatcher("enseignant/editChapitre.jsp").forward(request, response);
 				} 
 				else if(page.equals("edit") && idChapitre !=0){
-<<<<<<< HEAD
-					metier.editChapitreById(idChapitre, titre, texte, niveau, scoreMin,printAnswers);
-=======
-					metier.editChapitreById(idChapitre, titre, texte, scoreMin);
->>>>>>> 31746b854b40469b39bde41c04b5f8e55f70dc66
+
+					metier.editChapitreById(idChapitre, titre, texte, scoreMin,printAnswers);
 					request.setAttribute("allChapitres", metier.getListChapitre(idModule));
 					request.getRequestDispatcher("enseignant/chapitre.jsp").forward(request, response);
 				}
