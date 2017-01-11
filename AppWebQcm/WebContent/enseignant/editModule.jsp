@@ -9,17 +9,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Modules Information</h1>
+<h1>ESPACE ENSEIGNANT</h1>
+<h2>GESTION MODULE</h2>
+<h3>EDITION</h3>
 	<form action="./ModuleServlet" method="post" id="myform">
 	<table>
 		<tr>
-			<td>nom</td>
+			<td>Nom du module</td>
 			<td><input type="text" name="nom" value="${currentModule.nom}"/></td>
 		</tr>
 	
 		<tr>
 			<td>
-			<button type="submit" name="action" value="Edit" formaction="./ModuleServlet?id=${currentModule.id}&page=edit">Edit</button>
+			<button type="submit" name="action" value="Edit" formaction="./ModuleServlet?id=${currentModule.id}&page=edit">Mettre a jour</button>
 			</td>
 		</tr>
 	</table>

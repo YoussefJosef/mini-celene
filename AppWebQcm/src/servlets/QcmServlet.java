@@ -68,14 +68,6 @@ public class QcmServlet extends HttpServlet  {
 				idChapitre= Integer.parseInt(idChapitreSessionStr);
 		}
 		
-		int idModule = 0 ;
-		String idModuleSessionStr =""+request.getSession().getAttribute("idMS");
-		if(idModule == 0){
-			if(idModuleSessionStr!=null && !idModuleSessionStr.equals(""))
-				idModule= Integer.parseInt(idModuleSessionStr);
-			
-		}
-		
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		Date today = Calendar.getInstance().getTime();        
 		String datevalidation = df.format(today);
@@ -117,14 +109,13 @@ public class QcmServlet extends HttpServlet  {
 				
 				
 				/*Traitement des etats */
-				System.out.println("QCMSERVLETidM :"+idModule);
 				if(  !( metierRC.checkIfUserModuleExist(login, idChapitre) )  ){
-					if(score>scoreMin){
+					if(score>=scoreMin){
 						
 						metierRC.addResultatChapitre(login, idChapitre, score, datevalidation,TRUE);
 						// fct to add access CHApter here
 						
-					    metierA.updateAccesChapterList(login,idModule,idChapitre);
+					    metierA.updateAccesChapterList(login,idChapitre);
 						messageInformation = "Bravo ! vous avez reussi a passer le QCM et valider le chapitre,"
 								+ "vous avez acces au chapitre suivant !";
 						//bloké qcm
@@ -137,7 +128,7 @@ public class QcmServlet extends HttpServlet  {
 						
 					}
 					else{
-						metierRC.addResultatChapitre(login, idChapitre, score,datevalidation,FALSE);
+						metierRC.addResultatChapitre(login, idChapitre, score,"-----",FALSE);
 						messageInformation = "Vous n'avez pas reussi a valider le QCM, "
 								+ "Votre score="+score+" est inferieur au Score Min="+scoreMin+", Veuillez réessayer !";
 						request.setAttribute("messageInformation", messageInformation);
@@ -155,7 +146,7 @@ public class QcmServlet extends HttpServlet  {
 									+ "vous avez acces au chapitre suivant !";
 						
 							metierRC.editResultatChapitreWithDate(login, idChapitre, score, datevalidation,TRUE);
-							metierA.updateAccesChapterList(login,idModule,idChapitre);
+							metierA.updateAccesChapterList(login,idChapitre);
 		
 							request.setAttribute("messageInformation", messageInformation);
 							request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
@@ -165,7 +156,7 @@ public class QcmServlet extends HttpServlet  {
 							//bloké qcm
 						}
 						else{
-							metierRC.editResultatChapitreWithDate(login, idChapitre, score, datevalidation,FALSE);
+							metierRC.editResultatChapitreWithDate(login, idChapitre, score, "-----",FALSE);
 							messageInformation = "Vous n'avez pas reussi a valider le QCM, "
 									+ "Votre score="+score+" est inferieur au Score Min="+scoreMin+", Veuillez réessayer !";
 							request.setAttribute("messageInformation", messageInformation);

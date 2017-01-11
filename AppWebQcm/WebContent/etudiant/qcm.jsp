@@ -10,16 +10,14 @@
 <body>
 <a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 <h1>ESPACE ETUDIANT</h1>
-<h1>Q.C.M :</h1>
-<h1>idM : ${idMS}</h1>
+<h1>QUESTIONNAIRE A CHOIX MULTIPLE</h1>
 	<p>${messageInformation}</p>
 	<form action="./QcmServlet" method="post"  id="myform" >
 		<c:forEach items="${listquestions}"  var="q" varStatus="ctr">
 		<c:set var="inc"  value="${inc + 1}" />
 			<input type="hidden" name="q+${inc}" value="${q.id}">
-			<h3>Question :</h3> ${q.question}
-			<h3>Les reponses :</h3>			
-				
+			<h3>Question  <c:out value="${ctr.count}"/> : ${q.question}</h3> 
+						
 				<c:forEach items="${listdelistReponses.get(ctr.index)}" var="reponse" >
 					
 					 <input type="radio" name="${inc}" value="${reponse.rep}" checked="checked"> ${reponse.rep}<br>
@@ -28,8 +26,8 @@
 				</c:forEach>
 				
 		</c:forEach>
-		
-		<button type="submit" name="action" value="verify" formaction="./QcmServlet" form="myform">envoyer </button>		
+		<br>
+		<button type="submit" name="action" value="verify" formaction="./QcmServlet" form="myform">Soumettre </button>		
 	</form>
 </body>
 </html>

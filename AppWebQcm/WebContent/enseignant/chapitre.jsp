@@ -17,25 +17,21 @@
 	
 	<table>
 		<tr>
-			<td>titre : </td>
+			<td>Nom du chapitre </td>
 			<td><input type="text" name="titre" value="${chapitre.titre}"/></td>
 		</tr>
 		<tr>
-			<td>texte : </td>
+			<td>Cours </td>
 			<td><input type="text" name="texte" value="${chapitre.texte}"/></td>
 		</tr>
 		<tr>
-			<td>niveau : </td>
-			<td><input type="text" name="niveau" value="${chapitre.niveau}"/></td>
-		</tr>
-		<tr>
-			<td>score Min : </td>
+			<td>Score min  </td>
 			<td><input type="text" name="scoreMin" value="${chapitre.scoreMin}"/></td>
 		</tr>
 	
 		<tr>
 			<td>
-			<button type="submit" name="action" value="Add" formaction="./ChapitreServlet?idModule=${idMS}" form="myform">Ajouter</button>
+			<button type="submit" name="action" value="Add" formaction="./ChapitreServlet?idModule=${idMS}" form="myform">Ajouter le chapitre</button>
 			
 			</td>
 		</tr>
@@ -43,10 +39,9 @@
 
 	<table>
 			<tr>
-				<th>Titre :</th>
-				<th>Texte : </th>
-				<th>Niveau :</th>
-				<th>Score Min :</th>
+				<th>Nom du chapitre :</th>
+				<th>Cours : </th>
+				<th>Score min :</th>
 				<th></th>
 				<th></th>
 				<th></th>
@@ -55,10 +50,9 @@
 			<tr>
 				<td>${chapitre.titre} </td>
 				<td>${chapitre.texte}</td>
-				<td>${chapitre.niveau}</td>
 				<td>${chapitre.scoreMin}</td>
 				<td><button type="submit" name="action" value="Edit" formaction="./ChapitreServlet?idChapitre=${chapitre.id}&page=chapitre" form="myform">Modifier le chapitre</button></td>
-				<td><button type="submit" name="action" value="Delete" formaction="./ChapitreServlet?idChapitre=${chapitre.id}" form="myform">Supprimer </button></td>
+				<td><button type="submit" name="action" value="Delete" formaction="./ChapitreServlet?idChapitre=${chapitre.id}" form="myform">Supprimer le chapitre </button></td>
 				<td><button type="submit" name="action" value="Edit" formaction="./QuestionReponseServlet?idChapitre=${chapitre.id}&page=chapitre&action=chapitre" form="myform">Gerer le QCM</button></td>
 			 </tr>
 		</c:forEach>

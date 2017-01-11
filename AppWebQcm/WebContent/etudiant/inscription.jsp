@@ -10,23 +10,19 @@
 <body>
 <br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 <h1>ESPACE ETUDIANT</h1>
-<h1>INSCRIPTION</h1>
+<h1>INSCRIPTION AUX MODULES</h1>
 	
 	<form action="./InscriptionServlet" method="post"  id="myform" >
 		<table>
 				<tr>
-					<th>ID :</th>
-					<th>NOM : </th>
-					<th>Enseignant :</th>
+					<th>Nom du module : </th>
 					<th></th>
 					
 				</tr>
 			<c:forEach items="${allModules}" var="module" >
 				<tr>
-					<td>${module.id} </td>
 					<td>${module.nom}</td>
-					<td>${module.user}</td>
-					<td><button type="submit" name="action" value="Add" formaction="./InscriptionServlet?idModule=${module.id}" form="myform">S'inscrire à ce module.</button></td>
+					<td><button type="submit" name="action" value="Add" formaction="./InscriptionServlet?idModule=${module.id}" form="myform">S'inscrire au module.</button></td>
 				 </tr>
 			</c:forEach>
 		</table>

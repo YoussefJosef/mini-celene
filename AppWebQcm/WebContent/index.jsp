@@ -11,14 +11,5 @@
 
 			<div><a href="AuthServlet">se connecter </a></div>
 
- 			<div>
-                <ul>
-                    <li><a href=""> Acceuil</a></li>
-                    <li><a href="UserServlet"> Espace Admin</a></li>
-                    <li><a href=""> Espace Etudiant</a></li>
-                    <li><a href=""> Espace Enseignant</a></li>
-               </ul>
-            </div>
-            
 </body>
 </html>

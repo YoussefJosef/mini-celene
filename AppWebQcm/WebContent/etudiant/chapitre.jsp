@@ -17,14 +17,12 @@
 	<h2>La liste des chapitres du module</h2>
 	<table>
 			<tr>
-				<th>Titre :</th>
-				<th>Niveau :</th>
+				<th></th>
 			
 			</tr>
-		<c:forEach items="${allChapitres}" var="chapitre" >
+		<c:forEach items="${allChapitres}" var="chapitre"  varStatus="loop" >
 			<tr>
-				<td>${chapitre.titre} </td>
-				<td>${chapitre.niveau}</td>
+				<td>Chapitre  <c:out value="${loop.count}"/> : ${chapitre.titre} </td>
 	
 			 </tr>
 		</c:forEach>
@@ -35,19 +33,17 @@
 	<h2>Vous avez acces aux chapitres suivant :</h2>
 	<table>
 			<tr>
-				<th>Titre :</th>
-				<th>Niveau :</th>
+				<th></th>
 				<th></th>
 				<th></th>
 				<th></th>
 			</tr>
-		<c:forEach items="${accesChapters}" var="chapitre" >
+		<c:forEach items="${accesChapters}" var="chapitre"  varStatus="loopy" >
 			<tr>
-				<td>${chapitre.titre} </td>
-				<td>${chapitre.niveau}</td>
-				<td><button type="submit" name="action" value="cours" formaction="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&textChapitre=${chapitre.texte}" form="myform">Voir cours</button></td>
-				<td><button type="submit" name="action" value="qcm" formaction="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}" form="myform">Repondre au Qcm</button></td>
-				<td><button type="submit" name="action" value="resultat" formaction="./QcmServlet?idChapitre=${chapitre.id}" form="myform">Resultat</button></td>
+				<td>Chapitre  <c:out value="${loopy.count}"/> : ${chapitre.titre} </td>
+				<td><button type="submit" name="action" value="cours" formaction="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&textChapitre=${chapitre.texte}" form="myform">Consulter le cours</button></td>
+				<td><button type="submit" name="action" value="qcm" formaction="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}" form="myform">Repondre au Questionnaire</button></td>
+			<!--	<td><button type="submit" name="action" value="resultat" formaction="./QcmServlet?idChapitre=${chapitre.id}" form="myform">Resultat du chapitre</button></td> -->
 			 </tr>
 		</c:forEach>
 	</table>

@@ -72,20 +72,20 @@ public class InscriptionMetierImpl implements IInscriptionMetier{
 	}
 	
 	@Override
-	public void addInscription(String login, int idModule, int progression) {
+	public void addInscription(String login, int idModule, String dateInscription) {
 		User user = daoUser.getUser(login);
 		Module module = daoModule.getModule(idModule);
 		Inscription i = new Inscription();
 		i.setUser(user);
 		i.setModule(module);
-		i.setProgression(progression);
+		i.setDateInscription(dateInscription);
 		daoInscription.addInscription(i);
 	}
 
 	@Override
-	public void editInscription(String login, int idModule, int progression) {
+	public void editInscription(String login, int idModule,String dateInscription) {
 		Inscription i = daoInscription.getInscription(login, idModule);
-		i.setProgression(progression);
+		i.setDateInscription(dateInscription);
 		daoInscription.editInscription(i);
 	}
 

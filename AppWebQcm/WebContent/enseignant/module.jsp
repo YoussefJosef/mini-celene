@@ -16,33 +16,29 @@
 	<table>
 
 		<tr>
-			<td>titre :</td>
+			<td>Nom du module </td>
 			<td><input type="text" name="nom" value="${module.nom}"/></td>
 		</tr>
 		
 		<tr>
 			<td>
-			<input type="submit" name="action" value="Add" />
+			<button type="submit" name="action" value="Add" >Ajouter le module</button>
 			</td>
 		</tr>
 	</table>
 
 	<table>
 			<tr>
-				<th>ID :</th>
-				<th>NOM : </th>
-				<th>user</th>
+				<th>Nom du module : </th>
 				<th></th>
 				<th></th>
 				<th></th>
 			</tr>
 		<c:forEach items="${allModules}" var="module" >
 			<tr>
-				<td>${module.id} </td>
 				<td>${module.nom}</td>
-				<td>${module.user}</td>
 				<td><button type="submit" name="action" value="Edit" formaction="./ModuleServlet?id=${module.id}&page=module" form="myform">Modifier le titre du module</button></td>
-				<td><button type="submit" name="action" value="Delete" formaction="./ModuleServlet?id=${module.id}" form="myform">Supprimer </button></td>
+				<td><button type="submit" name="action" value="Delete" formaction="./ModuleServlet?id=${module.id}" form="myform">Supprimer le module </button></td>
 				<td><button type="submit" name="action" value="Edit" formaction="./ChapitreServlet?idModule=${module.id}&page=module&action=module" form="myform">Gerer les chapitres du module</button></td>
 			 </tr>
 		</c:forEach>

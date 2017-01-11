@@ -88,6 +88,16 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 		if(action!= null ){
 			switch(action){
 			case "cours":
+				List<Chapitre> listC = new ArrayList<Chapitre>();
+				String cours = metierC.getChapitre(idChapitre).getTexte();
+				String module = metierC.getChapitre(idChapitre).getModule().getNom();
+				String chapitre = metierC.getChapitre(idChapitre).getTitre();
+				
+				request.setAttribute("cours", cours);
+				request.setAttribute("module", module);
+				request.setAttribute("chapitre", chapitre);
+				request.getRequestDispatcher("etudiant/cours.jsp").forward(request, response);		
+				
 				break;
 			case "qcm":
 				request.getSession().setAttribute("idChap",idChapitre);

@@ -1,6 +1,10 @@
 package servlets;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -56,6 +60,10 @@ public class InscriptionServlet extends HttpServlet {
 		if(idInscriptionStr!=null && !idInscriptionStr.equals(""))
 			idInscription = Integer.parseInt(idInscriptionStr);
 		
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		Date today = Calendar.getInstance().getTime();        
+		String dateInscription = df.format(today);
+		
 		List<Chapitre> listC = metierC.getListChapitre(idModule) ;
 		
 		if(action != null ){
@@ -65,12 +73,14 @@ public class InscriptionServlet extends HttpServlet {
 				request.getRequestDispatcher("etudiant/inscription.jsp").forward(request, response);	
 				//break;
 			case "Add" :
-				metierInscription.addInscription(login, idModule, 0);
+				metierInscription.addInscription(login, idModule, dateInscription);
 				if(  !(listC.isEmpty())  )
 				metierAccesChapter.addAccesChapter(login, listC.get(0).getId());
 				break;
 			case "Delete" :
+				
 				metierInscription.deleteInscription(login,idModule);
+				
 				break;
 			}
 		}

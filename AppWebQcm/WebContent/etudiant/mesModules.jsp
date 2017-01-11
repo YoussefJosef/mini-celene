@@ -16,17 +16,13 @@
 	<form action="./InscriptionServlet" method="post"  id="myform" >
 		<table>
 				<tr>
-					<th>ID :</th>
-					<th>NOM : </th>
-					<th> etudiant ( for test) :</th>
+					<th>Nom du module </th>
 					<th></th>
 					<th></th>
 				</tr>
 			<c:forEach items="${myModules}" var="module" >
 				<tr>
-					<td>${module.id} </td>
 					<td><a href="ChapitreEtudiantServlet?idModule=${module.id}">${module.nom}</a></td>
-					<td>${module.user}</td>
 					<td><button type="submit" name="action" value="Delete" formaction="./InscriptionServlet?idModule=${module.id}" form="myform">Se desinscrire du module </button></td>
 				 </tr>
 			</c:forEach>

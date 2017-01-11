@@ -8,6 +8,7 @@
 </head>
 <body>
 <h1>ESPACE ENSEIGNANT</h1>
+<br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 
 	<ul>
 		<li><a href="./ModuleServlet"> Gestion des modules </a></li>

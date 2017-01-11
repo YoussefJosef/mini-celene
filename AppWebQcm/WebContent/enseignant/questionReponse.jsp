@@ -6,6 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <title>Insert title here</title>
 <script type="text/javascript">
 function create_champ(i) {
@@ -17,7 +18,7 @@ nouvelleBonneReponse = document.createElement("tr");
 nouvelleBonneReponse.innerHTML = '<td>Bonne Reponse</td><td><input type="radio" name="bonneReponse'+i+'" value="vrai"/></td>';
 document.getElementById('leschamps').insertAdjacentElement('beforebegin', nouvelleReponse);
 document.getElementById('leschamps').insertAdjacentElement('beforebegin', nouvelleBonneReponse);
-document.getElementById('leschamps').innerHTML = '<td><a href="javascript:create_champ('+i2+')">Ajouter une reponse</a></td>';
+document.getElementById('leschamps').innerHTML = '<td><a href="javascript:create_champ('+i2+')">Ajouter une autre reponse </a></td>';
 var a = document.getElementById('numReponse');
 var v = parseInt(a.getAttribute("value"))+1;
 a.setAttribute("value", v);
@@ -25,6 +26,11 @@ a.setAttribute("value", v);
 var c = "\${questionReponse.reponse"+String(i)+"}";
 nouvelleReponse.setAttribute("value", c);
 
+$(document).ready(function(){
+	$("input[type=radio]").change(function(){
+		$("input[type=radio]:checked").not(this).prop('checked',false);
+	});
+});
 }
 </script>
 
@@ -40,30 +46,30 @@ nouvelleReponse.setAttribute("value", c);
 	<table>
 		
 		<tr>
-			<td>Question : </td>
+			<td>Question  </td>
 			<td><input type="text" name="question" value="${questionReponse.question}"/></td>
 		</tr>
 		<tr>
-			<td>Score : </td>
+			<td>Score  </td>
 			<td><input id="score" type="text" name="score" value="${questionReponse.score}"/></td>
 		</tr>
 		<tr>
 			<td><input type="hidden" id="numReponse" name="numReponse" value="1"/></td>
 		</tr>
 		<tr>
-			<td>Reponse : </td>
+			<td>Reponses  </td>
 			<td><input id="reponse0" type="text" name="reponse0" value="${questionReponse.reponse0}"/></td>
 		</tr>
 		<tr>
-			<td>Bonne Reponse</td>
-			<td><input type="radio" name="bonneReponse0" value="vrai"/></td>
+			<td>Bonne reponse </td>
+			<td><input type="radio" name="bonneReponse0" value="vrai" checked/></td>
 		</tr>
 		<tr id="leschamps">
-			<td><a href="javascript:create_champ(1)">Ajouter une reponse</a></td>
+			<td><a href="javascript:create_champ(1)">Ajouter une autre reponse </a></td>
 		</tr>
 		<tr>
 			<td>
-			<button type="submit" name="action" value="Add" formaction="./QuestionReponseServlet?idChapitre=${idC}" form="myform">Ajouter</button>
+			<button type="submit" name="action" value="Add" formaction="./QuestionReponseServlet?idChapitre=${idC}" form="myform">Ajouter le QCM</button>
 			
 			</td>
 		</tr>
@@ -71,9 +77,9 @@ nouvelleReponse.setAttribute("value", c);
 
 	<table>
 			<tr>
-				<th>Question :</th>
-				<th>Reponse : </th>
-				<th>Score</th>
+				<th>Question </th>
+				<th>Reponse  </th>
+				<th>Score </th>
 				<th></th>
 			</tr>
 		<c:forEach items="${allQuestionReponses}" var="qr" >

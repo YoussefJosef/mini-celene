@@ -11,16 +11,15 @@
 <body>
 <br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 <h1>ESPACE ETUDIANT</h1>
-<h1>RESULTAT QCM DU CHAPITRE</h1>
-	<h1>idM : ${idMS}</h1>
+<h2>RESULTAT QCM DU CHAPITRE</h2>
 	<p> ${messageInformation} </br></p>
 	<form action="./InscriptionServlet" method="post"  id="myform" >
 		<table>
 				<tr>
-					<th>chapitre :</th>
-					<th>score </th>
-					<th> date valdiation</th>
-					<th>nombre essai</th>
+					<th>Chapitre </th>
+					<th>Votre score </th>
+					<th> Date validation</th>
+					<th>Nombre d'essai</th>
 					<th></th>
 				</tr>
 			
