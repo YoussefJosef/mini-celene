@@ -22,7 +22,7 @@
 		</tr>
 		<tr>
 			<td>Cours </td>
-			<td><input type="text" name="texte" value="${chapitre.texte}"/></td>
+			<td><textarea rows="4" cols="50" name="texte" value="${chapitre.texte}"></textarea></td>
 		</tr>
 		<tr>
 			<td>Score min  </td>
