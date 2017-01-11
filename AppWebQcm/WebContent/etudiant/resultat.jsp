@@ -18,15 +18,12 @@
 				<tr>
 					<th>Chapitre </th>
 					<th>Votre score </th>
-					<th> Date validation</th>
 					<th>Nombre d'essai</th>
-					<th></th>
 				</tr>
 			
 				<tr>
 					<td>${chapitre.titre} </td>
 					<td>${resultatChapitre.score} </td>
-					<td>${resultatChapitre.dateValidation} </td>
 					<td>${resultatChapitre.nombreEssai} </td>	
 			 	</tr>
 		</table>

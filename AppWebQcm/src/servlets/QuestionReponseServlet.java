@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ejb.dto.QuestionReponseDto;
+import ejb.entities.QuestionReponse;
 import ejb.metier.interfaces.IQuestionReponseMetier;
 import ejb.metier.interfaces.IReponseMetier;
 
@@ -79,14 +83,22 @@ public class QuestionReponseServlet extends HttpServlet {
 				case "chapitre" :
 					if(idChapitre !=0) {
 						request.getSession().setAttribute("idC",idChapitre);
-						request.setAttribute("allQuestionReponses", metier.getListQuestionReponse(idChapitre));
+						List<QuestionReponseDto> dto = new ArrayList();
+						for(QuestionReponse qr : metier.getListQuestionReponse(idChapitre)){
+							dto.add(new QuestionReponseDto(qr));
+						}
+						request.setAttribute("allQuestionReponses", dto);
 						request.getRequestDispatcher("enseignant/questionReponse.jsp").forward(request, response);
 					}
 					break;
 				}
 				
 			}
-			request.setAttribute("allQuestionReponses", metier.getListQuestionReponse(idChapitre));
+			List<QuestionReponseDto> dto = new ArrayList();
+			for(QuestionReponse qr : metier.getListQuestionReponse(idChapitre)){
+				dto.add(new QuestionReponseDto(qr));
+			}
+			request.setAttribute("allQuestionReponses", dto);
 			request.getRequestDispatcher("enseignant/questionReponse.jsp").forward(request, response);		
 
 	}

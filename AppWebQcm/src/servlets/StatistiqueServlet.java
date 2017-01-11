@@ -1,7 +1,7 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ejb.dto.InscriptionDto;
 import ejb.entities.Inscription;
 import ejb.entities.Module;
 import ejb.metier.interfaces.IInscriptionMetier;
@@ -30,7 +31,7 @@ public class StatistiqueServlet extends HttpServlet  {
 	
 	@EJB
 	private IInscriptionMetier metierInscrit;
-
+	
 	public StatistiqueServlet() {
 		super();
 	}
@@ -39,22 +40,38 @@ public class StatistiqueServlet extends HttpServlet  {
 		String action = request.getParameter("action");
 		String login = (String) request.getSession().getAttribute("login");
 		
+		String idModuleStr = request.getParameter("idModule");
+		int idModule= 0;
+		if(idModuleStr!=null && !idModuleStr.equals(""))
+			idModule = Integer.parseInt(idModuleStr);
+		
+		String loginInscrit = request.getParameter("idInscrit");
+		
 		if(action!= null){
 			switch (action) {
-			
+			case "detail":
+				
 			}
 		}
 		List<Module> listM = metierModule.getListModule(login);
-		List l = new LinkedList<>();
+		List<Inscription> l = new ArrayList<>();
+		if(listM.isEmpty()){
+			request.getRequestDispatcher("enseignant/stat.jsp").forward(request, response);	
+		}
 		
 		for(Module M : listM){
 			List<Inscription> listI = metierInscrit.getListInscriptionByModule(M.getId());
-			l.add(listI);
+			l.addAll(listI);
+		}
+		if(l.isEmpty()){
+			request.getRequestDispatcher("enseignant/stat.jsp").forward(request, response);	
 		}
 
-		request.setAttribute("listmodule", listM);
-		request.setAttribute("listdelistModule", l);
-		
+		List<InscriptionDto> dto = new ArrayList();
+		for(Inscription i : l){
+			dto.add(new InscriptionDto(i));
+		}
+		request.setAttribute("listInscrit", dto);
 		request.getRequestDispatcher("enseignant/stat.jsp").forward(request, response);	
 	}
 	
