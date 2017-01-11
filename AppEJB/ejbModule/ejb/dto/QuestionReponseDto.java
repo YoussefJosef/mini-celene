@@ -43,12 +43,6 @@ public class QuestionReponseDto {
 	public QuestionReponseDto(){
 		super();
 	}
-	public String getIndication() {
-		return Indication;
-	}
-	public void setIndication(String indication) {
-		Indication = indication;
-	}
 	
 	public String getIndication() {
 		return Indication;
