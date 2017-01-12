@@ -63,7 +63,6 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String page = request.getParameter("page");
 		String login = (String) request.getSession().getAttribute("login");
-	//	request.getSession().removeAttribute("idMS");
 		
 		
 		String idModuleStr = request.getParameter("idModule");
@@ -72,8 +71,6 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 	
 		if(idModuleStr!=null && !idModuleStr.equals(""))
 			idModule = Integer.parseInt(idModuleStr);
-		
-		//request.getSession().setAttribute("idMS",idModule);
 	
 		
 		String idChapitreStr = request.getParameter("idChapitre");
@@ -82,18 +79,15 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 			idChapitre = Integer.parseInt(idChapitreStr);
 		
 		
-	
+		metierA.updateAccesChapterList(login, idModule);
 		// FIN INITIALISATION DE PARAMETRES
 		
 		if(action!= null ){
 			switch(action){
 			case "cours":
-				List<Chapitre> listC = new ArrayList<Chapitre>();
-				String cours = metierC.getChapitre(idChapitre).getTexte();
-				String module = metierC.getChapitre(idChapitre).getModule().getNom();
-				String chapitre = metierC.getChapitre(idChapitre).getTitre();
+				Chapitre chapitre = metierC.getChapitre(idChapitre);
+				Module module = metierC.getChapitre(idChapitre).getModule();
 				
-				request.setAttribute("cours", cours);
 				request.setAttribute("module", module);
 				request.setAttribute("chapitre", chapitre);
 				request.getRequestDispatcher("etudiant/cours.jsp").forward(request, response);		

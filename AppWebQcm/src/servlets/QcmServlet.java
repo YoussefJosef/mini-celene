@@ -115,25 +115,27 @@ public class QcmServlet extends HttpServlet  {
 						metierRC.addResultatChapitre(login, idChapitre, score, datevalidation,TRUE);
 						// fct to add access CHApter here
 						
-					    metierA.updateAccesChapterList(login,idChapitre);
 						messageInformation = "Bravo ! vous avez reussi a passer le QCM et valider le chapitre,"
 								+ "vous avez acces au chapitre suivant !";
 						//bloké qcm
 			
 						request.setAttribute("messageInformation", messageInformation);
-						request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
-						
+						request.setAttribute("chapitre", metierC.getChapitre(idChapitre));
+						request.setAttribute("reusite", FALSE);
 						request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
+						request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 						request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 						
 					}
 					else{
 						metierRC.addResultatChapitre(login, idChapitre, score,"-----",FALSE);
 						messageInformation = "Vous n'avez pas reussi a valider le QCM, "
-								+ "Votre score="+score+" est inferieur au Score Min="+scoreMin+", Veuillez réessayer !";
+								+ "Votre score est de "+score+". Il est inferieur au score minimum requis de "+scoreMin+", Veuillez réessayer !";
+						request.setAttribute("reusite", TRUE);
 						request.setAttribute("messageInformation", messageInformation);
-						request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
+						request.setAttribute("chapitre", metierC.getChapitre(idChapitre));
 						request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
+						request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 						request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 						//non validé peut refaire
 					}
@@ -146,11 +148,11 @@ public class QcmServlet extends HttpServlet  {
 									+ "vous avez acces au chapitre suivant !";
 						
 							metierRC.editResultatChapitreWithDate(login, idChapitre, score, datevalidation,TRUE);
-							metierA.updateAccesChapterList(login,idChapitre);
-		
+							request.setAttribute("reusite", FALSE);
 							request.setAttribute("messageInformation", messageInformation);
-							request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
+							request.setAttribute("chapitre", metierC.getChapitre(idChapitre));
 							request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
+							request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 							request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 						
 							//bloké qcm
@@ -158,10 +160,12 @@ public class QcmServlet extends HttpServlet  {
 						else{
 							metierRC.editResultatChapitreWithDate(login, idChapitre, score, "-----",FALSE);
 							messageInformation = "Vous n'avez pas reussi a valider le QCM, "
-									+ "Votre score="+score+" est inferieur au Score Min="+scoreMin+", Veuillez réessayer !";
+									+ "Votre score est de "+score+". Il est inferieur au score minimum requis de "+scoreMin+", Veuillez réessayer !";
 							request.setAttribute("messageInformation", messageInformation);
-							request.setAttribute("chapitre", metierC.getChapitre(idChapitre).getTitre());
+							request.setAttribute("chapitre", metierC.getChapitre(idChapitre));
+							request.setAttribute("reusite", TRUE);
 							request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
+							request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 							request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 							
 							//nv 
@@ -171,6 +175,8 @@ public class QcmServlet extends HttpServlet  {
 					else{
 						messageInformation = "vous avez deja validé ce QCM, impossible de refaire";
 						request.setAttribute("messageInformation", messageInformation);
+						request.setAttribute("reusite", FALSE);
+						request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 						request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 					}
 				}			

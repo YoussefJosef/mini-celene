@@ -19,5 +19,5 @@ public interface IAccesChapterMetier extends IAccesChapterDao {
 
 		List<Chapitre> getChaptersList(List<ResultatChapitre> listRC, List<Chapitre> listC);
 
-		void updateAccesChapterList(String login, int idChapitre);
+		void updateAccesChapterList(String login, int idModule);
 }

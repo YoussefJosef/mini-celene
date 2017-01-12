@@ -15,7 +15,7 @@ var num = String(i);
 nouvelleReponse = document.createElement("tr");
 nouvelleReponse.innerHTML = '<td>Reponse : </td><td><input id="reponse'+i+'" type="text" name="reponse'+i+'"/></td>';
 nouvelleBonneReponse = document.createElement("tr");
-nouvelleBonneReponse.innerHTML = '<td>Bonne Reponse</td><td><input type="radio" name="bonneReponse'+i+'" value="vrai"/></td>';
+nouvelleBonneReponse.innerHTML = '<td>Bonne Reponse</td><td><input type="checkbox" name="bonneReponse'+i+'" value="vrai"/></td>';
 document.getElementById('leschamps').insertAdjacentElement('beforebegin', nouvelleReponse);
 document.getElementById('leschamps').insertAdjacentElement('beforebegin', nouvelleBonneReponse);
 document.getElementById('leschamps').innerHTML = '<td><a href="javascript:create_champ('+i2+')">Ajouter une autre reponse </a></td>';
@@ -62,7 +62,7 @@ $(document).ready(function(){
 		</tr>
 		<tr>
 			<td>Bonne reponse </td>
-			<td><input type="radio" name="bonneReponse0" value="vrai" checked/></td>
+			<td><input type="checkbox" name="bonneReponse0" value="vrai" checked/></td>
 		</tr>
 		<tr id="leschamps">
 			<td><a href="javascript:create_champ(1)">Ajouter une autre reponse </a></td>

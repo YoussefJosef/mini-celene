@@ -13,7 +13,7 @@
 <h1>ESPACE ETUDIANT</h1>
 <h2>RESULTAT QCM DU CHAPITRE</h2>
 	<p> ${messageInformation} </br></p>
-	<form action="./InscriptionServlet" method="post"  id="myform" >
+	<c:if test="${reusite}"><form action="./InscriptionServlet" method="post"  id="myform" >
 		<table>
 				<tr>
 					<th>Chapitre </th>
@@ -24,13 +24,15 @@
 				</tr>
 			
 				<tr>
-					<td>${chapitre} </td>
+					<td>${chapitre.titre} </td>
 					<td>${resultatChapitre.score} </td>
 					<td>${resultatChapitre.dateValidation} </td>
-					<td>${resultatChapitre.nombreEssai} </td>	 </tr>
-			
+					<td>${resultatChapitre.nombreEssai} </td>	
+			 	</tr>
 		</table>
 	</form>
+<br><a href="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&action=qcm"><button type="submit">Réessayer</button></a></c:if>
+<br><a href="./ChapitreEtudiantServlet?idModule=${module.id}"><button type="button"> Retour au chapitre </button></a>
 
 </body>
 </html>
