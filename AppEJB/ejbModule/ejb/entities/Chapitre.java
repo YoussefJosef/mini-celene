@@ -23,7 +23,6 @@ public class Chapitre implements Serializable{
 	private String texte;
 	private String titre;
 	private int scoreMin;
-	private int niveau;
 	
 
 	@ManyToOne
@@ -98,14 +97,6 @@ public class Chapitre implements Serializable{
 
 	public void setTexte(String texte) {
 		this.texte = texte;
-	}
-
-	public int getNiveau() {
-		return niveau;
-	}
-
-	public void setNiveau(int niveau) {
-		this.niveau = niveau;
 	}
 
 	public List<User> getEtudiantsQcm() {

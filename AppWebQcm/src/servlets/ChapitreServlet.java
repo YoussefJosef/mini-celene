@@ -1,8 +1,6 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,9 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ejb.entities.Chapitre;
-import ejb.entities.ResultatChapitre;
-import ejb.entities.User;
 import ejb.metier.interfaces.IChapitreMetier;
 import ejb.metier.interfaces.IResultatChapitreMetier;
 import ejb.metier.interfaces.IUserMetier;
@@ -54,11 +49,6 @@ public class ChapitreServlet extends HttpServlet {
 		if(scoreMinStr!=null && !scoreMinStr.equals(""))
 			scoreMin = Integer.parseInt(scoreMinStr);
 		
-		String niveauStr = request.getParameter("niveau");
-		int niveau = 0;
-		if(niveauStr!=null && !niveauStr.equals(""))
-			niveau = Integer.parseInt(niveauStr);
-		
 		String idModuleStr = request.getParameter("idModule");
 		int idModule= 0;
 		if(idModuleStr!=null && !idModuleStr.equals(""))
@@ -84,7 +74,7 @@ public class ChapitreServlet extends HttpServlet {
 				break;
 			case "Add":
 				if(idModule != 0)
-				metier.addChapitre(idModule, titre, texte, niveau, scoreMin);
+				metier.addChapitre(idModule, titre, texte, scoreMin);
 				break;
 			case "Edit":
 				if(page.equals("chapitre")){
@@ -92,7 +82,7 @@ public class ChapitreServlet extends HttpServlet {
 					request.getRequestDispatcher("enseignant/editChapitre.jsp").forward(request, response);
 				} 
 				else if(page.equals("edit") && idChapitre !=0){
-					metier.editChapitreById(idChapitre, titre, texte, niveau, scoreMin);
+					metier.editChapitreById(idChapitre, titre, texte, scoreMin);
 					request.setAttribute("allChapitres", metier.getListChapitre(idModule));
 					request.getRequestDispatcher("enseignant/chapitre.jsp").forward(request, response);
 				}
