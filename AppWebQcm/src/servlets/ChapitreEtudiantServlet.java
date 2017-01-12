@@ -1,13 +1,8 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
-
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,13 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ejb.dao.interfaces.IModuleDao;
-import ejb.entities.AccesChapter;
 import ejb.entities.Chapitre;
 import ejb.entities.Module;
 import ejb.entities.QuestionReponse;
 import ejb.entities.Reponse;
-import ejb.entities.ResultatChapitre;
 import ejb.metier.interfaces.IAccesChapterMetier;
 import ejb.metier.interfaces.IChapitreMetier;
 import ejb.metier.interfaces.IModuleMetier;
@@ -61,7 +53,6 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//INITIALISATION DE PARAMETRES
 		String action = request.getParameter("action");
-		String page = request.getParameter("page");
 		String login = (String) request.getSession().getAttribute("login");
 		
 		
@@ -96,7 +87,7 @@ public class ChapitreEtudiantServlet extends HttpServlet {
 			case "qcm":
 				request.getSession().setAttribute("idChap",idChapitre);
 				List<QuestionReponse> listQR = metierQR.getListQuestionReponse(idChapitre);
-				List l = new LinkedList<>();
+				List<Object> l = new LinkedList<>();
 				
 				for(QuestionReponse qr : listQR){
 					List<Reponse> listR = metierR.getListReponses(qr.getId()) ;

@@ -8,11 +8,16 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){
-    $(".indic").click(function(){
-        $(".indica").toggle();
-    });
-});
+function modif_champ(i) {
+	var div = document.getElementsByName(i)[0];
+	var style = div.getAttribute("style");
+	if (style == "display: none;") {
+		document.getElementsByName(i)[0].setAttribute("style", "");
+	}
+	else {
+		document.getElementsByName(i)[0].setAttribute("style", "display: none;");
+	}
+}
 </script>
 </head>
 <body>
@@ -25,11 +30,11 @@ $(document).ready(function(){
 		<c:set var="inc"  value="${inc + 1}" />
 			<input type="hidden" name="q+${inc}" value="${q.id}">
 			<h3>Question  <c:out value="${ctr.count}"/> : ${q.question}</h3> 
-			<div class="indic">Indication(cliquer ici)</div> <div class="indica"  style="display: none;">${q.indication}</div>
+			<div><a href="javascript:modif_champ(${q.id})">Indication</a></div> <div name="${q.id}"  style="display: none;">${q.indication}</div>
 						
 				<c:forEach items="${listdelistReponses.get(ctr.index)}" var="reponse" >
 					
-					 <input type="radio" name="${inc}" value="${reponse.rep}" checked> ${reponse.rep} <br>
+					 <input type="checkbox" name="r+${reponse.id}" value="${reponse.rep}"> ${reponse.rep} <br>
 
 				</c:forEach>
 				

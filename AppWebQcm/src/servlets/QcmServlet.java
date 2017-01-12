@@ -1,6 +1,5 @@
 package servlets;
 
-import java.awt.List;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -15,16 +14,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import ejb.dao.interfaces.IResultatChapitreDao;
 import ejb.dto.QuestionReponseDto;
 import ejb.entities.Chapitre;
 import ejb.entities.QuestionReponse;
+
 import ejb.entities.Reponse;
-import ejb.entities.ResultatChapitre;
-import ejb.entities.User;
 import ejb.metier.interfaces.IAccesChapterMetier;
 import ejb.metier.interfaces.IChapitreMetier;
-import ejb.metier.interfaces.IModuleMetier;
 import ejb.metier.interfaces.IQuestionReponseMetier;
 import ejb.metier.interfaces.IReponseMetier;
 import ejb.metier.interfaces.IResultatChapitreMetier;
@@ -60,10 +58,10 @@ public class QcmServlet extends HttpServlet  {
 	
 		String action =  request.getParameter("action");
 		String login = (String) request.getSession().getAttribute("login");
-		String repQuestion = request.getParameter("repQuestion");
 		String idChapitreSessionStr =""+request.getSession().getAttribute("idChap");
 		final boolean TRUE=true;
 		final boolean FALSE=false;
+		boolean test = true;
 		int idChapitre = 0 ;
 		if(idChapitre == 0){
 			if(idChapitreSessionStr!=null && !idChapitreSessionStr.equals(""))
@@ -74,14 +72,8 @@ public class QcmServlet extends HttpServlet  {
 		Date today = Calendar.getInstance().getTime();        
 		String datevalidation = df.format(today);
 	
-		
-		ArrayList<String> listReponseEtudiant = new ArrayList<String>();
 		ArrayList<String> listQuestion = new ArrayList<String>();
-		ArrayList<String> listReponses =  new ArrayList<String>();
-		
-		Reponse reponse = new Reponse();
 		int question;
-		String reponseE;
 		int score = 0;
 		int scoreMin =0;
 		
@@ -93,20 +85,29 @@ public class QcmServlet extends HttpServlet  {
 			case "verify":
 				
 				int j = 1 ;
-				while (request.getParameter(""+j) != null) {
-					listReponseEtudiant.add(request.getParameter(""+j));
+				while (request.getParameter("q+"+j) != null) {
 					listQuestion.add(request.getParameter("q+"+j));
 					j++;
 				}
 				
 				for(int i =0 ; i<listQuestion.size();++i){
 					question = Integer.parseInt(listQuestion.get(i));
-					reponseE = listReponseEtudiant.get(i);
-					System.out.println(i+":"+listReponseEtudiant);
-					reponse = metierQR.getReponseByIdQrAndStringReponse(question,reponseE);
-					if(reponse.isBonneRep()){
+					for (Reponse R : metierR.getListReponses(question)) {
+						if(request.getParameter("r+"+R.getId()) != null){
+							if(!R.isBonneRep()){
+								test = false;
+							}
+						}
+						else{
+							if(R.isBonneRep()){
+								test = false;
+							}
+						}
+					}
+					if(test){
 						score +=metierQR.getQuestionReponse(question).getScore();
 					}
+					test = true;
 				}
 				scoreMin =	metierC.getChapitre(idChapitre).getScoreMin();
 			    
@@ -119,7 +120,7 @@ public class QcmServlet extends HttpServlet  {
 						
 						messageInformation = "Bravo ! vous avez reussi a passer le QCM et valider le chapitre,"
 								+ "vous avez acces au chapitre suivant !";
-						//bloké qcm
+						//blokÃ© qcm
 						
 						
 						//envoyer bonnes reponses
@@ -135,17 +136,17 @@ public class QcmServlet extends HttpServlet  {
 					else{
 						metierRC.addResultatChapitre(login, idChapitre, score,"-----",FALSE);
 						messageInformation = "Vous n'avez pas reussi a valider le QCM, "
-								+ "Votre score est de "+score+". Il est inferieur au score minimum requis de "+scoreMin+", Veuillez réessayer !";
+								+ "Votre score est de "+score+". Il est inferieur au score minimum requis de "+scoreMin+", Veuillez rÃ©essayer !";
 					//	request.setAttribute("reusite", TRUE);
 						request.setAttribute("messageInformation", messageInformation);
 						request.setAttribute("chapitre", metierC.getChapitre(idChapitre));
 						request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
 						request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 						request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
-						//non validé peut refaire
+						//non validÃ© peut refaire
 					}
 				}
-				else{//user a deja passé qcm 
+				else{//user a deja passÃ© qcm 
 					boolean validated = metierRC.getResultatChapitre(login, idChapitre).isValidated();
 					if(!validated){
 						if(score>=scoreMin){
@@ -162,12 +163,12 @@ public class QcmServlet extends HttpServlet  {
 							request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 							request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 						
-							//bloké qcm
+							//blokÃ© qcm
 						}
 						else{
 							metierRC.editResultatChapitreWithDate(login, idChapitre, score, "-----",FALSE);
 							messageInformation = "Vous n'avez pas reussi a valider le QCM, "
-									+ "Votre score est de "+score+". Il est inferieur au score minimum requis de "+scoreMin+", Veuillez réessayer !";
+									+ "Votre score est de "+score+". Il est inferieur au score minimum requis de "+scoreMin+", Veuillez rÃ©essayer !";
 							request.setAttribute("messageInformation", messageInformation);
 							request.setAttribute("chapitre", metierC.getChapitre(idChapitre));
 							//request.setAttribute("reusite", TRUE);
@@ -180,7 +181,7 @@ public class QcmServlet extends HttpServlet  {
 						}
 					}
 					else{
-						messageInformation = "vous avez deja validé ce QCM, impossible de refaire";
+						messageInformation = "vous avez deja validÃ© ce QCM, impossible de refaire";
 						request.setAttribute("messageInformation", messageInformation);
 					//	request.setAttribute("reusite", FALSE);
 						request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());

@@ -12,10 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ejb.dto.InscriptionDto;
+import ejb.dto.ResultatChapitreDto;
+import ejb.entities.Chapitre;
 import ejb.entities.Inscription;
 import ejb.entities.Module;
+import ejb.entities.ResultatChapitre;
+import ejb.metier.interfaces.IChapitreMetier;
 import ejb.metier.interfaces.IInscriptionMetier;
 import ejb.metier.interfaces.IModuleMetier;
+import ejb.metier.interfaces.IResultatChapitreMetier;
 import ejb.metier.interfaces.IUserMetier;
 
 @WebServlet("/StatistiqueServlet")
@@ -31,6 +36,12 @@ public class StatistiqueServlet extends HttpServlet  {
 	
 	@EJB
 	private IInscriptionMetier metierInscrit;
+	
+	@EJB
+	private IResultatChapitreMetier metierResult;
+	
+	@EJB
+	private IChapitreMetier metierChapitre;
 	
 	public StatistiqueServlet() {
 		super();
@@ -50,7 +61,28 @@ public class StatistiqueServlet extends HttpServlet  {
 		if(action!= null){
 			switch (action) {
 			case "detail":
+				List<Chapitre> listC = metierChapitre.getListChapitre(idModule);
+				List<ResultatChapitre> l = new ArrayList<>();
+				if(listC.isEmpty()){
+					request.getRequestDispatcher("enseignant/statStudent.jsp").forward(request, response);	
+				}
 				
+				for(Chapitre C : listC){
+					List<ResultatChapitre> listRC = metierResult.getListResultatChapitre(loginInscrit, C.getId());
+					l.addAll(listRC);
+				}
+				if(l.isEmpty()){
+					request.getRequestDispatcher("enseignant/statStudent.jsp").forward(request, response);	
+				}
+
+				List<ResultatChapitreDto> dto = new ArrayList();
+				for(ResultatChapitre rc : l){
+					dto.add(new ResultatChapitreDto(rc));
+				}
+				request.setAttribute("listResult", dto);
+				request.setAttribute("login", loginInscrit);
+				request.setAttribute("module", metierModule.getModule(idModule).getNom());
+				request.getRequestDispatcher("enseignant/statStudent.jsp").forward(request, response);	
 			}
 		}
 		List<Module> listM = metierModule.getListModule(login);

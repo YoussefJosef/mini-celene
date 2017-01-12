@@ -10,7 +10,6 @@ import javax.persistence.Query;
 
 import ejb.dao.interfaces.IQuestionReponseDao;
 import ejb.dao.interfaces.IReponseDao;
-import ejb.entities.Inscription;
 import ejb.entities.Reponse;
 import ejb.metier.interfaces.IReponseMetier;
 
