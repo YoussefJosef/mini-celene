@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ejb.dao.interfaces.IResultatChapitreDao;
+import ejb.entities.AccesChapter;
 import ejb.entities.Chapitre;
 import ejb.entities.ResultatChapitre;
 import ejb.entities.User;
@@ -31,7 +32,9 @@ public class ResultatChapitreDaoImpl implements IResultatChapitreDao {
 		
 		Query q = em.createQuery("select rc from ResultatChapitre rc where rc.user  = :log and rc.chapitre= :chap", ResultatChapitre.class)
 				.setParameter("log", user).setParameter("chap",chapitre);
-		return  (ResultatChapitre) q.getSingleResult();
+		List<ResultatChapitre> l = q.getResultList();
+		if(l.isEmpty()) return null;
+		return  (ResultatChapitre) q.getResultList().get(0);
 	}
 
 	@SuppressWarnings("unchecked")

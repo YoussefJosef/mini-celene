@@ -15,4 +15,5 @@ public interface IAccesChapterDao {
 	public void editAccesChapter(AccesChapter m);
 	public void deleteAccesChapter(int id);
 	public List<AccesChapter> getListAccesChapter(String login);
+	public AccesChapter getAccesChapter(String login, int idChapitre);
 }

@@ -10,15 +10,18 @@
 </head>
 <body>
 <br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
+<br><a href="./ChapitreEtudiantServlet?idModule=${module.id}"><button type="button"> Retour </button></a>
 <h1>ESPACE ETUDIANT</h1>
 <h1>CONSULTATION DE COURS</h1>
 
-<h2>Module : ${module} </h2>
+<h2>Module : ${module.nom} </h2>
 <br>
-<h3>Chapitre : ${chapitre}</h3>
+<h3>Chapitre : ${chapitre.titre}</h3>
 <br>
-Cours : ${cours}
+Cours : ${chapitre.texte}
 
+<br>
+<a href="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&action=qcm"><button type="submit">Repondre au Questionnaire</button></a>
 	
 
 </body>

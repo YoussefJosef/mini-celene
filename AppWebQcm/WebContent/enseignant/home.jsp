@@ -12,7 +12,7 @@
 
 	<ul>
 		<li><a href="./ModuleServlet"> Gestion des modules </a></li>
-		<li>Informations sur les etudiants</li>
+		<li><a href="./StatistiqueServlet"> Informations sur les etudiants </a></li>
 	</ul>
 </body>
 </html>

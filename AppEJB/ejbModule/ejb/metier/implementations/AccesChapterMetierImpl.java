@@ -64,6 +64,11 @@ public class AccesChapterMetierImpl implements IAccesChapterMetier{
 	public List<AccesChapter> getListAccesChapter(String login) {
 		return daoAccesChapter.getListAccesChapter(login);
 	}
+	
+	@Override
+	public AccesChapter getAccesChapter(String login, int idChapitre) {
+		return daoAccesChapter.getAccesChapter(login, idChapitre);
+	}
 
 	@Override
 	public void addAccesChapter(String login, int idChapitre) {
@@ -98,13 +103,23 @@ public class AccesChapterMetierImpl implements IAccesChapterMetier{
 		}
 	
 	@Override
-	public void updateAccesChapterList(String login,int idChapitre){
-	int newIdM=	metierC.getChapitre(idChapitre).getModule().getId();
-		List<Chapitre> listCm = metierC.getListChapitre(newIdM);
-	
-		for(int i = 0 ; i < listCm.size()-1 ; ++i){
-			if(listCm.get(i).getId() == idChapitre)
-				 addAccesChapter(login,listCm.get(i+1).getId() );
+	public void updateAccesChapterList(String login,int idModule){
+		List<Chapitre> listCm = metierC.getListChapitre(idModule);
+		for(int i = 0 ; i < listCm.size() ; i++){
+			if(metierRC.getResultatChapitre(login, listCm.get(i).getId())!=null){
+				if(!metierRC.getResultatChapitre(login, listCm.get(i).getId()).isValidated()){
+					if(getAccesChapter(login, listCm.get(i).getId())==null) {
+						addAccesChapter(login, listCm.get(i).getId());
+					}
+					 return;
+				}
+			}
+			else{
+				if(getAccesChapter(login, listCm.get(i).getId())==null) {
+					addAccesChapter(login, listCm.get(i).getId());
+				}
+				 return;
+			}
 		}
 		
 	}
@@ -121,6 +136,5 @@ public class AccesChapterMetierImpl implements IAccesChapterMetier{
 				}
 			}
 			return myListC;
-		}
-	
+		}	
 }

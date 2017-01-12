@@ -10,6 +10,9 @@ import javax.persistence.Query;
 
 import ejb.dao.interfaces.IAccesChapterDao;
 import ejb.entities.AccesChapter;
+import ejb.entities.Chapitre;
+import ejb.entities.ResultatChapitre;
+import ejb.entities.User;
 
 @Stateless
 public class AccesChapterDaoImpl implements IAccesChapterDao {
@@ -56,5 +59,15 @@ public class AccesChapterDaoImpl implements IAccesChapterDao {
 			if(bool) results.add(a);
 		}
 		return results;
+	}
+	
+	@Override
+	public AccesChapter getAccesChapter(String login, int idChapitre){
+		User user = em.find(User.class,login);
+		
+		Query q = em.createQuery("select ac from AccesChapter ac where ac.user  = :log and ac.idChapitre = :chap", AccesChapter.class).setParameter("log", user).setParameter("chap",idChapitre);
+		List<AccesChapter> l = q.getResultList();
+		if(l.isEmpty()) return null;
+		return  (AccesChapter) q.getResultList().get(0);
 	}
 }
