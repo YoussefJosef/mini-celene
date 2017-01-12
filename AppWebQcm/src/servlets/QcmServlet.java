@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+import ejb.dao.interfaces.IResultatChapitreDao;
+import ejb.dto.QuestionReponseDto;
+import ejb.entities.Chapitre;
+import ejb.entities.QuestionReponse;
+
 import ejb.entities.Reponse;
 import ejb.metier.interfaces.IAccesChapterMetier;
 import ejb.metier.interfaces.IChapitreMetier;
@@ -104,7 +110,7 @@ public class QcmServlet extends HttpServlet  {
 					test = true;
 				}
 				scoreMin =	metierC.getChapitre(idChapitre).getScoreMin();
-					
+			    
 				/*Traitement des etats */
 				if(  !( metierRC.checkIfUserModuleExist(login, idChapitre) )  ){
 					if(score>=scoreMin){
@@ -114,11 +120,14 @@ public class QcmServlet extends HttpServlet  {
 						
 						messageInformation = "Bravo ! vous avez reussi a passer le QCM et valider le chapitre,"
 								+ "vous avez acces au chapitre suivant !";
-						//bloké qcm
-			
+						//blokÃ© qcm
+						
+						
+						//envoyer bonnes reponses
+						sendCorrectAnswers(request, response, idChapitre);
 						request.setAttribute("messageInformation", messageInformation);
 						request.setAttribute("chapitre", metierC.getChapitre(idChapitre));
-						request.setAttribute("reusite", FALSE);
+					//	request.setAttribute("reusite", FALSE);
 						request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
 						request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 						request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
@@ -127,17 +136,17 @@ public class QcmServlet extends HttpServlet  {
 					else{
 						metierRC.addResultatChapitre(login, idChapitre, score,"-----",FALSE);
 						messageInformation = "Vous n'avez pas reussi a valider le QCM, "
-								+ "Votre score est de "+score+". Il est inferieur au score minimum requis de "+scoreMin+", Veuillez réessayer !";
-						request.setAttribute("reusite", TRUE);
+								+ "Votre score est de "+score+". Il est inferieur au score minimum requis de "+scoreMin+", Veuillez rÃ©essayer !";
+					//	request.setAttribute("reusite", TRUE);
 						request.setAttribute("messageInformation", messageInformation);
 						request.setAttribute("chapitre", metierC.getChapitre(idChapitre));
 						request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
 						request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 						request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
-						//non validé peut refaire
+						//non validÃ© peut refaire
 					}
 				}
-				else{//user a deja passé qcm 
+				else{//user a deja passÃ© qcm 
 					boolean validated = metierRC.getResultatChapitre(login, idChapitre).isValidated();
 					if(!validated){
 						if(score>=scoreMin){
@@ -145,22 +154,24 @@ public class QcmServlet extends HttpServlet  {
 									+ "vous avez acces au chapitre suivant !";
 						
 							metierRC.editResultatChapitreWithDate(login, idChapitre, score, datevalidation,TRUE);
-							request.setAttribute("reusite", FALSE);
+							
+							sendCorrectAnswers(request, response, idChapitre);
+						//	request.setAttribute("reusite", FALSE);
 							request.setAttribute("messageInformation", messageInformation);
 							request.setAttribute("chapitre", metierC.getChapitre(idChapitre));
 							request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
 							request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 							request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 						
-							//bloké qcm
+							//blokÃ© qcm
 						}
 						else{
 							metierRC.editResultatChapitreWithDate(login, idChapitre, score, "-----",FALSE);
 							messageInformation = "Vous n'avez pas reussi a valider le QCM, "
-									+ "Votre score est de "+score+". Il est inferieur au score minimum requis de "+scoreMin+", Veuillez réessayer !";
+									+ "Votre score est de "+score+". Il est inferieur au score minimum requis de "+scoreMin+", Veuillez rÃ©essayer !";
 							request.setAttribute("messageInformation", messageInformation);
 							request.setAttribute("chapitre", metierC.getChapitre(idChapitre));
-							request.setAttribute("reusite", TRUE);
+							//request.setAttribute("reusite", TRUE);
 							request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
 							request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 							request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
@@ -170,9 +181,9 @@ public class QcmServlet extends HttpServlet  {
 						}
 					}
 					else{
-						messageInformation = "vous avez deja validé ce QCM, impossible de refaire";
+						messageInformation = "vous avez deja validÃ© ce QCM, impossible de refaire";
 						request.setAttribute("messageInformation", messageInformation);
-						request.setAttribute("reusite", FALSE);
+					//	request.setAttribute("reusite", FALSE);
 						request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 						request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 					}
@@ -183,6 +194,19 @@ public class QcmServlet extends HttpServlet  {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	protected void sendCorrectAnswers(HttpServletRequest request, HttpServletResponse response ,int idChapitre){
+		boolean printAnswers = metierC.getChapitre(idChapitre).isPrintAnswers();
+		ArrayList<QuestionReponseDto> listQRD = new ArrayList<>();
+		int ii=0;
+		for(QuestionReponse qr : metierQR.getListQuestionReponse(idChapitre)){
+			listQRD.add((new QuestionReponseDto()).getTrueAnswers(qr));
+			System.out.println(listQRD.get(ii).getReponse());
+			ii=+ii+1;
+		}
+		request.setAttribute("listQRD", listQRD);
+		request.setAttribute("printAnswers", printAnswers);
 	}
 	
 

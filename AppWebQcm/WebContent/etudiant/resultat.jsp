@@ -12,8 +12,8 @@
 <br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 <h1>ESPACE ETUDIANT</h1>
 <h2>RESULTAT QCM DU CHAPITRE</h2>
-	<p> ${messageInformation} </br></p>
-	<c:if test="${reusite}">
+	<p> ${messageInformation} </p></br>
+	
 	<form action="./InscriptionServlet" method="post"  id="myform" >
 		<table>
 				<tr>
@@ -28,8 +28,31 @@
 					<td>${resultatChapitre.nombreEssai} </td>	
 			 	</tr>
 		</table>
+		
+		<c:if test="${printAnswers}">
+		<h3>Les reponses : </h3>
+			<table>
+					<tr>
+						<th>Question </th>
+						<th>Indication </th>
+						<th>Reponse  </th>
+						
+					</tr>
+				<c:forEach items="${listQRD}" var="qr" >
+					<tr>
+						<td>${qr.question} </td>
+						<td>${qr.indication}</td>
+						<td>${qr.reponse}</td>
+						
+				    </tr>
+				</c:forEach>
+			</table>
+		</c:if>
+		
+		
 	</form>
-<br><a href="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&action=qcm"><button type="submit">Réessayer</button></a></c:if>
+<br><a href="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&action=qcm"><button type="submit">Réessayer</button></a>
+
 <br><a href="./ChapitreEtudiantServlet?idModule=${module.id}"><button type="button"> Retour au chapitre </button></a>
 
 </body>
