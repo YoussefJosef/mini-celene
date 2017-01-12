@@ -78,25 +78,27 @@ public class ChapitreMetierImpl implements IChapitreMetier {
 		return daoChapitre.getListChapitre(idModule);
 	}
 	
-	public void addChapitre(int idModule, String titre, String texte, int niveau, int scoreMin,boolean printAnswers) {
+
+	public void addChapitre(int idModule, String titre, String texte, int scoreMin,boolean printAnswers) {
+
 		Module module = daoModule.getModule(idModule);
 		Chapitre c = new Chapitre();
 		c.setModule(module);
 		c.setTitre(titre);
 		c.setTexte(texte);
-		c.setScoreMin(scoreMin);
-		c.setNiveau(niveau);	
+		c.setScoreMin(scoreMin);	
 		c.setPrintAnswers(printAnswers);
 		daoChapitre.addChapitre(c);
 	}
 	
 	@Override
-	public void editChapitreById(int idChapitre, String titre, String texte, int niveau, int scoreMin,boolean printAnswers) {
+	public void editChapitreById(int idChapitre, String titre, String texte,int scoreMin,boolean printAnswers) {
+
+
 		Chapitre c = daoChapitre.getChapitre(idChapitre);
 		c.setTitre(titre);
 		c.setTexte(texte);
 		c.setScoreMin(scoreMin);
-		c.setNiveau(niveau);
 		c.setPrintAnswers(printAnswers);
 		daoChapitre.editChapitre(c);
 	}	

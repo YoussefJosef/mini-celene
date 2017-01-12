@@ -1,8 +1,8 @@
 package servlets;
 
 import java.io.IOException;
-
-
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import ejb.dto.UserDto;
+import ejb.entities.User;
 import ejb.metier.interfaces.IUserMetier;
 
 @WebServlet("/UserServlet")
@@ -50,7 +52,11 @@ public class UserServlet extends HttpServlet {
 				} 
 				else if(page.equals("edit")){
 					metier.editUser(login,  password,  role,  nom,  prenom);
-					request.setAttribute("allUsers", metier.listUser());
+					List<UserDto> dto = new ArrayList();
+					for(User u : metier.listUser()){
+						dto.add(new UserDto(u));
+					}
+					request.setAttribute("allUsers", dto);
 					request.getRequestDispatcher("admin/home.jsp").forward(request, response);
 				}
 				else
@@ -65,8 +71,11 @@ public class UserServlet extends HttpServlet {
 				break;
 			}
 		}
-		
-		request.setAttribute("allUsers", metier.listUser());
+		List<UserDto> dto = new ArrayList();
+		for(User u : metier.listUser()){
+			dto.add(new UserDto(u));
+		}
+		request.setAttribute("allUsers", dto);
 		request.getRequestDispatcher("admin/home.jsp").forward(request, response);
 		//	response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
