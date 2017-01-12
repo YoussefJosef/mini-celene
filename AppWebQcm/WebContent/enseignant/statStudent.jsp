@@ -26,8 +26,8 @@
 				<td>${result.nomChapitre} </td>
 				<td>${result.score}</td>
 				<td>${result.nombreEssai}</td>
-				<td>${result.dateValidation}</td>
 				<td>${result.validated}</td>
+				<td>${result.dateValidation}</td>		
 			</tr>
 		</c:forEach>
 	</table>

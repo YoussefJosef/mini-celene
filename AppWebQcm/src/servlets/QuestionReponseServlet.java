@@ -83,7 +83,7 @@ public class QuestionReponseServlet extends HttpServlet {
 				case "chapitre" :
 					if(idChapitre !=0) {
 						request.getSession().setAttribute("idC",idChapitre);
-						List<QuestionReponseDto> dto = new ArrayList();
+						List<QuestionReponseDto> dto = new ArrayList<QuestionReponseDto>();
 						for(QuestionReponse qr : metier.getListQuestionReponse(idChapitre)){
 							dto.add(new QuestionReponseDto(qr));
 						}
@@ -94,7 +94,7 @@ public class QuestionReponseServlet extends HttpServlet {
 				}
 				
 			}
-			List<QuestionReponseDto> dto = new ArrayList();
+			List<QuestionReponseDto> dto = new ArrayList<QuestionReponseDto>();
 			for(QuestionReponse qr : metier.getListQuestionReponse(idChapitre)){
 				dto.add(new QuestionReponseDto(qr));
 			}
