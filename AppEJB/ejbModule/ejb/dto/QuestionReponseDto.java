@@ -43,6 +43,12 @@ public class QuestionReponseDto {
 	public QuestionReponseDto(){
 		super();
 	}
+	public String getIndication() {
+		return Indication;
+	}
+	public void setIndication(String indication) {
+		Indication = indication;
+	}
 	
 	public QuestionReponseDto(QuestionReponse QR){
 		this.id = QR.getId();
@@ -55,11 +61,5 @@ public class QuestionReponseDto {
 			reponse.add(r.getRep());
 		}
 		this.reponse = reponse;
-	}
-	public String getIndication() {
-		return Indication;
-	}
-	public void setIndication(String indication) {
-		Indication = indication;
 	}
 }

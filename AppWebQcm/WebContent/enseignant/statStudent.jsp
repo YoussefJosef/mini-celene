@@ -10,23 +10,28 @@
 <body>
 <a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 <h1>ESPACE ENSEIGNANT</h1>
+
+	<p>Résultat de ${login} dans le module ${module}</p>
 	<form action="./StatistiqueServlet" method="post"  id="myform" >
 		<table>
 			<tr>
-				<th>Nom du Module :</th>
-				<th>Etudiant : </th>
-				<th>Progression :</th>
-				<th></th>
+				<th>Nom du chapitre</th>
+				<th>Score </th>
+				<th>Nombre d'essai</th>
+				<th>Chapitre validé</th>
+				<th>Date de validation</th>	
 			</tr>
-		<c:forEach items="${listInscrit}" var="inscrit" >
+		<c:forEach items="${listResult}" var="result" >
 			<tr>
-				<td>${inscrit.module} </td>
-				<td>${inscrit.login}</td>
-				<td>${inscrit.progression}</td>
-				<td><button type="submit" name="action" value="detail" formaction="./StatistiqueServlet?idInscrit=${inscrit.login}&idModule=${inscrit.idModule}" form="myform">Détail</button></td>
+				<td>${result.nomChapitre} </td>
+				<td>${result.score}</td>
+				<td>${result.nombreEssai}</td>
+				<td>${result.dateValidation}</td>
+				<td>${result.validated}</td>
 			</tr>
 		</c:forEach>
 	</table>
+	<button type="submit" formaction="./StatistiqueServlet" form="myform">Retour</button>
 	</form>
 </body>
 </html>
