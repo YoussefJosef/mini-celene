@@ -36,7 +36,7 @@ public class InscriptionDaoImpl implements IInscriptionDao {
 		return  (Inscription) q.getSingleResult();
 	}
 	
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public List<Inscription> listInscription() {
 		Query req = em.createQuery("select i from Inscription i");

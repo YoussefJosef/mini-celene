@@ -66,45 +66,45 @@ public class UserMetierImpl implements IUserMetier {
 	@Override
 	public void deleteUser(String login) {
 		
-		List<Inscription> listI = daoInscription.getListInscriptionByUser(login);
-		for(Inscription i : listI){
-			daoInscription.deleteInscription(login, i.getModule().getId());
-		}
+//		List<Inscription> listI = daoInscription.getListInscriptionByUser(login);
+//		for(Inscription i : listI){
+//			daoInscription.deleteInscription(login, i.getModule().getId());
+//		}
 		
-		List<ResultatChapitre> listRC = daoResultatChapitre.getListResultatChapitreByUser(login);
-		for(ResultatChapitre rc : listRC){
-			daoResultatChapitre.deleteResultatChapitre(login, rc.getChapitre().getId());
-		}
+//		List<ResultatChapitre> listRC = daoResultatChapitre.getListResultatChapitreByUser(login);
+//		for(ResultatChapitre rc : listRC){
+//			daoResultatChapitre.deleteResultatChapitre(login, rc.getChapitre().getId());
+//		}
 		
-		List<AccesChapter> listAC = daoAccesChapter.getListAccesChapter(login);
-		for(AccesChapter ac : listAC){
-			daoAccesChapter.deleteAccesChapter(ac.getId());
-		}
-		
-		List<Module> listM = daoModule.getListModule(login);
-		for(Module m : listM){
-			List<Chapitre> listC = daoChapitre.getListChapitre(m.getId());
-			for(Chapitre c : listC){
-				List<QuestionReponse> listQR = daoQuestionReponse.getListQuestionReponse(c.getId());
-				for(QuestionReponse qr : listQR){
-					List<Reponse> list = daoReponse.getListReponses(qr.getId());
-					for(Reponse r : list){
-						daoReponse.deleteReponse(r.getId());
-					}
-					daoQuestionReponse.deleteQuestionReponse(qr.getId());
-				}
-				List<ResultatChapitre> listRCC = daoChapitre.getChapitre(c.getId()).getListResultatChapitres();
-				for(ResultatChapitre rc : listRCC){
-					daoResultatChapitre.deleteResultatChapitre(rc.getUser().getLogin(), c.getId());
-				}
-				daoChapitre.deleteChapitre(c.getId());
-			}
-			List<Inscription> listIm = daoInscription.getListInscriptionByModule(m.getId());
-			for(Inscription i : listIm){
-				daoInscription.deleteInscription(i.getUser().getLogin(), m.getId());
-			}
-			daoModule.deleteModule(m.getId());
-		}
+//		List<AccesChapter> listAC = daoAccesChapter.getListAccesChapter(login);
+//		for(AccesChapter ac : listAC){
+//			daoAccesChapter.deleteAccesChapter(ac.getId());
+//		}
+//		
+//		List<Module> listM = daoModule.getListModule(login);
+//		for(Module m : listM){
+//			List<Chapitre> listC = daoChapitre.getListChapitre(m.getId());
+//			for(Chapitre c : listC){
+//				List<QuestionReponse> listQR = daoQuestionReponse.getListQuestionReponse(c.getId());
+//				for(QuestionReponse qr : listQR){
+//					List<Reponse> list = daoReponse.getListReponses(qr.getId());
+//					for(Reponse r : list){
+//						daoReponse.deleteReponse(r.getId());
+//					}
+//					daoQuestionReponse.deleteQuestionReponse(qr.getId());
+//				}
+//				List<ResultatChapitre> listRCC = daoChapitre.getChapitre(c.getId()).getListResultatChapitres();
+//				for(ResultatChapitre rc : listRCC){
+//					daoResultatChapitre.deleteResultatChapitre(rc.getUser().getLogin(), c.getId());
+//				}
+//				daoChapitre.deleteChapitre(c.getId());
+//			}
+//			List<Inscription> listIm = daoInscription.getListInscriptionByModule(m.getId());
+//			for(Inscription i : listIm){
+//				daoInscription.deleteInscription(i.getUser().getLogin(), m.getId());
+//			}
+//			daoModule.deleteModule(m.getId());
+//		}
 		daoUser.deleteUser(login);
 	}
 	

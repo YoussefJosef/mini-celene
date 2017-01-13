@@ -3,6 +3,7 @@ package ejb.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ public class QuestionReponse implements Serializable {
 	private String indication;
 	private int score;
 
-	@OneToMany(mappedBy="QCM", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="QCM",cascade=CascadeType.REMOVE, fetch=FetchType.EAGER)
 	private List<Reponse> reponse;
 	
 	private Integer nbReponse;

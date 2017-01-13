@@ -22,27 +22,33 @@ public class User implements Serializable {
 	private String nom;
 	private String prenom;
 
-	@ManyToMany(mappedBy="etudiants",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	private List<Module> listModulesEtudiant;
+//	@ManyToMany(mappedBy="etudiants", fetch=FetchType.EAGER)
+//	private List<Module> listModulesEtudiant;
 	
-	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="user", cascade=CascadeType.REMOVE,fetch=FetchType.EAGER)
 	private List<Module> listModules;
 	
-	@ManyToMany(mappedBy="etudiantsQcm",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-	private List<Chapitre> listResultats;
+//	@ManyToMany(mappedBy="etudiantsQcm",fetch=FetchType.EAGER)
+//	private List<Chapitre> listResultats;
 	
-	@OneToMany(mappedBy="user",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE, fetch=FetchType.EAGER)
 	private List<AccesChapter> listAccesChapters;
+	
+	@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE, fetch=FetchType.EAGER)
+	private List<ResultatChapitre> listResultatChapitres;
+	
+	@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE, fetch=FetchType.EAGER)
+	private List<Inscription> listInscriptions;
 	
 	private static final long serialVersionUID = 1L;
 
-	public List<Chapitre> getListResultats() {
-		return listResultats;
-	}
-
-	public void setListResultats(List<Chapitre> listResultats) {
-		this.listResultats = listResultats;
-	}
+//	public List<Chapitre> getListResultats() {
+//		return listResultats;
+//	}
+//
+//	public void setListResultats(List<Chapitre> listResultats) {
+//		this.listResultats = listResultats;
+//	}
 
 	public List<AccesChapter> getListAccesChapters() {
 		return listAccesChapters;
@@ -86,16 +92,32 @@ public class User implements Serializable {
 		this.password = password;
 	}
 
-	public List<Module> getListModulesEtudiant() {
-		return listModulesEtudiant;
-	}
-
-	public void setListModulesEtudiant(List<Module> listModulesEtudiant) {
-		this.listModulesEtudiant = listModulesEtudiant;
-	}
+//	public List<Module> getListModulesEtudiant() {
+//		return listModulesEtudiant;
+//	}
+//
+//	public void setListModulesEtudiant(List<Module> listModulesEtudiant) {
+//		this.listModulesEtudiant = listModulesEtudiant;
+//	}
 
 	public List<Module> getListModules() {
 		return listModules;
+	}
+
+	public List<ResultatChapitre> getListResultatChapitres() {
+		return listResultatChapitres;
+	}
+
+	public void setListResultatChapitres(List<ResultatChapitre> listResultatChapitres) {
+		this.listResultatChapitres = listResultatChapitres;
+	}
+
+	public List<Inscription> getListInscriptions() {
+		return listInscriptions;
+	}
+
+	public void setListInscriptions(List<Inscription> listInscriptions) {
+		this.listInscriptions = listInscriptions;
 	}
 
 	public void setListModules(List<Module> listModules) {

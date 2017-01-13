@@ -3,6 +3,7 @@ package ejb.entities;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.sun.glass.ui.CommonDialogs.Type;
 
 @Entity
 public class Chapitre implements Serializable{
@@ -30,18 +32,18 @@ public class Chapitre implements Serializable{
 	@ManyToOne
 	private Module module;
 	
-	@OneToMany(mappedBy="qcmChapitre", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="qcmChapitre",cascade=CascadeType.REMOVE, fetch=FetchType.EAGER)
 	private List<QuestionReponse> Qcm;
 	
-	@OneToMany(mappedBy="chapitre", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="chapitre",cascade=CascadeType.REMOVE, fetch=FetchType.EAGER)
 	private List<ResultatChapitre> listResultatChapitres;
 	
-	@ManyToMany
-	@JoinTable(name="ResultatChapitre",
-	 joinColumns=@JoinColumn(name="CHAPITRE_ID", referencedColumnName="ID"),
-     inverseJoinColumns=@JoinColumn(name="USER_LOGIN", referencedColumnName="LOGIN"))
-	private List<User> etudiantsQcm;
-	
+//	@ManyToMany
+//	@JoinTable(name="ResultatChapitre",
+//	 joinColumns=@JoinColumn(name="CHAPITRE_ID", referencedColumnName="ID"),
+//     inverseJoinColumns=@JoinColumn(name="USER_LOGIN", referencedColumnName="LOGIN"))
+//	private List<User> etudiantsQcm;
+//	
 	
 	public Module getModule() {
 		return module;
@@ -101,13 +103,13 @@ public class Chapitre implements Serializable{
 		this.texte = texte;
 	}
 
-	public List<User> getEtudiantsQcm() {
-		return etudiantsQcm;
-	}
-
-	public void setEtudiantsQcm(List<User> etudiantsQcm) {
-		this.etudiantsQcm = etudiantsQcm;
-	}
+//	public List<User> getEtudiantsQcm() {
+//		return etudiantsQcm;
+//	}
+//
+//	public void setEtudiantsQcm(List<User> etudiantsQcm) {
+//		this.etudiantsQcm = etudiantsQcm;
+//	}
 
 	public boolean isPrintAnswers() {
 		return printAnswers;

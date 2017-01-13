@@ -44,7 +44,7 @@
 		</table>
 		
 		<c:if test="${printAnswers}">
-		<h3>Les reponses : </h3>
+		<h3>Correction : </h3>
 		
 		<c:forEach items="${listquestions}"  var="q" varStatus="ctr">
 		<c:set var="inc"  value="${inc + 1}" />

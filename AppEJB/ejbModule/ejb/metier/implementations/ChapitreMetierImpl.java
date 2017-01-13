@@ -58,19 +58,30 @@ public class ChapitreMetierImpl implements IChapitreMetier {
 
 	@Override
 	public void deleteChapitre(int idChapitre) {
-		List<QuestionReponse> listQR = daoQuestionReponse.getListQuestionReponse(idChapitre);
-		for(QuestionReponse qr : listQR){
-			List<Reponse> list = daoReponse.getListReponses(qr.getId());
-			for(Reponse r : list){
-				daoReponse.deleteReponse(r.getId());
-			}
-			daoQuestionReponse.deleteQuestionReponse(qr.getId());
-		}
-		List<ResultatChapitre> listRC = daoChapitre.getChapitre(idChapitre).getListResultatChapitres();
-		for(ResultatChapitre rc : listRC){
-			daoResultatChapitre.deleteResultatChapitre(rc.getUser().getLogin(), idChapitre);
-		}
-		daoChapitre.deleteChapitre(idChapitre);	
+//		List<QuestionReponse> listQR = daoQuestionReponse.getListQuestionReponse(idChapitre);
+//		
+//		for(QuestionReponse qr : listQR){
+//			List<Reponse> list = daoReponse.getListReponses(qr.getId());
+//			for(Reponse r : list){
+//				daoReponse.deleteReponse(r.getId());
+//				System.out.println("R");
+//			}
+//			daoQuestionReponse.deleteQuestionReponse(qr.getId());
+//			System.out.println("QR");
+//		}
+//		List<ResultatChapitre> listRC = daoResultatChapitre.getListResultatChapitreByChapitre(idChapitre);
+//		for(ResultatChapitre rc : listRC){
+//			em.remove(rc);
+//		}
+//		System.out.println("RC");
+//		
+//		if(em.find(Chapitre.class, idChapitre) != null){
+//			daoChapitre.deleteChapitre(idChapitre);	
+//			System.out.println("in if");
+//		}
+//		else
+//		System.out.println("out if");
+		daoChapitre.deleteChapitre(idChapitre);
 	}
 	
 	@Override

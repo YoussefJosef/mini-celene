@@ -45,6 +45,7 @@ function modif_champ(i) {
         Aucun qcm disponible.
     </c:when>
     <c:otherwise>
+    <p>Il peut y avoir de 0 à n bonnes reponses* </p>
       <form action="./QcmServlet" method="post"  id="myform" >
 		<c:forEach items="${listquestions}"  var="q" varStatus="ctr">
 		<c:set var="inc"  value="${inc + 1}" />

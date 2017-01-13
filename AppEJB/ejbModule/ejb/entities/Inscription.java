@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-
 @Entity
 public class Inscription implements Serializable{
 

@@ -102,7 +102,12 @@ public class InscriptionMetierImpl implements IInscriptionMetier{
 	public List<Module> getModules(String login){
 		User user = daoUser.getUser(login);
 		List<Module> listModules = new ArrayList<>();
-		listModules= user.getListModulesEtudiant();
+		List<Inscription> listInsc = this.getListInscriptionByUser(login);
+		
+		for(Inscription i : listInsc){
+				listModules.add(i.getModule());
+		}
+	
 		return listModules;
 	}
 	

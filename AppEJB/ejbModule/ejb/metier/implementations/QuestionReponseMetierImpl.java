@@ -50,10 +50,10 @@ public class QuestionReponseMetierImpl implements IQuestionReponseMetier {
 
 	@Override
 	public void deleteQuestionReponse(int idQuestionReponse) {
-		List<Reponse> list = daoReponse.getListReponses(idQuestionReponse);
-		for(Reponse r : list){
-			daoReponse.deleteReponse(r.getId());
-		}
+//		List<Reponse> list = daoReponse.getListReponses(idQuestionReponse);
+//		for(Reponse r : list){
+//			daoReponse.deleteReponse(r.getId());
+//		}
 		daoQuestionReponse.deleteQuestionReponse(idQuestionReponse);
 	}
 	

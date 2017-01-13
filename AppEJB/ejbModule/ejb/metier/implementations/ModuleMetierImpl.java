@@ -67,26 +67,7 @@ public class ModuleMetierImpl implements IModuleMetier{
 	
 	@Override
 	public void deleteModule(int idModule) {
-		List<Chapitre> listC = daoChapitre.getListChapitre(idModule);
-		for(Chapitre c : listC){
-			List<QuestionReponse> listQR = daoQuestionReponse.getListQuestionReponse(c.getId());
-			for(QuestionReponse qr : listQR){
-				List<Reponse> list = daoReponse.getListReponses(qr.getId());
-				for(Reponse r : list){
-					daoReponse.deleteReponse(r.getId());
-				}
-				daoQuestionReponse.deleteQuestionReponse(qr.getId());
-			}
-			List<ResultatChapitre> listRC = daoChapitre.getChapitre(c.getId()).getListResultatChapitres();
-			for(ResultatChapitre rc : listRC){
-				daoResultatChapitre.deleteResultatChapitre(rc.getUser().getLogin(), c.getId());
-			}
-			daoChapitre.deleteChapitre(c.getId());
-		}
-		List<Inscription> listI = daoInscription.getListInscriptionByModule(idModule);
-		for(Inscription i : listI){
-			daoInscription.deleteInscription(i.getUser().getLogin(), idModule);
-		}
+	
 		daoModule.deleteModule(idModule);
 	}
 	

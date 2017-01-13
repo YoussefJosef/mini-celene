@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.persistence.*;
 
-
 @Entity
 public class Module implements Serializable {
 
@@ -17,14 +16,26 @@ public class Module implements Serializable {
 	private int id;
 	private String nom;
 
-	@OneToMany(mappedBy="module", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="module",cascade=CascadeType.REMOVE, fetch=FetchType.EAGER)
 	private List<Chapitre> listChapitres;
 	
-	@ManyToMany
-	@JoinTable(name="Inscription",
-	 joinColumns=@JoinColumn(name="MODULE_ID", referencedColumnName="ID"),
-     inverseJoinColumns=@JoinColumn(name="USER_LOGIN", referencedColumnName="LOGIN"))
-	private List<User> etudiants;
+//	@ManyToMany
+//	@JoinTable(name="Inscription",
+//	 joinColumns=@JoinColumn(name="MODULE_ID", referencedColumnName="ID"),
+//     inverseJoinColumns=@JoinColumn(name="USER_LOGIN", referencedColumnName="LOGIN"))
+//	private List<User> etudiants;
+	
+	
+//	public List<User> getEtudiants() {
+//		return etudiants;
+//	}
+//
+//	public void setEtudiants(List<User> etudiants) {
+//		this.etudiants = etudiants;
+//	}
+
+	@OneToMany(mappedBy="module",cascade=CascadeType.REMOVE, fetch=FetchType.EAGER)
+	private List<Inscription> listInscriptions;
 	
 	@ManyToOne
 	private User user;
@@ -63,5 +74,13 @@ public class Module implements Serializable {
 
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+	
+	public List<Inscription> getListInscriptions() {
+		return listInscriptions;
+	}
+
+	public void setListInscriptions(List<Inscription> listInscriptions) {
+		this.listInscriptions = listInscriptions;
 	}
 }
