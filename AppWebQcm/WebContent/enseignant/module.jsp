@@ -37,7 +37,7 @@
 		
 		<tr>
 			<td>
-			<button type="submit" name="action" value="Add" >Ajouter le module</button> 
+			<button class="btn btn-success" type="submit" name="action" value="Add" >Ajouter le module</button> 
 			</td>
 		</tr>
 	</table>

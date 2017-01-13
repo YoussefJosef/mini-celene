@@ -44,7 +44,7 @@
 			<c:forEach items="${myModules}" var="module" >
 				<tr>
 					<td><a href="ChapitreEtudiantServlet?idModule=${module.id}">${module.nom}</a></td>
-					<td><button type="submit" name="action" value="Delete" formaction="./InscriptionServlet?idModule=${module.id}" form="myform">Se desinscrire du module </button></td>
+					<td><button class="btn btn-danger" type="submit" name="action" value="Delete" formaction="./InscriptionServlet?idModule=${module.id}" form="myform">Se desinscrire du module </button></td>
 				 </tr>
 			</c:forEach>
 		</table>
@@ -52,7 +52,7 @@
     </c:otherwise>
 </c:choose>
 	
-	<a href="./InscriptionServlet?action=home">S'inscrire a un nouveau module </a>
+	<a class="btn btn-success" href="./InscriptionServlet?action=home">S'inscrire a un nouveau module </a>
  </div> 
 </div>
 </body>

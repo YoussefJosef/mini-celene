@@ -79,7 +79,7 @@ nouvelleReponse.setAttribute("value", c);
 		</tr>
 		<tr>
 			<td>
-			<button type="submit" name="action" value="Add" formaction="./QuestionReponseServlet?idChapitre=${idC}" form="myform">Soumettre</button>
+			<button class="btn btn-success" type="submit" name="action" value="Add" formaction="./QuestionReponseServlet?idChapitre=${idC}" form="myform">Soumettre</button>
 			
 			</td>
 		</tr>

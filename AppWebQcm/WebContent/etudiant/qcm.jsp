@@ -60,7 +60,7 @@ function modif_champ(i) {
 				
 		</c:forEach>
 		<br>
-		<button type="submit" name="action" value="verify" formaction="./QcmServlet" form="myform">Soumettre </button>		
+		<button class="btn btn-success" type="submit" name="action" value="verify" formaction="./QcmServlet" form="myform">Soumettre </button>		
 	</form>
     </c:otherwise>
 </c:choose>

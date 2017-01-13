@@ -57,7 +57,7 @@ private IUserMetier metier ;
 						switchRoleRedirection(login,request, response);
 						return;
 					} else {
-						request.setAttribute("result", "Connexion echoue");
+						request.setAttribute("error", "Connexion echoue");
 					}
 				}
 				else 
@@ -90,7 +90,7 @@ private IUserMetier metier ;
 			request.getRequestDispatcher("/InscriptionServlet").forward(request, response);
 			break;
 		default : 
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 	}
 	

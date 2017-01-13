@@ -27,6 +27,7 @@
  <div id="page-wrapper">
  
 <h1>Page d'authentification </h1>
+<p>${error}</p>
 		<form action="AuthServlet" method="POST" >
 			<table>
   <tr>
@@ -38,7 +39,7 @@
     <td><input type="text" name="mdp"></td>
   </tr>
   <tr>
-  <td><button type="submit" name="submit" value="auth">Se connecter</button></td>
+  <td><button class="btn btn-success" type="submit" name="submit" value="auth">Se connecter</button></td>
   <td></td>
   </tr>
   </table>

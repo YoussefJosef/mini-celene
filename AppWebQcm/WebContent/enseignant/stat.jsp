@@ -37,7 +37,7 @@
 				<td>${inscrit.module} </td>
 				<td>${inscrit.login}</td>
 				<td>${inscrit.progression}</td>
-				<td><button type="submit" name="action" value="detail" formaction="./StatistiqueServlet?idInscrit=${inscrit.login}&idModule=${inscrit.idModule}" form="myform">Détail</button></td>
+				<td><button class="btn btn-success" type="submit" name="action" value="detail" formaction="./StatistiqueServlet?idInscrit=${inscrit.login}&idModule=${inscrit.idModule}" form="myform">Détail</button></td>
 			</tr>
 		</c:forEach>
 	</table>

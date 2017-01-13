@@ -24,9 +24,10 @@
 <%@ include file="../header_nav.jsp" %>
 
  <div id="page-wrapper">
-
-
-			Bienvenue !
+<h1>PAGE D'ACCEUIL</h1>
+<br>
+${error} 
+			
  </div> 
 </div>
 </body>

@@ -64,9 +64,9 @@
 		
 		
 	</form>
-<br><a href="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&action=qcm"><button type="submit">Réessayer</button></a>
+<br><a href="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&action=qcm"><button class="btn btn-success" type="submit">Réessayer</button></a>
 
-<br><a href="./ChapitreEtudiantServlet?idModule=${module.id}"><button type="button"> Retour au chapitre </button></a>
+<br><a href="./ChapitreEtudiantServlet?idModule=${module.id}"><button class="btn btn-primary" type="button">  Retour au chapitre </button></a>
  </div> 
 </div>
 </body>

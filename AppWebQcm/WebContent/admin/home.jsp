@@ -64,7 +64,7 @@
 		
 		<tr>
 			<td>
-			<button type="submit" name="action" value="Add" >Ajouter l'utilisateur</button>
+			<button type="submit" name="action" value="Add" class="btn btn-success" >Ajouter l'utilisateur</button>
 			</td>
 			<td></td>
 		</tr>

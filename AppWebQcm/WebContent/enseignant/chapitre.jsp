@@ -49,7 +49,7 @@
 		</tr>
 		<tr>
 			<td>
-			<button type="submit" name="action" value="Add" formaction="./ChapitreServlet?idModule=${idMS}" form="myform">Ajouter le chapitre</button>
+			<button class="btn btn-success" type="submit" name="action" value="Add" formaction="./ChapitreServlet?idModule=${idMS}" form="myform">Ajouter le chapitre</button>
 			
 			</td>
 		</tr>

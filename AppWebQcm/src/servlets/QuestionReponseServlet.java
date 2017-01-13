@@ -15,6 +15,7 @@ import ejb.dto.QuestionReponseDto;
 import ejb.entities.QuestionReponse;
 import ejb.metier.interfaces.IQuestionReponseMetier;
 import ejb.metier.interfaces.IReponseMetier;
+import ejb.metier.interfaces.IUserMetier;
 
 @WebServlet("/QuestionReponseServlet")
 public class QuestionReponseServlet extends HttpServlet {
@@ -25,12 +26,16 @@ public class QuestionReponseServlet extends HttpServlet {
 	
 	@EJB
 	private IReponseMetier metierReponse ;
+	
+	@EJB
+	private IUserMetier metierU ;
    
     public QuestionReponseServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+				allowOrDenyAcces(request,response,2);
 		//INITIALISATION DE PARAMETRES
 				String action = request.getParameter("action");
 				String idChapitreStr = request.getParameter("idChapitre");
@@ -127,6 +132,19 @@ public class QuestionReponseServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		doGet(request, response);
+	}
+	protected void allowOrDenyAcces(HttpServletRequest request, HttpServletResponse response,int role) throws ServletException, IOException{
+		
+		String currentLogin =  (String) request.getSession().getAttribute("login");
+		
+		if(currentLogin!=null){
+			if(!currentLogin.equals("")){
+				if(metierU.getRole(currentLogin) == role ){
+					return;
+				}	
+			}
+		}
+		request.getRequestDispatcher("/AuthServlet").forward(request, response);
 	}
 
 }

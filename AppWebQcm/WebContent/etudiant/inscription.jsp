@@ -43,7 +43,7 @@
 			<c:forEach items="${allModules}" var="module" >
 				<tr>
 					<td>${module.nom}</td>
-					<td><button type="submit" name="action" value="Add" formaction="./InscriptionServlet?idModule=${module.id}" form="myform">S'inscrire au module.</button></td>
+					<td><button class="btn btn-success" type="submit" name="action" value="Add" formaction="./InscriptionServlet?idModule=${module.id}" form="myform">S'inscrire au module.</button></td>
 				 </tr>
 			</c:forEach>
 		</table>

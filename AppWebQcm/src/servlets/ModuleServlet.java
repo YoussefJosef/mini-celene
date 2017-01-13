@@ -10,18 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ejb.metier.interfaces.IModuleMetier;
+import ejb.metier.interfaces.IUserMetier;
 
 @WebServlet("/ModuleServlet")
 public class ModuleServlet  extends HttpServlet  {
 	private static final long serialVersionUID = 1L;
 	@EJB
 	private IModuleMetier metier;
+	@EJB
+	private IUserMetier metierU;
 	
 	public ModuleServlet() {
 		super();
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 allowOrDenyAcces(request,response,2);
+		 //INITIALISATION DES PARAMETRES
 		String action = request.getParameter("action");
 		String nom = request.getParameter("nom");
 		String idStr = request.getParameter("id");
@@ -77,6 +82,22 @@ public class ModuleServlet  extends HttpServlet  {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+	
+	protected void allowOrDenyAcces(HttpServletRequest request, HttpServletResponse response,int role) throws ServletException, IOException{
+		
+		String currentLogin =  (String) request.getSession().getAttribute("login");
+		
+		if(currentLogin!=null){
+			if(!currentLogin.equals("")){
+				if(metierU.getRole(currentLogin) == role ){
+					return;
+				}	
+			}
+		}
+		request.getRequestDispatcher("/AuthServlet").forward(request, response);
+		
+		
 	}
 
 	

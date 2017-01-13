@@ -54,7 +54,8 @@ public class QcmServlet extends HttpServlet  {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		allowOrDenyAcces(request,response,3);
+		//INITIALISATION DES PARAMETRES
 		String action =  request.getParameter("action");
 		String login = (String) request.getSession().getAttribute("login");
 		String idChapitreSessionStr =""+request.getSession().getAttribute("idChap");
@@ -206,6 +207,20 @@ public class QcmServlet extends HttpServlet  {
 		request.setAttribute("listquestions", listQR);
 		request.setAttribute("listdelistReponses", l);
 		request.setAttribute("printAnswers", printAnswers);
+	}
+	
+	protected void allowOrDenyAcces(HttpServletRequest request, HttpServletResponse response,int role) throws ServletException, IOException{
+		
+		String currentLogin =  (String) request.getSession().getAttribute("login");
+		
+		if(currentLogin!=null){
+			if(!currentLogin.equals("")){
+				if(metierU.getRole(currentLogin) == role ){
+					return;
+				}	
+			}
+		}
+		request.getRequestDispatcher("/AuthServlet").forward(request, response);
 	}
 	
 

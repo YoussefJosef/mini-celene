@@ -53,7 +53,7 @@
 		
 		<tr>
 			<td>
-			<button type="submit" name="action" value="Edit" formaction="./UserServlet?page=edit">Edit</button>
+			<button class="btn btn-success" type="submit" name="action" value="Edit" formaction="./UserServlet?page=edit">Edit</button>
 			</td>
 		</tr>
 	</table>

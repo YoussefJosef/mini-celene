@@ -63,8 +63,8 @@
 		<c:forEach items="${accesChapters}" var="chapitre"  varStatus="loopy" >
 			<tr>
 				<td>Chapitre  <c:out value="${loopy.count}"/> : ${chapitre.titre} </td>
-				<td><button type="submit" name="action" value="cours" formaction="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&textChapitre=${chapitre.texte}" form="myform">Consulter le cours</button></td>
-				<td><button type="submit" name="action" value="qcm" formaction="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}" form="myform">Repondre au Questionnaire</button></td>
+				<td><button  class="btn btn-success" type="submit" name="action" value="cours" formaction="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&textChapitre=${chapitre.texte}" form="myform">Consulter le cours</button></td>
+				<td><button class="btn btn-warning" type="submit" name="action" value="qcm" formaction="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}" form="myform">Repondre au Questionnaire</button></td>
 			<!--	<td><button type="submit" name="action" value="resultat" formaction="./QcmServlet?idChapitre=${chapitre.id}" form="myform">Resultat du chapitre</button></td> -->
 			 </tr>
 		</c:forEach>

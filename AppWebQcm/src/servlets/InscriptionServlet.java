@@ -44,6 +44,8 @@ public class InscriptionServlet extends HttpServlet {
     }
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		allowOrDenyAcces(request,response,3);
+		//INITIALISATION DES PARAMETRES
 		
 		String action = request.getParameter("action");
 		String login = (String) request.getSession().getAttribute("login");
@@ -86,6 +88,19 @@ public class InscriptionServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+	protected void allowOrDenyAcces(HttpServletRequest request, HttpServletResponse response,int role) throws ServletException, IOException{
+		
+		String currentLogin =  (String) request.getSession().getAttribute("login");
+		
+		if(currentLogin!=null){
+			if(!currentLogin.equals("")){
+				if(metierUser.getRole(currentLogin) == role ){
+					return;
+				}	
+			}
+		}
+		request.getRequestDispatcher("/AuthServlet").forward(request, response);
 	}
 
 }

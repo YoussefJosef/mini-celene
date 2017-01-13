@@ -37,7 +37,7 @@
 Cours : ${chapitre.texte}
 
 <br>
-<a href="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&action=qcm"><button type="submit">Repondre au Questionnaire</button></a>
+<a href="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&action=qcm"><button class="btn btn-warning" type="submit">Repondre au Questionnaire</button></a>
 	
  </div> 
 </div>
