@@ -28,7 +28,7 @@
 	
 	<h1>GESTION DES UTILISATEURS:</h1>
 	<form action="./UserServlet" method="post" id="myform">
-	<table>
+	<table class="table table-striped">
 		
 		<tr>
 			<td>Login</td>

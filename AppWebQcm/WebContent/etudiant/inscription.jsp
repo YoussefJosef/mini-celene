@@ -34,7 +34,7 @@
         Aucun module disponible.
     </c:when>
     <c:otherwise>
-       <table>
+       <table class="table table-striped">
 				<tr>
 					<th>Nom du module : </th>
 					<th></th>

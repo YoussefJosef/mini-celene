@@ -25,7 +25,7 @@ public class User implements Serializable {
 	@ManyToMany(mappedBy="etudiants",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Module> listModulesEtudiant;
 	
-	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Module> listModules;
 	
 	@ManyToMany(mappedBy="etudiantsQcm",cascade=CascadeType.ALL, fetch=FetchType.EAGER)

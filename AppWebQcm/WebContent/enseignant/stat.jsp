@@ -33,7 +33,7 @@
     <c:otherwise>
     
     <form action="./StatistiqueServlet" method="post"  id="myform" >
-		<table>
+		<table class="table table-striped">
 			<tr>
 				<th>Nom du Module </th>
 				<th>Etudiant  </th>

@@ -29,7 +29,7 @@
 	<p> ${messageInformation} </p></br>
 	
 	<form action="./InscriptionServlet" method="post"  id="myform" >
-		<table>
+		<table class="table table-striped">
 				<tr>
 					<th>Chapitre </th>
 					<th>Votre score </th>
@@ -54,7 +54,7 @@
 						
 				<c:forEach items="${listdelistReponses.get(ctr.index)}" var="reponse" >
 					
-			 		${reponse.rep} : ${reponse.bonneRep} <br>
+			 		${reponse.rep} : <font color="blue">${reponse.bonneRep}</font>  <br>
 
 				</c:forEach>
 				

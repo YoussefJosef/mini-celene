@@ -27,7 +27,7 @@
 <h2>GESTION MODULE</h2>
 <h3>EDITION</h3>
 	<form action="./ModuleServlet" method="post" id="myform">
-	<table>
+	<table class="table table-striped">
 		<tr>
 			<td>Nom du module</td>
 			<td><input type="text" name="nom" value="${currentModule.nom}"/></td>

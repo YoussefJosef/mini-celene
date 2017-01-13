@@ -49,7 +49,7 @@ nouvelleReponse.setAttribute("value", c);
 <form action="./QuestionReponseServlet" method="post"  id="myform" >
 
 	
-	<table>
+	<table class="table table-striped">
 		
 		<tr>
 			<td>Question  </td>
@@ -91,7 +91,7 @@ nouvelleReponse.setAttribute("value", c);
         Aucun Qcm disponible.
     </c:when>
     <c:otherwise>
-       <table>
+       <table class="table table-striped">
 			<tr>
 				<th>Question </th>
 				<th>Indication </th>

@@ -27,7 +27,7 @@
 <h2>GESTION CHAPITRE</h2>
 <h3>EDITION</h3>
 	<form action="./ModuleServlet" method="post" id="myform">
-	<table>
+	<table class="table table-striped">
 		<tr>
 			<td>Nom de chapitre</td>
 			<td><input type="text" name="titre" value="${currentChapitre.titre}"/></td>

@@ -25,7 +25,7 @@
 
 	<p>Résultat de ${login} dans le module ${module}</p>
 	<form action="./StatistiqueServlet" method="post"  id="myform" >
-		<table>
+		<table class="table table-striped">
 			<tr>
 				<th>Nom du chapitre</th>
 				<th>Score </th>

@@ -24,7 +24,7 @@
  <div id="page-wrapper">
 <h1>Edition des utilisateurs</h1>
 	<form action="./UserServlet" method="post" id="myform">
-	<table>
+	<table class="table table-striped">
 		<tr>
 			<td>Login</td>
 			<td>${currentUser.login}</td>
@@ -36,7 +36,7 @@
 		</tr>
 		<tr>
 			<td>Role</td>
-			<td>Admin<input type="radio" name="role" value="1"/></td>
+			<td>Admin<input type="radio" name="role" value="1" checked/></td>
 			<td>Enseignant<input type="radio" name="role" value="2"/></td>
 			<td>Etudiant<input type="radio" name="role" value="3"/></td>
 		</tr>

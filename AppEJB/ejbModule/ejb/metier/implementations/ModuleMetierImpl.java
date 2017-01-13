@@ -12,12 +12,14 @@ import ejb.dao.interfaces.IInscriptionDao;
 import ejb.dao.interfaces.IModuleDao;
 import ejb.dao.interfaces.IQuestionReponseDao;
 import ejb.dao.interfaces.IReponseDao;
+import ejb.dao.interfaces.IResultatChapitreDao;
 import ejb.dao.interfaces.IUserDao;
 import ejb.entities.Chapitre;
 import ejb.entities.Inscription;
 import ejb.entities.Module;
 import ejb.entities.QuestionReponse;
 import ejb.entities.Reponse;
+import ejb.entities.ResultatChapitre;
 import ejb.entities.User;
 import ejb.metier.interfaces.IModuleMetier;
 ;
@@ -40,6 +42,8 @@ public class ModuleMetierImpl implements IModuleMetier{
 	IReponseDao daoReponse;
 	@EJB
 	IQuestionReponseDao daoQuestionReponse;
+	@EJB
+	IResultatChapitreDao daoResultatChapitre;
 	
 	@Override
 	public void addModule(Module m) {
@@ -72,6 +76,10 @@ public class ModuleMetierImpl implements IModuleMetier{
 					daoReponse.deleteReponse(r.getId());
 				}
 				daoQuestionReponse.deleteQuestionReponse(qr.getId());
+			}
+			List<ResultatChapitre> listRC = daoChapitre.getChapitre(c.getId()).getListResultatChapitres();
+			for(ResultatChapitre rc : listRC){
+				daoResultatChapitre.deleteResultatChapitre(rc.getUser().getLogin(), c.getId());
 			}
 			daoChapitre.deleteChapitre(c.getId());
 		}

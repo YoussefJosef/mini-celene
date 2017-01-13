@@ -29,7 +29,7 @@
 <br><a href="./ModuleServlet"><button type="button"> Retour </button></a>
 <form action="./ChapitreServlet" method="post"  id="myform" >
 	
-	<table>
+	<table class="table table-striped">
 		<tr>
 			<td>Nom du chapitre </td>
 			<td><input type="text" name="titre" value="${chapitre.titre}"/></td>
@@ -62,7 +62,7 @@
         Aucun chapitre disponible .
     </c:when>
     <c:otherwise>
-        <table>
+        <table class="table table-striped">
 			<tr>
 				<th>Nom du chapitre </th>
 				<th>Cours </th>

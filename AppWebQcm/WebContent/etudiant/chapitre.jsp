@@ -36,7 +36,7 @@
         Aucun chapitre disponible
     </c:when>
     <c:otherwise>
-        <table>
+        <table class="table table-striped">
 			<tr>
 				<th></th>
 			
@@ -53,7 +53,7 @@
 	
 	<h3>Important : Chaque validation de chapitre vous donne acces au chapitre suivant !</h3>
 	<h2>Vous avez acces aux chapitres suivant :</h2>
-	<table>
+	<table class="table table-striped">
 			<tr>
 				<th></th>
 				<th></th>

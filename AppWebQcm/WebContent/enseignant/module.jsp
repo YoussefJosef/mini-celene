@@ -28,7 +28,7 @@
 
 <form action="./ModuleServlet" method="post"  id="myform" >
 	
-	<table>
+	<table class="table table-striped">
 
 		<tr>
 			<td>Nom du module </td>
@@ -49,7 +49,7 @@
    		Aucun module disponible .
     </c:when>
     <c:otherwise>
-        <table>
+        <table class="table table-striped">
 			<tr>
 				<th>Nom du module  </th>
 				<th></th>

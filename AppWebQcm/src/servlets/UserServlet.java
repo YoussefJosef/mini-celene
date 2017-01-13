@@ -45,7 +45,7 @@ public class UserServlet extends HttpServlet {
 		if(action != null && login !=null) {
 			switch (action) {
 			case "Add":
-				if(!login.equals("") && !password.equals("") && role != 0 && nom.equals("") && prenom.equals("")){
+				if(!login.equals("") && !password.equals("") && role != 0 && !nom.equals("") && !prenom.equals("")){
 					metier.addUser(login,  password,  role,  nom,  prenom);
 				}
 				else {
@@ -58,7 +58,7 @@ public class UserServlet extends HttpServlet {
 					request.getRequestDispatcher("admin/editUser.jsp").forward(request, response);
 				} 
 				else if(page.equals("edit")){
-					if(!login.equals("") && !password.equals("") && role != 0 && nom.equals("") && prenom.equals("")){
+					if(!login.equals("") && !password.equals("") && role != 0 && !nom.equals("") && !prenom.equals("")){
 						metier.editUser(login,  password,  role,  nom,  prenom);
 					}
 					else {

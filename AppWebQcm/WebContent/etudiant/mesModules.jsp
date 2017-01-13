@@ -35,7 +35,7 @@
     <c:otherwise>
        <form action="./InscriptionServlet" method="post"  id="myform" >
 	
-		<table>
+		<table class="table table-striped">
 				<tr>
 					<th>Nom du module </th>
 					<th></th>
