@@ -23,6 +23,9 @@
 <%@ include file="../header_nav.jsp" %>
  <div id="page-wrapper">
 <h2>GESTION MODULE</h2>
+
+<br><a href="./AuthServlet"><button type="button"> Retour </button></a>
+
 <form action="./ModuleServlet" method="post"  id="myform" >
 	
 	<table>
@@ -34,10 +37,11 @@
 		
 		<tr>
 			<td>
-			<button type="submit" name="action" value="Add" >Ajouter le module</button>
+			<button type="submit" name="action" value="Add" >Ajouter le module</button> 
 			</td>
 		</tr>
 	</table>
+	<p>${attention}</p>
 
 
 <c:choose>

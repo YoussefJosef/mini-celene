@@ -35,10 +35,11 @@
 	
 		<tr>
 			<td>
-			<button type="submit" name="action" value="Edit" formaction="./ModuleServlet?id=${currentModule.id}&page=edit">Mettre a jour</button>
+				<button type="submit" name="action" value="Edit" formaction="./ModuleServlet?id=${currentModule.id}&page=edit">Mettre a jour</button>
 			</td>
 		</tr>
 	</table>
+	<p>${attention}</p>
 	</form>
 	
 	 </div> 

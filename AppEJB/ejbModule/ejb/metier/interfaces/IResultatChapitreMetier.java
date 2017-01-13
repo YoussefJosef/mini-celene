@@ -1,12 +1,10 @@
 package ejb.metier.interfaces;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Local;
 
 import ejb.dao.interfaces.IResultatChapitreDao;
-import ejb.entities.Reponse;
 import ejb.entities.ResultatChapitre;
 
 @Local

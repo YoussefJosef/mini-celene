@@ -43,7 +43,12 @@ public class UserServlet extends HttpServlet {
 		if(action != null && login !=null) {
 			switch (action) {
 			case "Add":
-				metier.addUser(login,  password,  role,  nom,  prenom);
+				if(!login.equals("") && !password.equals("") && role != 0 && nom.equals("") && prenom.equals("")){
+					metier.addUser(login,  password,  role,  nom,  prenom);
+				}
+				else {
+					request.setAttribute("attention", "Tout les champs n'ont pas été correctement remplis");
+				}
 				break;
 			case "Edit":
 				if(page.equals("home")){
@@ -51,8 +56,15 @@ public class UserServlet extends HttpServlet {
 					request.getRequestDispatcher("admin/editUser.jsp").forward(request, response);
 				} 
 				else if(page.equals("edit")){
-					metier.editUser(login,  password,  role,  nom,  prenom);
-					List<UserDto> dto = new ArrayList();
+					if(!login.equals("") && !password.equals("") && role != 0 && nom.equals("") && prenom.equals("")){
+						metier.editUser(login,  password,  role,  nom,  prenom);
+					}
+					else {
+						request.setAttribute("attention", "Tout les champs n'ont pas été correctement remplis");
+						request.setAttribute("currentUser", metier.getUser(login));
+						request.getRequestDispatcher("admin/editUser.jsp").forward(request, response);
+					}
+					List<UserDto> dto = new ArrayList<UserDto>();
 					for(User u : metier.listUser()){
 						dto.add(new UserDto(u));
 					}
@@ -71,7 +83,7 @@ public class UserServlet extends HttpServlet {
 				break;
 			}
 		}
-		List<UserDto> dto = new ArrayList();
+		List<UserDto> dto = new ArrayList<UserDto>();
 		for(User u : metier.listUser()){
 			dto.add(new UserDto(u));
 		}

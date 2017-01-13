@@ -7,18 +7,12 @@ import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-
 import ejb.dao.interfaces.IChapitreDao;
 import ejb.dao.interfaces.IQuestionReponseDao;
 import ejb.dao.interfaces.IReponseDao;
 import ejb.dao.interfaces.IResultatChapitreDao;
 import ejb.dao.interfaces.IUserDao;
 import ejb.entities.Chapitre;
-import ejb.entities.Inscription;
-import ejb.entities.Module;
-import ejb.entities.QuestionReponse;
-import ejb.entities.Reponse;
 import ejb.entities.ResultatChapitre;
 import ejb.entities.User;
 import ejb.metier.interfaces.IChapitreMetier;

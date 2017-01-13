@@ -10,7 +10,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import ejb.dao.interfaces.IResultatChapitreDao;
-import ejb.entities.AccesChapter;
 import ejb.entities.Chapitre;
 import ejb.entities.ResultatChapitre;
 import ejb.entities.User;
@@ -25,6 +24,7 @@ public class ResultatChapitreDaoImpl implements IResultatChapitreDao {
 		em.persist(rc);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ResultatChapitre getResultatChapitre(String login, int idChapitre) {
 		User user = em.find(User.class,login);

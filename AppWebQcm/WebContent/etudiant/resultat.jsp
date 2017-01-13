@@ -54,7 +54,7 @@
 						
 				<c:forEach items="${listdelistReponses.get(ctr.index)}" var="reponse" >
 					
-			 ${reponse.rep} : ${reponse.bonneRep} <br>
+			 		${reponse.rep} : ${reponse.bonneRep} <br>
 
 				</c:forEach>
 				

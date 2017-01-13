@@ -40,7 +40,7 @@
 		</tr>
 		<tr>
 			<td>Role</td>
-			<td>Admin<input type="radio" name="role" value="1"/></td>
+			<td>Admin<input type="radio" name="role" value="1" checked/></td>
 		</tr>
 		<tr>
 			<td></td>
@@ -70,6 +70,7 @@
 		</tr>
 		
 	</table>
+	<p>${attention}</p>
 	</form>
 	
 	<br>

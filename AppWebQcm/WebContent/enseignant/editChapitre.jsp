@@ -36,14 +36,12 @@
 		</tr>
 		<tr>
 			<td>Score min :</td>
-			<td><input type="text" name="scoreMin" value="${currentChapitre.scoreMin}"/></td>
+			<td><input type="number" name="scoreMin" value="${currentChapitre.scoreMin}"/>${attentionEntier}</td>
 		</tr>
 	  <tr>
 			<td> </td>
-			<td>Afficher seulement le score aux etudiants
-			<input type="radio" name="printAnswers" value="false" checked /><br>
-			afficher le score et les bonnes reponses
-			<input type="radio" name="printAnswers" value="true"/></td>
+			<td>Afficher les bonnes reponses aux etudiants
+			<input type="checkbox" name="printAnswers" value="true" /><br>
 		</tr>
 		<tr>
 			<td>
@@ -51,6 +49,7 @@
 			</td>
 		</tr>
 	</table>
+	<p>${attention}</p>
 	</form>
 	
 	 </div> 

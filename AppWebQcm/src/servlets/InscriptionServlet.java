@@ -55,11 +55,6 @@ public class InscriptionServlet extends HttpServlet {
 		if(idModuleStr!=null && !idModuleStr.equals(""))
 			idModule = Integer.parseInt(idModuleStr);
 		
-		String idInscriptionStr = request.getParameter("idInscription");
-		int idInscription= 0;
-		if(idInscriptionStr!=null && !idInscriptionStr.equals(""))
-			idInscription = Integer.parseInt(idInscriptionStr);
-		
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		Date today = Calendar.getInstance().getTime();        
 		String dateInscription = df.format(today);

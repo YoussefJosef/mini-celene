@@ -75,7 +75,7 @@ public class StatistiqueServlet extends HttpServlet  {
 					request.getRequestDispatcher("enseignant/statStudent.jsp").forward(request, response);	
 				}
 
-				List<ResultatChapitreDto> dto = new ArrayList();
+				List<ResultatChapitreDto> dto = new ArrayList<ResultatChapitreDto>();
 				for(ResultatChapitre rc : l){
 					dto.add(new ResultatChapitreDto(rc));
 				}
@@ -99,7 +99,7 @@ public class StatistiqueServlet extends HttpServlet  {
 			request.getRequestDispatcher("enseignant/stat.jsp").forward(request, response);	
 		}
 
-		List<InscriptionDto> dto = new ArrayList();
+		List<InscriptionDto> dto = new ArrayList<InscriptionDto>();
 		for(Inscription i : l){
 			dto.add(new InscriptionDto(i));
 		}

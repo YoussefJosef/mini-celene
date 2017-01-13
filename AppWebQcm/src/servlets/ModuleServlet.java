@@ -35,7 +35,12 @@ public class ModuleServlet  extends HttpServlet  {
 		if(action!= null && nom!= null){
 			switch (action) {
 			case "Add":
-				metier.addModule(nom, login);
+				if(!nom.equals("")){
+					metier.addModule(nom, login);
+				}
+				else {
+					request.setAttribute("attention", "Tout les champs n'ont pas été correctement remplis");
+				}
 				break;
 			case "Edit":
 				if(page.equals("module")){
@@ -43,7 +48,14 @@ public class ModuleServlet  extends HttpServlet  {
 					request.getRequestDispatcher("enseignant/editModule.jsp").forward(request, response);
 				} 
 				else if(page.equals("edit") && id !=0){
-					metier.editModule(id,nom);
+					if(!nom.equals("")){
+						metier.editModule(id,nom);
+					}
+					else {
+						request.setAttribute("attention", "Modification impossible, Champ(s) incorect(s)");
+						request.setAttribute("currentModule", metier.getModule(id));
+						request.getRequestDispatcher("enseignant/editModule.jsp").forward(request, response);
+					}
 					request.setAttribute("allModules", metier.listModule());
 					request.getRequestDispatcher("enseignant/module.jsp").forward(request, response);
 				}
@@ -64,7 +76,6 @@ public class ModuleServlet  extends HttpServlet  {
 		request.getRequestDispatcher("enseignant/module.jsp").forward(request, response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

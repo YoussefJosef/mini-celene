@@ -11,11 +11,8 @@ import javax.persistence.Query;
 import ejb.dao.interfaces.IChapitreDao;
 import ejb.dao.interfaces.IQuestionReponseDao;
 import ejb.dao.interfaces.IReponseDao;
-import ejb.entities.Inscription;
-import ejb.entities.Module;
 import ejb.entities.QuestionReponse;
 import ejb.entities.Reponse;
-import ejb.entities.User;
 import ejb.metier.interfaces.IQuestionReponseMetier;
 
 @Stateless
