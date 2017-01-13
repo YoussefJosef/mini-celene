@@ -22,6 +22,8 @@
 <div id="wrapper">
 <%@ include file="../header_nav.jsp" %>
  <div id="page-wrapper">
+ 
+ <br><a href="./AuthServlet"><button type="button"> Retour </button></a>
 	<form action="./StatistiqueServlet" method="post"  id="myform" >
 		<table>
 			<tr>

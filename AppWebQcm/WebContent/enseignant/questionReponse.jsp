@@ -56,12 +56,12 @@ nouvelleReponse.setAttribute("value", c);
 			<td><input type="text" name="question" value="${questionReponse.question}"/></td>
 		</tr>
 		<tr>
-			<td>Indication  </td>
+			<td>Indication (Facultatif) </td>
 			<td><input type="text" name="indication" value="${questionReponse.indication}"/></td>
 		</tr>
 		<tr>
 			<td>Score  </td>
-			<td><input id="score" type="number"  min="1" max="199" name="score" value="${questionReponse.score}"/></td>
+			<td><input id="score" type="number"  min="1" max="199" name="score" value="${questionReponse.score}"/>${attentionEntier}</td>
 		</tr>
 		<tr>
 			<td><input type="hidden" id="numReponse" name="numReponse" value="1"/></td>
@@ -84,6 +84,7 @@ nouvelleReponse.setAttribute("value", c);
 			</td>
 		</tr>
 	</table>
+	<p>${attention}</p>
 
 <c:choose>
     <c:when test="${empty allQuestionReponses}">

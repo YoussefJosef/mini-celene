@@ -43,13 +43,19 @@ public class ChapitreServlet extends HttpServlet {
 		
 		String titre = request.getParameter("titre");
 		String texte = request.getParameter("texte");
-		String printAnswersString = request.getParameter("printAnswers");
-		boolean printAnswers = Boolean.parseBoolean(printAnswersString);
+		boolean printAnswers = (request.getParameter("printAnswers") != null);
 		
 		String scoreMinStr = request.getParameter("scoreMin");
 		int scoreMin = 0;
-		if(scoreMinStr!=null && !scoreMinStr.equals(""))
-			scoreMin = Integer.parseInt(scoreMinStr);
+		if(scoreMinStr!=null){
+			if(!scoreMinStr.equals("")){
+				scoreMin = Integer.parseInt(scoreMinStr);
+			}
+			else{
+				request.setAttribute("attentionEntier", "Nombre entier requis");
+			}
+		}
+			
 		
 		String idModuleStr = request.getParameter("idModule");
 		int idModule= 0;
@@ -75,10 +81,14 @@ public class ChapitreServlet extends HttpServlet {
 				}
 				break;
 			case "Add":
-				if(idModule != 0)
-
-				metier.addChapitre(idModule, titre, texte, scoreMin,printAnswers);
-
+				if(idModule != 0){
+					if(!titre.equals("") && !texte.equals("") && !scoreMinStr.equals("")){
+						metier.addChapitre(idModule, titre, texte, scoreMin,printAnswers);
+					}
+					else {
+						request.setAttribute("attention", "Tout les champs n'ont pas été correctement remplis");
+					}
+				}
 				break;
 			case "Edit":
 				if(page.equals("chapitre")){
@@ -86,8 +96,14 @@ public class ChapitreServlet extends HttpServlet {
 					request.getRequestDispatcher("enseignant/editChapitre.jsp").forward(request, response);
 				} 
 				else if(page.equals("edit") && idChapitre !=0){
-
-					metier.editChapitreById(idChapitre, titre, texte, scoreMin,printAnswers);
+					if(!titre.equals("") && !texte.equals("") && !scoreMinStr.equals("")){
+						metier.editChapitreById(idChapitre, titre, texte, scoreMin,printAnswers);
+					}
+					else {
+						request.setAttribute("attention", "Tout les champs n'ont pas été correctement remplis");
+						request.setAttribute("currentChapitre", metier.getChapitre(idChapitre));
+						request.getRequestDispatcher("enseignant/editChapitre.jsp").forward(request, response);
+					}
 					request.setAttribute("allChapitres", metier.getListChapitre(idModule));
 					request.getRequestDispatcher("enseignant/chapitre.jsp").forward(request, response);
 				}

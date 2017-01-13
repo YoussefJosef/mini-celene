@@ -41,9 +41,7 @@ private IUserMetier metier ;
 		
 		//on get la variable de session login
 		String login = (String) request.getSession().getAttribute("login");
-		String role = (String) request.getSession().getAttribute("role");
 		String submit = request.getParameter("submit");
-	//	String role = "null";
 		
 		// pour verifier si l'utilisateur s'est deja authentifier ( variable de session )
 		if (login == null) {
@@ -59,7 +57,7 @@ private IUserMetier metier ;
 						switchRoleRedirection(login,request, response);
 						return;
 					} else {
-						request.setAttribute("result", "Connexion echouée");
+						request.setAttribute("result", "Connexion echoue");
 					}
 				}
 				else 
@@ -70,9 +68,6 @@ private IUserMetier metier ;
 			return;
 		}
 		else{
-			System.out.println(login+"a");
-			
-			System.out.println("b"+metier.getRole(login));
 			switchRoleRedirection(login,request, response);
 		}	
 	}
@@ -81,7 +76,7 @@ private IUserMetier metier ;
 		switch(metier.getRole(login)){
 		
 		case ADMIN :
-			List<UserDto> dto = new ArrayList();
+			List<UserDto> dto = new ArrayList<UserDto>();
 			for(User u : metier.listUser()){
 				dto.add(new UserDto(u));
 			}
@@ -100,7 +95,6 @@ private IUserMetier metier ;
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

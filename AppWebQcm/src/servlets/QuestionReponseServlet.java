@@ -52,8 +52,14 @@ public class QuestionReponseServlet extends HttpServlet {
 				
 				String scoreStr = request.getParameter("score");
 				int score= 0;
-				if(scoreStr!=null && !scoreStr.equals(""))
-					score = Integer.parseInt(scoreStr);
+				if(scoreStr!=null){
+					if(!scoreStr.equals("")){
+						score = Integer.parseInt(scoreStr);
+					}
+					else{
+						request.setAttribute("attentionEntier", "Nombre entier requis");
+					}
+				}
 		
 				String idChapitreSessionStr =""+request.getSession().getAttribute("idC");
 				if(idChapitre == 0){
@@ -67,11 +73,26 @@ public class QuestionReponseServlet extends HttpServlet {
 				switch(action){
 				case "Add" :
 					if(idChapitre != 0){
-						int idQCM = metier.addQuestionReponse(idChapitre, question, nbReponse,score,indication);
-						
-						//on créer toutes les réponses directement.
-						for(int i=0; i<nbReponse; i++){
-							metierReponse.addReponse(idQCM, request.getParameter("reponse"+i), request.getParameter("bonneReponse"+i) != null);
+						if(!question.equals("") && nbReponse>0 && !scoreStr.equals("")){
+							boolean testReponse = true;
+							for(int i=0; i<nbReponse; i++){
+								if(request.getParameter("reponse"+i).equals("")){
+									testReponse = false;
+								}
+							}
+							if(testReponse){
+								int idQCM = metier.addQuestionReponse(idChapitre, question, nbReponse,score,indication);
+								for(int i=0; i<nbReponse; i++){
+									metierReponse.addReponse(idQCM, request.getParameter("reponse"+i), request.getParameter("bonneReponse"+i) != null);
+								}
+							}
+							else {
+								request.setAttribute("attention", "Tout les champs n'ont pas été correctement remplis");
+							}
+							
+						}
+						else {
+							request.setAttribute("attention", "Tout les champs n'ont pas été correctement remplis");
 						}
 					}
 					break;

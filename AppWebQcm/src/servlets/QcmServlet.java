@@ -17,9 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import ejb.dao.interfaces.IResultatChapitreDao;
-import ejb.dto.QuestionReponseDto;
-import ejb.entities.Chapitre;
 import ejb.entities.QuestionReponse;
 
 import ejb.entities.Reponse;

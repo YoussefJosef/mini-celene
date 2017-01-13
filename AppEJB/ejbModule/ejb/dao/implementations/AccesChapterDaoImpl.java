@@ -10,8 +10,6 @@ import javax.persistence.Query;
 
 import ejb.dao.interfaces.IAccesChapterDao;
 import ejb.entities.AccesChapter;
-import ejb.entities.Chapitre;
-import ejb.entities.ResultatChapitre;
 import ejb.entities.User;
 
 @Stateless
@@ -61,6 +59,7 @@ public class AccesChapterDaoImpl implements IAccesChapterDao {
 		return results;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public AccesChapter getAccesChapter(String login, int idChapitre){
 		User user = em.find(User.class,login);
