@@ -6,11 +6,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+   <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/css/local.css" />
+
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>ESPACE ENSEIGNANT</h1>
+<div id="wrapper">
+<%@ include file="../header_nav.jsp" %>
+ <div id="page-wrapper">
 <h2>GESTION MODULE</h2>
-<br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 <form action="./ModuleServlet" method="post"  id="myform" >
 	
 	<table>
@@ -27,9 +39,15 @@
 		</tr>
 	</table>
 
-	<table>
+
+<c:choose>
+    <c:when test="${empty allModules}">
+   		Aucun module disponible .
+    </c:when>
+    <c:otherwise>
+        <table>
 			<tr>
-				<th>Nom du module : </th>
+				<th>Nom du module  </th>
 				<th></th>
 				<th></th>
 				<th></th>
@@ -43,6 +61,12 @@
 			 </tr>
 		</c:forEach>
 	</table>
+    </c:otherwise>
+</c:choose>
+	
 </form>
+
+	 </div> 
+</div>
 </body>
 </html>

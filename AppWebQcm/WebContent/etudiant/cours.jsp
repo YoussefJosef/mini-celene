@@ -7,11 +7,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+ <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/css/local.css" />
+
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
+
+
+<div id="wrapper">
+<%@ include file="../header_nav.jsp" %>
+ <div id="page-wrapper">
+ 
 <br><a href="./ChapitreEtudiantServlet?idModule=${module.id}"><button type="button"> Retour </button></a>
-<h1>ESPACE ETUDIANT</h1>
+
 <h1>CONSULTATION DE COURS</h1>
 
 <h2>Module : ${module.nom} </h2>
@@ -23,6 +39,7 @@ Cours : ${chapitre.texte}
 <br>
 <a href="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&action=qcm"><button type="submit">Repondre au Questionnaire</button></a>
 	
-
+ </div> 
+</div>
 </body>
 </html>

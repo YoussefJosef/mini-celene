@@ -5,9 +5,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+   <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/css/local.css" />
+
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>ESPACE ENSEIGNANT</h1>
+<div id="wrapper">
+<%@ include file="../header_nav.jsp" %>
+ <div id="page-wrapper">
+
 <h2>GESTION CHAPITRE</h2>
 <h3>EDITION</h3>
 	<form action="./ModuleServlet" method="post" id="myform">
@@ -38,5 +52,8 @@
 		</tr>
 	</table>
 	</form>
+	
+	 </div> 
+</div>
 </body>
 </html>

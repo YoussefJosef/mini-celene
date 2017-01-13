@@ -8,6 +8,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <title>Insert title here</title>
+   <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/css/local.css" />
+
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 function create_champ(i) {
 var i2 = i + 1;
@@ -30,9 +41,10 @@ nouvelleReponse.setAttribute("value", c);
 
 </head>
 <body>
-<h1>ESPACE ENSEIGNANT</h1>
+<div id="wrapper">
+<%@ include file="../header_nav.jsp" %>
+ <div id="page-wrapper">
 <h2>GESTION QUESTIONNAIRE</h2>
-<br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 <br><a href="./ChapitreServlet"><button type="button"> Retour </button></a>
 <form action="./QuestionReponseServlet" method="post"  id="myform" >
 
@@ -49,7 +61,7 @@ nouvelleReponse.setAttribute("value", c);
 		</tr>
 		<tr>
 			<td>Score  </td>
-			<td><input id="score" type="text" name="score" value="${questionReponse.score}"/></td>
+			<td><input id="score" type="number"  min="1" max="199" name="score" value="${questionReponse.score}"/></td>
 		</tr>
 		<tr>
 			<td><input type="hidden" id="numReponse" name="numReponse" value="1"/></td>
@@ -73,7 +85,12 @@ nouvelleReponse.setAttribute("value", c);
 		</tr>
 	</table>
 
-	<table>
+<c:choose>
+    <c:when test="${empty allQuestionReponses}">
+        Aucun Qcm disponible.
+    </c:when>
+    <c:otherwise>
+       <table>
 			<tr>
 				<th>Question </th>
 				<th>Indication </th>
@@ -92,7 +109,12 @@ nouvelleReponse.setAttribute("value", c);
 		</c:forEach>
 	</table>
 
+    </c:otherwise>
+</c:choose>
+	
 </form> 
 
+	 </div> 
+</div>
 </body>
 </html>

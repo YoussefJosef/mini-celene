@@ -63,20 +63,4 @@ public class QuestionReponseDto {
 		this.reponse = reponse;
 	}
 
-	public QuestionReponseDto getTrueAnswers(QuestionReponse QR){
-		QuestionReponseDto qr = new QuestionReponseDto();
-		qr.setId(QR.getId());
-		qr.setQuestion(QR.getQuestion());
-		qr.setIndication( QR.getIndication());
-		qr.setScore(QR.getScore() );
-		List<Reponse> listR = QR.getReponse();
-		List<String> reponse = new ArrayList<String>();
-		for(Reponse r : listR){
-			if(r.isBonneRep())
-			reponse.add(r.getRep());		
-		}
-		qr.setReponse(reponse);
-		return qr;
-	}
-
 }

@@ -6,6 +6,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+ <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/css/local.css" />
+
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script>
 function modif_champ(i) {
@@ -21,11 +32,20 @@ function modif_champ(i) {
 </script>
 </head>
 <body>
-<a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
-<h1>ESPACE ETUDIANT</h1>
+
+
+<div id="wrapper">
+<%@ include file="../header_nav.jsp" %>
+ <div id="page-wrapper">
+ 
 <h1>QUESTIONNAIRE A CHOIX MULTIPLE</h1>
 	<p>${messageInformation}</p>
-	<form action="./QcmServlet" method="post"  id="myform" >
+	<c:choose>
+    <c:when test="${empty listquestions}">
+        Aucun qcm disponible.
+    </c:when>
+    <c:otherwise>
+      <form action="./QcmServlet" method="post"  id="myform" >
 		<c:forEach items="${listquestions}"  var="q" varStatus="ctr">
 		<c:set var="inc"  value="${inc + 1}" />
 			<input type="hidden" name="q+${inc}" value="${q.id}">
@@ -42,5 +62,10 @@ function modif_champ(i) {
 		<br>
 		<button type="submit" name="action" value="verify" formaction="./QcmServlet" form="myform">Soumettre </button>		
 	</form>
+    </c:otherwise>
+</c:choose>
+	 </div> 
+</div>
 </body>
 </html>
+	

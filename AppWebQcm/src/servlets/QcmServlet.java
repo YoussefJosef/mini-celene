@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -198,14 +200,14 @@ public class QcmServlet extends HttpServlet  {
 	
 	protected void sendCorrectAnswers(HttpServletRequest request, HttpServletResponse response ,int idChapitre){
 		boolean printAnswers = metierC.getChapitre(idChapitre).isPrintAnswers();
-		ArrayList<QuestionReponseDto> listQRD = new ArrayList<>();
-		int ii=0;
-		for(QuestionReponse qr : metierQR.getListQuestionReponse(idChapitre)){
-			listQRD.add((new QuestionReponseDto()).getTrueAnswers(qr));
-			System.out.println(listQRD.get(ii).getReponse());
-			ii=+ii+1;
+		List<QuestionReponse> listQR = metierQR.getListQuestionReponse(idChapitre);
+		List<Object> l = new LinkedList<>();
+		for(QuestionReponse qr : listQR){
+			List<Reponse> listR = metierR.getListReponses(qr.getId()) ;
+			l.add(listR);
 		}
-		request.setAttribute("listQRD", listQRD);
+		request.setAttribute("listquestions", listQR);
+		request.setAttribute("listdelistReponses", l);
 		request.setAttribute("printAnswers", printAnswers);
 	}
 	

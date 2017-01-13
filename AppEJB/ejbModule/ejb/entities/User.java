@@ -31,7 +31,7 @@ public class User implements Serializable {
 	@ManyToMany(mappedBy="etudiantsQcm",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<Chapitre> listResultats;
 	
-	@OneToMany(mappedBy="user", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="user",cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 	private List<AccesChapter> listAccesChapters;
 	
 	private static final long serialVersionUID = 1L;

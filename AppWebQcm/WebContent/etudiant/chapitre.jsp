@@ -7,15 +7,36 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+ <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/css/local.css" />
+
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>ESPACE ETUDIANT</h1>
+
+
+<div id="wrapper">
+<%@ include file="../header_nav.jsp" %>
+ <div id="page-wrapper">
+ 
+
 <h2> CHAPITRES DU MODULE</h2>
-<br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
 <form  method="post"  id="myform" >
 	
 	<h2>La liste des chapitres du module</h2>
-	<table>
+	<c:choose>
+    <c:when test="${empty allChapitres}">
+        Aucun chapitre disponible
+    </c:when>
+    <c:otherwise>
+        <table>
 			<tr>
 				<th></th>
 			
@@ -27,9 +48,10 @@
 			 </tr>
 		</c:forEach>
 	</table>
+	
 	<br>
 	
-	<h3>Chaque validation du chapitre vous donne acces au chapitre suivant !</h3>
+	<h3>Important : Chaque validation de chapitre vous donne acces au chapitre suivant !</h3>
 	<h2>Vous avez acces aux chapitres suivant :</h2>
 	<table>
 			<tr>
@@ -47,6 +69,11 @@
 			 </tr>
 		</c:forEach>
 	</table>
+	
+	 </c:otherwise>
+</c:choose>
 </form>
+ </div> 
+</div>
 </body>
 </html>

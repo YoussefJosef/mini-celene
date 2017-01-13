@@ -7,11 +7,25 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+   <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/css/local.css" />
+
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>ESPACE ENSEIGNANT</h1>
+<div id="wrapper">
+<%@ include file="../header_nav.jsp" %>
+ <div id="page-wrapper">
+ 
 <h2>GESTION CHAPITRE</h2>
-<br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
+
 <br><a href="./ModuleServlet"><button type="button"> Retour </button></a>
 <form action="./ChapitreServlet" method="post"  id="myform" >
 	
@@ -26,7 +40,7 @@
 		</tr>
 		<tr>
 			<td>Score min  </td>
-			<td><input type="text" name="scoreMin" value="${chapitre.scoreMin}"/></td>
+			<td><input type="number" name="scoreMin" min="1" max="199" value="${chapitre.scoreMin}"></td>
 		</tr>
 	    <tr>
 			<td> </td>
@@ -43,12 +57,18 @@
 		</tr>
 	</table>
 
-	<table>
+
+<c:choose>
+    <c:when test="${empty allChapitres}">
+        Aucun chapitre disponible .
+    </c:when>
+    <c:otherwise>
+        <table>
 			<tr>
-				<th>Nom du chapitre :</th>
-				<th>Cours : </th>
-				<th>Score min :</th>
-				<th>Afficher le score et les bonnes reponses :</th>
+				<th>Nom du chapitre </th>
+				<th>Cours </th>
+				<th>Score min </th>
+				<th>Afficher le score et les bonnes reponses </th>
 				<th></th>
 				<th></th>
 				<th></th>
@@ -65,6 +85,12 @@
 			 </tr>
 		</c:forEach>
 	</table>
+    </c:otherwise>
+</c:choose>
+	
 </form>
+
+	 </div> 
+</div>
 </body>
 </html>

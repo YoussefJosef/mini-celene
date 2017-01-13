@@ -7,10 +7,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+ <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/css/local.css" />
+
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
-<h1>ESPACE ETUDIANT</h1>
+
+<div id="wrapper">
+<%@ include file="../header_nav.jsp" %>
+ <div id="page-wrapper">
+ 
 <h2>RESULTAT QCM DU CHAPITRE</h2>
 	<p> ${messageInformation} </p></br>
 	
@@ -31,22 +45,21 @@
 		
 		<c:if test="${printAnswers}">
 		<h3>Les reponses : </h3>
-			<table>
-					<tr>
-						<th>Question </th>
-						<th>Indication </th>
-						<th>Reponse  </th>
+		
+		<c:forEach items="${listquestions}"  var="q" varStatus="ctr">
+		<c:set var="inc"  value="${inc + 1}" />
+			<input type="hidden" name="q+${inc}" value="${q.id}">
+			<h3>Question  <c:out value="${ctr.count}"/> : ${q.question}</h3> 
+			<div>Indication</div> <div name="${q.id}">${q.indication}</div>
 						
-					</tr>
-				<c:forEach items="${listQRD}" var="qr" >
-					<tr>
-						<td>${qr.question} </td>
-						<td>${qr.indication}</td>
-						<td>${qr.reponse}</td>
-						
-				    </tr>
+				<c:forEach items="${listdelistReponses.get(ctr.index)}" var="reponse" >
+					
+			 ${reponse.rep} : ${reponse.bonneRep} <br>
+
 				</c:forEach>
-			</table>
+				
+		</c:forEach>		
+	
 		</c:if>
 		
 		
@@ -54,6 +67,7 @@
 <br><a href="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&action=qcm"><button type="submit">Réessayer</button></a>
 
 <br><a href="./ChapitreEtudiantServlet?idModule=${module.id}"><button type="button"> Retour au chapitre </button></a>
-
+ </div> 
+</div>
 </body>
 </html>

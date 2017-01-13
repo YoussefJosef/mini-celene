@@ -7,13 +7,34 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+ <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()
+%>/resources/css/local.css" />
+
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()
+%>/resources/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-<br><a href="AuthServlet?logout=1"><button type="button"> Se déconnecter </button></a>
-<h1>ESPACE ETUDIANT</h1>
+
+
+<div id="wrapper">
+<%@ include file="../header_nav.jsp" %>
+ <div id="page-wrapper">
+
 <h1>LISTE DE MES MODULES</h1>
 	
-	<form action="./InscriptionServlet" method="post"  id="myform" >
+	<c:choose>
+    <c:when test="${empty myModules}">
+        Vous n'etes inscrit a aucun module.
+    </c:when>
+    <c:otherwise>
+       <form action="./InscriptionServlet" method="post"  id="myform" >
+	
 		<table>
 				<tr>
 					<th>Nom du module </th>
@@ -28,6 +49,11 @@
 			</c:forEach>
 		</table>
 	</form>
+    </c:otherwise>
+</c:choose>
+	
 	<a href="./InscriptionServlet?action=home">S'inscrire a un nouveau module </a>
+ </div> 
+</div>
 </body>
 </html>

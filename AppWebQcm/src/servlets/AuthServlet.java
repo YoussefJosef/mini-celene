@@ -36,10 +36,12 @@ private IUserMetier metier ;
 		//si le parametre logout n'est pas null, on detruit la variable de session login
 		if (request.getParameter("logout") != null) {
 			request.getSession().removeAttribute("login");
+			request.getSession().removeAttribute("role");
 		}
 		
 		//on get la variable de session login
 		String login = (String) request.getSession().getAttribute("login");
+		String role = (String) request.getSession().getAttribute("role");
 		String submit = request.getParameter("submit");
 	//	String role = "null";
 		
@@ -53,6 +55,7 @@ private IUserMetier metier ;
 					if (metier.checkCredentials(login, mdp)) {
 						
 						request.getSession().setAttribute("login", login);
+						request.getSession().setAttribute("role", metier.getUser(login).getRole());
 						switchRoleRedirection(login,request, response);
 						return;
 					} else {
