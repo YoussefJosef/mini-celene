@@ -93,6 +93,7 @@ public class ChapitreServlet extends HttpServlet {
 				break;
 			case "Edit":
 				if(page.equals("chapitre")){
+					request.setAttribute("attentionEntier", "");
 					request.setAttribute("currentChapitre", metier.getChapitre(idChapitre));
 					request.getRequestDispatcher("enseignant/editChapitre.jsp").forward(request, response);
 				} 

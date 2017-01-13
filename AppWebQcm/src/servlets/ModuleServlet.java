@@ -49,6 +49,7 @@ public class ModuleServlet  extends HttpServlet  {
 				break;
 			case "Edit":
 				if(page.equals("module")){
+					request.setAttribute("attentionEntier", "");
 					request.setAttribute("currentModule", metier.getModule(id));
 					request.getRequestDispatcher("enseignant/editModule.jsp").forward(request, response);
 				} 

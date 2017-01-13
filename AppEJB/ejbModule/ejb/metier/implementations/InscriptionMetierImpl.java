@@ -9,11 +9,15 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import ejb.dao.interfaces.IChapitreDao;
 import ejb.dao.interfaces.IInscriptionDao;
 import ejb.dao.interfaces.IModuleDao;
+import ejb.dao.interfaces.IResultatChapitreDao;
 import ejb.dao.interfaces.IUserDao;
+import ejb.entities.Chapitre;
 import ejb.entities.Inscription;
 import ejb.entities.Module;
+import ejb.entities.ResultatChapitre;
 import ejb.entities.User;
 import ejb.metier.interfaces.IInscriptionMetier;
 
@@ -29,6 +33,12 @@ public class InscriptionMetierImpl implements IInscriptionMetier{
 	IUserDao daoUser;
 	@EJB
 	IInscriptionDao daoInscription;
+	
+	@EJB
+	IChapitreDao daoChapitre;
+	
+	@EJB
+	IResultatChapitreDao daoResultatChapitre;
 	
 	@Override
 	public void addInscription(Inscription i) {
@@ -102,6 +112,31 @@ public class InscriptionMetierImpl implements IInscriptionMetier{
 	
 		allModules.removeAll(studentsModules);
 		return allModules;
+	}
+	
+	@Override
+	public void updateProgression(String login,int idModule){
+		
+		List<Chapitre> ListC = daoChapitre.getListChapitre(idModule);
+		List<ResultatChapitre> ListRc = daoResultatChapitre.getListResultatChapitreByUser(login);
+		int chapitreReussi = 0;
+		int chapitreTotal = ListC.size();
+		
+		for(ResultatChapitre RC: ListRc){
+			if(RC.isValidated()){
+				for(Chapitre C: ListC){
+					if(RC.getChapitre().equals(C)){
+						chapitreReussi++;
+						break;
+					}
+				}
+			}
+		}
+	
+		double progression = ((double)chapitreReussi/chapitreTotal)*100;
+		Inscription I = getInscription(login, idModule);
+		I.setProgression((int)progression);
+		editInscription(I);
 	}
 	
 }

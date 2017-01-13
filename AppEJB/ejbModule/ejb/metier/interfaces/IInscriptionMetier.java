@@ -11,4 +11,5 @@ public interface IInscriptionMetier extends IInscriptionDao {
 	public List<Module> getOtherModules(String login);
 	void addInscription(String login, int idModule, String dateInscription);
 	void editInscription(String login, int idModule, String dateInscription);
+	void updateProgression(String login, int idModule);
 }

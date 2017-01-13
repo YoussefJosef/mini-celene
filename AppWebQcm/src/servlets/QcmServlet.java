@@ -22,6 +22,7 @@ import ejb.entities.QuestionReponse;
 import ejb.entities.Reponse;
 import ejb.metier.interfaces.IAccesChapterMetier;
 import ejb.metier.interfaces.IChapitreMetier;
+import ejb.metier.interfaces.IInscriptionMetier;
 import ejb.metier.interfaces.IQuestionReponseMetier;
 import ejb.metier.interfaces.IReponseMetier;
 import ejb.metier.interfaces.IResultatChapitreMetier;
@@ -49,6 +50,8 @@ public class QcmServlet extends HttpServlet  {
 	private IUserMetier metierU;
 	@EJB
 	private IAccesChapterMetier metierA;
+	@EJB
+	private IInscriptionMetier metierI;
 	public QcmServlet() {
 		super();
 	}
@@ -125,9 +128,12 @@ public class QcmServlet extends HttpServlet  {
 						
 						//envoyer bonnes reponses
 						sendCorrectAnswers(request, response, idChapitre);
+						
+					    metierI.updateProgression(login, metierC.getChapitre(idChapitre).getModule().getId());
+					    
 						request.setAttribute("messageInformation", messageInformation);
 						request.setAttribute("chapitre", metierC.getChapitre(idChapitre));
-					//	request.setAttribute("reusite", FALSE);
+						request.setAttribute("reusite", FALSE);
 						request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
 						request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 						request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
@@ -137,7 +143,7 @@ public class QcmServlet extends HttpServlet  {
 						metierRC.addResultatChapitre(login, idChapitre, score,"-----",FALSE);
 						messageInformation = "Vous n'avez pas reussi a valider le QCM, "
 								+ "Votre score est de "+score+". Il est inferieur au score minimum requis de "+scoreMin+", Veuillez réessayer !";
-					//	request.setAttribute("reusite", TRUE);
+						request.setAttribute("reusite", TRUE);
 						request.setAttribute("messageInformation", messageInformation);
 						request.setAttribute("chapitre", metierC.getChapitre(idChapitre));
 						request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
@@ -156,7 +162,10 @@ public class QcmServlet extends HttpServlet  {
 							metierRC.editResultatChapitreWithDate(login, idChapitre, score, datevalidation,TRUE);
 							
 							sendCorrectAnswers(request, response, idChapitre);
-						//	request.setAttribute("reusite", FALSE);
+							
+						    metierI.updateProgression(login, metierC.getChapitre(idChapitre).getModule().getId());
+						    
+							request.setAttribute("reusite", FALSE);
 							request.setAttribute("messageInformation", messageInformation);
 							request.setAttribute("chapitre", metierC.getChapitre(idChapitre));
 							request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
@@ -171,7 +180,7 @@ public class QcmServlet extends HttpServlet  {
 									+ "Votre score est de "+score+". Il est inferieur au score minimum requis de "+scoreMin+", Veuillez réessayer !";
 							request.setAttribute("messageInformation", messageInformation);
 							request.setAttribute("chapitre", metierC.getChapitre(idChapitre));
-							//request.setAttribute("reusite", TRUE);
+							request.setAttribute("reusite", TRUE);
 							request.setAttribute("resultatChapitre", metierRC.getResultatChapitre(login, idChapitre));
 							request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 							request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
@@ -183,7 +192,7 @@ public class QcmServlet extends HttpServlet  {
 					else{
 						messageInformation = "vous avez deja validé ce QCM, impossible de refaire";
 						request.setAttribute("messageInformation", messageInformation);
-					//	request.setAttribute("reusite", FALSE);
+						request.setAttribute("reusite", FALSE);
 						request.setAttribute("module", metierC.getChapitre(idChapitre).getModule());
 						request.getRequestDispatcher("etudiant/resultat.jsp").forward(request, response);
 					}

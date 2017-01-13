@@ -64,8 +64,9 @@
 		
 		
 	</form>
+	<c:if test="${reusite}">
 <br><a href="./ChapitreEtudiantServlet?idChapitre=${chapitre.id}&action=qcm"><button class="btn btn-success" type="submit">Réessayer</button></a>
-
+	</c:if>
 <br><a href="./ChapitreEtudiantServlet?idModule=${module.id}"><button class="btn btn-primary" type="button">  Retour au chapitre </button></a>
  </div> 
 </div>

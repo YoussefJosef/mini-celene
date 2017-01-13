@@ -24,7 +24,15 @@
  <div id="page-wrapper">
  
  <br><a href="./AuthServlet"><button type="button"> Retour </button></a>
-	<form action="./StatistiqueServlet" method="post"  id="myform" >
+ 
+ 
+<c:choose>
+    <c:when test="${empty listInscrit}">
+   		Aucun etudiant inscrit.
+    </c:when>
+    <c:otherwise>
+    
+    <form action="./StatistiqueServlet" method="post"  id="myform" >
 		<table>
 			<tr>
 				<th>Nom du Module </th>
@@ -36,12 +44,17 @@
 			<tr>
 				<td>${inscrit.module} </td>
 				<td>${inscrit.login}</td>
-				<td>${inscrit.progression}</td>
+				<td>${inscrit.progression} %</td>
 				<td><button class="btn btn-success" type="submit" name="action" value="detail" formaction="./StatistiqueServlet?idInscrit=${inscrit.login}&idModule=${inscrit.idModule}" form="myform">Détail</button></td>
 			</tr>
 		</c:forEach>
 	</table>
 	</form>
+	
+    
+    </c:otherwise>
+    
+</c:choose>
 	
 	 </div> 
 </div>
