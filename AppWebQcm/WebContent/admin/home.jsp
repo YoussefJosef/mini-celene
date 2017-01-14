@@ -74,7 +74,7 @@
 	</form>
 	
 	<br>
-	<table>
+	<table class="table table-striped">
 			<tr>
 				<th>LOGIN :</th>
 				<th>PASSWORD : </th>

@@ -10,17 +10,17 @@
 	<c:choose>
     	<c:when  test="${sessionScope.role == '1'}">
    
-    <a class="navbar-brand" href="#">Espace Administrateur</a>
+    <a class="navbar-brand" href="./AuthServlet">Espace Administrateur</a>
     
   		</c:when>
   		<c:when  test="${sessionScope.role == '2'}">
    
-   <a class="navbar-brand" href="#">Espace Enseignant</a>
+   <a class="navbar-brand" href="./AuthServlet">Espace Enseignant</a>
     
   		</c:when>
   		<c:when  test="${sessionScope.role == '3'}">
    
-   <a class="navbar-brand" href="#">Espace Etudiant</a>
+   <a class="navbar-brand" href="/.AuthServlet">Espace Etudiant</a>
     
   		</c:when>
 

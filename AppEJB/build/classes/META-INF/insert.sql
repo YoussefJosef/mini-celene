@@ -1,1 +1,1 @@
-insert into User (login, nom, password, prenom,role) values ('admin1','Armand','admin1','rifi',1),('ens1', 'ens1', 'ens1', 'rifi',2),('yrifi', 'youssef', 'aaaa', 'rifi',3);
+insert into User (login, nom, password, prenom,role) values ('admin','admin','admin','admin',1),('ens', 'ens', 'ens', 'ens',2),('etud', 'etud', 'etud', 'etud',3);

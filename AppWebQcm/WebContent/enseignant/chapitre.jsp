@@ -77,7 +77,14 @@
 				<td>${chapitre.titre} </td>
 				<td>${chapitre.texte}</td>
 				<td>${chapitre.scoreMin}</td>
-				<td>${chapitre.printAnswers}</td>
+				<td>${chapitre.printAnswers}
+					<c:choose>
+					    <c:when test="${chapitre.printAnswers == 'true'}">
+					        Oui
+					    </c:when>
+					    <c:otherwise>Non</c:otherwise>
+					</c:choose>
+    			</td>
 				<td><button type="submit" name="action" value="Edit" formaction="./ChapitreServlet?idChapitre=${chapitre.id}&page=chapitre" form="myform">Modifier le chapitre</button></td>
 				<td><button type="submit" name="action" value="Delete" formaction="./ChapitreServlet?idChapitre=${chapitre.id}" form="myform">Supprimer le chapitre </button></td>
 				<td><button type="submit" name="action" value="Edit" formaction="./QuestionReponseServlet?idChapitre=${chapitre.id}&page=chapitre&action=chapitre" form="myform">Gerer le QCM</button></td>

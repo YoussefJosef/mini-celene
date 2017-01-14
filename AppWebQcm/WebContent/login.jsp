@@ -36,7 +36,7 @@
   </tr>
   <tr>
     <th>Mot de passe :</th>
-    <td><input type="text" name="mdp"></td>
+    <td><input type="password" name="mdp"></td>
   </tr>
   <tr>
   <td><button class="btn btn-success" type="submit" name="submit" value="auth">Se connecter</button></td>
