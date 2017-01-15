@@ -29,7 +29,9 @@ public class UserDaoImpl implements IUserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> listUser() {
-		Query req = em.createQuery("select u from User u");
+		int i = 1 ;
+		Query req = em.createQuery("select u from User u where u.role != :r",User.class)
+				.setParameter("r",i);
 		return req.getResultList();
 	}
 

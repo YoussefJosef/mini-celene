@@ -20,7 +20,7 @@
   		</c:when>
   		<c:when  test="${sessionScope.role == '3'}">
    
-   <a class="navbar-brand" href="/.AuthServlet">Espace Etudiant</a>
+   <a class="navbar-brand" href="./AuthServlet">Espace Etudiant</a>
     
   		</c:when>
 
